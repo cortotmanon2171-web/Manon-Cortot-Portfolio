@@ -335,15 +335,21 @@ dialog[open]{animation:pop .45s var(--courbe)}
 @media (max-width:860px){.apropos-grille{grid-template-columns:1fr}.portrait{position:relative;top:0;max-width:380px;margin-inline:auto}.bio{padding:24px}}
 
 /* ---------- Contact ---------- */
-#contact{text-align:center;overflow:hidden;color:var(--encre);
-  background:radial-gradient(60% 90% at 15% 10%,rgba(255,248,214,.95),transparent 60%),radial-gradient(55% 80% at 90% 90%,rgba(183,185,242,.75),transparent 60%),linear-gradient(135deg,#F6DA7A,#F2CF62)}
-#contact h2{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(68px,13vw,190px);line-height:.82;margin:0}
-#contact h2 em{display:block;font-family:var(--script);font-style:normal;text-transform:none;font-weight:400;font-size:.36em;line-height:1}
-#contact p{max-width:32em;margin:22px auto 32px;font-size:18px}
-.liens{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.liens .btn{background:rgba(255,255,255,.6);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.8);box-shadow:0 14px 30px -14px rgba(18,34,74,.45)}
-.liens .btn:hover{background:rgba(255,255,255,.85);transform:translateY(-4px) rotate(-1.5deg)}
-@media (max-width:560px){.liens{flex-direction:column;align-items:stretch}.liens .btn{white-space:normal}}
+#contact{text-align:center;overflow:hidden;color:var(--papier);padding-block:clamp(90px,12vw,150px);
+  background:radial-gradient(70% 90% at 12% 0%,#2b4396 0%,transparent 60%),radial-gradient(60% 80% at 95% 100%,rgba(131,150,192,.55),transparent 60%),linear-gradient(160deg,#1a2f6b,#12224A 55%,#0a1430)}
+#contact .aura-locale{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none;animation:derive 24s ease-in-out infinite alternate}
+#contact h2{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(68px,15vw,230px);line-height:.82;margin:0;
+  background:linear-gradient(100deg,#FFF4D2,#F6DA7A 45%,#B7B9F2);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+#contact h2 em{display:block;font-family:var(--script);font-style:normal;text-transform:none;font-weight:400;font-size:.34em;line-height:1.1;margin-bottom:6px;color:var(--ciel);-webkit-text-fill-color:var(--ciel)}
+#contact p{max-width:32em;margin:26px auto 44px;font-size:19px;color:var(--ciel)}
+.liens{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;max-width:980px;margin-inline:auto;text-align:left}
+.liens .btn{text-align:left;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:34px;min-height:130px;padding:22px 24px;border-radius:26px;font-size:18px;font-weight:600;white-space:normal;overflow-wrap:anywhere;color:var(--papier);
+  background:rgba(255,255,255,.07);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.18);box-shadow:0 24px 50px -26px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.14);position:relative;overflow:hidden}
+.liens .btn::before{content:attr(data-label);font-family:var(--script);font-size:30px;font-weight:400;line-height:1;color:var(--soleil)}
+.liens .btn::after{content:"\2197";position:absolute;top:18px;right:22px;font-size:24px;color:var(--soleil);transition:transform .4s var(--courbe)}
+.liens .btn:hover{background:var(--soleil);color:var(--encre);transform:translateY(-6px) rotate(-1deg);box-shadow:0 30px 60px -24px rgba(246,218,122,.55)}
+.liens .btn:hover::before,.liens .btn:hover::after{color:var(--encre)}
+.liens .btn:hover::after{transform:translate(4px,-4px)}
 footer{position:relative;z-index:1;padding:30px 0 40px;text-align:center;font-size:14px;color:var(--texte-doux)}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140px);z-index:200;padding:12px 22px;border-radius:999px;font-weight:600;
   color:var(--beurre);background:rgba(18,34,74,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:transform .4s var(--courbe)}
@@ -458,7 +464,7 @@ function construire(C){
     <div class="aura-locale" style="width:520px;height:520px;left:-120px;top:-100px;background:#8396C0"></div>
     <div class="aura-locale" style="width:460px;height:460px;right:-120px;bottom:-60px;background:#F6DA7A;opacity:.25;animation-delay:-9s"></div>
     <div class="wrap">
-      <div class="titre"><h2 class="degrade"><em>ma salle de projection</em>Vidéos</h2><p>Courts-métrages, documentaire, cinematic, pub et vlogs. Clique sur un film pour le regarder et découvrir mon rôle.</p></div>
+      <div class="titre"><h2 class="degrade">Vidéos</h2></div>
       <div class="pastilles filtres" role="group" aria-label="Filtrer les vidéos" id="filtres"></div>
       <div class="grille-affiches" id="affiches"></div>
       <h3 class="sous-titre-grille" id="titre-formats">Vlogs & formats courts</h3>
@@ -469,7 +475,7 @@ function construire(C){
 
   ${S.length?`<section id="photos">
     <div class="wrap">
-      <div class="titre"><h2 class="degrade"><em>ce que je capte</em>Photos</h2><p>J'aime jouer avec la lumière et saisir les instants spontanés, sans figer la scène.</p></div>
+      <div class="titre"><h2 class="degrade">Photos</h2></div>
       <div class="pastilles series" role="group" aria-label="Choisir une série" id="series"></div>
       <p class="texte-serie" id="texte-serie"></p>
       <div class="galerie" id="galerie"></div>
@@ -479,7 +485,7 @@ function construire(C){
 
   ${G.length?`<section id="communication">
     <div class="wrap">
-      <div class="titre"><h2 class="degrade"><em>réseaux & mise en page</em>Com & graphisme</h2><p>Communication digitale, identités visuelles et mise en page, en stage comme à l'IUT.</p></div>
+      <div class="titre"><h2 class="degrade">Com & graphisme</h2></div>
       <div class="pastilles onglets-com" role="tablist" id="onglets-com"></div>
       <div class="projets-com verre" id="projets-com"></div>
     </div>
@@ -487,7 +493,7 @@ function construire(C){
 
   ${M.length?`<section id="maquettes">
     <div class="wrap">
-      <div class="titre"><h2 class="degrade"><em>sur Figma</em>Maquettes</h2><p>Mes maquettes Figma en version interactive : clique sur les boutons et navigue d'un écran à l'autre comme sur un vrai site.</p></div>
+      <div class="titre"><h2 class="degrade">Maquettes</h2></div>
       <div class="pastilles" role="tablist" id="maq-onglets" style="margin-bottom:30px"></div>
       <div id="maq-projets"></div>
     </div>
@@ -495,7 +501,7 @@ function construire(C){
 
   <section id="apropos">
     <div class="wrap">
-      <div class="titre"><h2 class="degrade"><em>derrière la caméra</em>À propos</h2></div>
+      <div class="titre"><h2 class="degrade">À propos</h2></div>
       <div class="apropos-grille">
         ${P.photo_portrait?`<div class="portrait verre"><img src="${esc(P.photo_portrait)}" alt="Portrait de ${esc(P.prenom)} ${esc(P.nom)}"><div class="nom">${esc(P.prenom)}</div></div>`:"<div></div>"}
         <div>
@@ -504,7 +510,7 @@ function construire(C){
             ${P.alternance?`<div class="alternance">${esc(P.alternance)}</div>`:""}
           </div>
           <ol class="frise">${liste(P.parcours).map(e=>`<li><b>${esc(e.titre)}</b><span>${esc(e.texte)}</span></li>`).join("")}</ol>
-          ${liste(P.distinctions).length?`<div class="prix-liste">${liste(P.distinctions).map(d=>`<div class="medaille verre reflet"><div class="script">${esc(d.nom)}</div><b>${esc(d.titre)}</b>${d.detail?`<small>${esc(d.detail)}</small>`:""}</div>`).join("")}</div>`:""}
+          ${liste(P.distinctions).length?`<div class="prix-liste">${liste(P.distinctions).map(d=>`<div class="medaille verre reflet"><b>${esc(d.titre)}</b>${d.detail?`<small>${esc(d.detail)}</small>`:""}</div>`).join("")}</div>`:""}
           ${mots.length?`<div class="puces-liste competences">${mots.map(m=>`<span class="puce">${esc(m)}</span>`).join("")}</div>`:""}
         </div>
       </div>
@@ -512,14 +518,16 @@ function construire(C){
   </section>
 
   <section id="contact">
+    <div class="aura-locale" style="width:520px;height:520px;left:-140px;top:-120px;background:#4a64c4;opacity:.45"></div>
+    <div class="aura-locale" style="width:460px;height:460px;right:-120px;bottom:-100px;background:#F6DA7A;opacity:.18;animation-delay:-9s"></div>
     <div class="wrap">
       <h2><em>un projet en tête ?</em>Parlons-en</h2>
       <p>Tournage, montage, shooting photo ou contenu pour les réseaux : écris-moi, je réponds vite.</p>
       <div class="liens">
-        ${P.email?`<button class="btn" id="copier">${esc(P.email)}</button>`:""}
-        ${P.telephone?`<a class="btn" href="tel:${esc(P.telephone.replace(/\s/g,""))}">${esc(P.telephone)}</a>`:""}
-        ${P.instagram?`<a class="btn" href="${esc(P.instagram)}" target="_blank" rel="noopener">Instagram</a>`:""}
-        ${P.youtube?`<a class="btn" href="${esc(P.youtube)}" target="_blank" rel="noopener">YouTube</a>`:""}
+        ${P.email?`<button class="btn" id="copier" data-label="Écris-moi">${esc(P.email)}</button>`:""}
+        ${P.telephone?`<a class="btn" data-label="Appelle-moi" href="tel:${esc(P.telephone.replace(/\s/g,""))}">${esc(P.telephone)}</a>`:""}
+        ${P.instagram?`<a class="btn" data-label="Suis-moi" href="${esc(P.instagram)}" target="_blank" rel="noopener">Instagram</a>`:""}
+        ${P.youtube?`<a class="btn" data-label="Regarde" href="${esc(P.youtube)}" target="_blank" rel="noopener">YouTube</a>`:""}
       </div>
     </div>
   </section>
@@ -645,11 +653,10 @@ function construire(C){
     t.onclick=()=>{$$("#maq-onglets button").forEach(b=>b.setAttribute("aria-selected",b===t));$$(".maq").forEach(p=>p.classList.toggle("actif",p===d));if(!figmaBloque)d.chargerFigma()};
     d.innerHTML=`<div><p class="script-titre">${esc(m.sous_titre)}</p><h3>${esc(m.nom)}</h3>${paragraphes(m.description)}
       <div class="puces-liste">${liste(m.competences).map(c=>`<span class="puce">${esc(c)}</span>`).join("")}</div>
-      <div class="actions">${m.lien_figma?`<a class="btn reflet" href="${esc(protoUrl(m))}" target="_blank" rel="noopener">Ouvrir le prototype</a>`:""}${m.plan?`<button class="btn verre-btn" data-plan>Voir le plan complet</button>`:""}</div></div>
+</div>
       <div class="navig"></div>`;
     $("#maq-projets").appendChild(d); maqs.push(d);
     const nav=d.querySelector(".navig");
-    if(m.plan) d.querySelector("[data-plan]").onclick=()=>ouvrirPhoto([{image:m.plan,alt:`Plan complet de la maquette ${m.nom}`}],0);
 
     // ---- mode Figma en direct
     d.chargerFigma=()=>{ if(d.dataset.mode==="figma")return; d.dataset.mode="figma";
