@@ -1,0 +1,88 @@
+{
+  "prenom": "Manon",
+  "nom": "Cortot",
+  "accroche": "Vidéaste, monteuse et photographe. Je filme ce qui m'entoure pour en faire des histoires, des courts-métrages aux shootings. Étudiante en BUT MMI.",
+  "photo_decoupe": "images/moi/decoupe.webp",
+  "photo_accueil": "images/moi/accueil.jpg",
+  "photo_portrait": "images/moi/portrait.jpg",
+  "photo_contact": "images/moi/contact.jpg",
+  "bio": "Créer fait partie de moi depuis toujours. J'ai commencé par le dessin, puis le maquillage artistique. Avec le temps, c'est la vidéo qui a pris le dessus.\n\nJ'aime filmer ce qui m'entoure, capter des ambiances, des instants simples et les transformer en souvenirs vivants. Pour moi, chaque projet est une occasion de raconter une histoire et de créer quelque chose qui me ressemble.",
+  "competences": [
+    "Montage",
+    "Cadrage",
+    "Photographie",
+    "Étalonnage",
+    "Motion design",
+    "Réseaux sociaux",
+    "UI design",
+    "Mise en page"
+  ],
+  "materiel": [
+    "Sony ZV-E10",
+    "iPhone 12",
+    "Premiere Pro",
+    "After Effects",
+    "Audition",
+    "Lightroom",
+    "Photoshop",
+    "Illustrator",
+    "InDesign",
+    "Figma"
+  ],
+  "parcours": [
+    {
+      "titre": "Dessin et maquillage artistique",
+      "texte": "Mes premiers terrains de création."
+    },
+    {
+      "titre": "Bac Design et Arts Appliqués",
+      "texte": "Les bases du design et de la composition."
+    },
+    {
+      "titre": "Une année scolaire aux États-Unis",
+      "texte": "Des projets qui m'ont fait comprendre que la vidéo était ma voie."
+    },
+    {
+      "titre": "BUT MMI à Aix-Marseille",
+      "texte": "Mon premier court-métrage, puis Dreamboss, Interlinked et un documentaire."
+    },
+    {
+      "titre": "Cadreuse et monteuse en boîte de production",
+      "texte": "Tournages et post-production en conditions professionnelles."
+    },
+    {
+      "titre": "Community manager",
+      "texte": "Pour le studio Aelia Pilates et une marque internationale : contenus, réseaux sociaux, partenariats."
+    },
+    {
+      "titre": "Présidente du BDE",
+      "texte": "Organisation d'événements et communication pour l'école."
+    }
+  ],
+  "distinctions": [
+    {
+      "nom": "MMI d'Or",
+      "titre": "Meilleure vidéo pub",
+      "detail": "Mosaicc, en équipe"
+    },
+    {
+      "nom": "MMI d'Or",
+      "titre": "Meilleur studio 3D",
+      "detail": ""
+    },
+    {
+      "nom": "MMI d'Or",
+      "titre": "Meilleur logo",
+      "detail": "En équipe"
+    }
+  ],
+  "alternance": "Je suis ouverte à une alternance en 3ᵉ année de BUT MMI, au rythme d'une semaine sur deux.",
+  "email": "cortot.manon2171@gmail.com",
+  "telephone": "06 51 81 50 97",
+  "instagram": "https://www.instagram.com/manon.audiovisuel/",
+  "youtube": "https://www.youtube.com/@manon.audiovisuel",
+  "options": {
+    "youtube_integre": true,
+    "figma_en_direct": true
+  }
+}

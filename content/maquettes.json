@@ -1,0 +1,167 @@
+{
+  "maquettes": [
+    {
+      "nom": "What's on Arles",
+      "sous_titre": "SAÉ 301 · agenda culturel",
+      "format": "desktop",
+      "domaine": "whatsonarles.fr",
+      "lien_figma": "https://www.figma.com/design/Jnihe3rsHwE4zZUQFW9Mnq/SAE-301?node-id=0-1&t=7dIHwTpZAOwMiV6l-1",
+      "description": "Un site pour trouver quoi faire à Arles : concerts, sport, cinéma, ateliers, musées. On filtre par thème, par date ou par public, on repère les lieux sur la carte et on garde ses favoris.\n\nCôté professionnels, un espace dédié permet de publier, modifier et suivre ses événements depuis un tableau de bord.",
+      "competences": [
+        "Figma",
+        "UX/UI",
+        "SAÉ 301",
+        "Espace pro"
+      ],
+      "plan": "images/maquettes/wa-plan.jpg",
+      "ecrans": [
+        {
+          "nom": "Accueil",
+          "chemin": "",
+          "image": "images/maquettes/wa-accueil.jpg"
+        },
+        {
+          "nom": "Carte",
+          "chemin": "carte",
+          "image": "images/maquettes/wa-carte.jpg"
+        },
+        {
+          "nom": "Inscription",
+          "chemin": "inscription",
+          "image": "images/maquettes/wa-inscription.jpg"
+        },
+        {
+          "nom": "Connexion",
+          "chemin": "connexion",
+          "image": "images/maquettes/wa-connexion.jpg"
+        },
+        {
+          "nom": "Contact",
+          "chemin": "contact",
+          "image": "images/maquettes/wa-contact.jpg"
+        },
+        {
+          "nom": "Tableau de bord",
+          "chemin": "pro/tableau-de-bord",
+          "image": "images/maquettes/wa-tableau.jpg"
+        },
+        {
+          "nom": "Ajouter un événement",
+          "chemin": "pro/ajouter",
+          "image": "images/maquettes/wa-ajout.jpg"
+        },
+        {
+          "nom": "Gérer un événement",
+          "chemin": "pro/gerer",
+          "image": "images/maquettes/wa-gerer.jpg"
+        }
+      ]
+    },
+    {
+      "nom": "Mosaicc",
+      "sous_titre": "landing page bilingue",
+      "format": "desktop",
+      "domaine": "mosaicc.fr",
+      "lien_figma": "https://www.figma.com/design/nXGoJrNpTyYIPdwF29JTGZ/Sans-titre?t=4b2yvqOIpbhtR12i-1",
+      "description": "La landing page de Mosaicc, un hub créatif au cœur d'Arles où se croisent artistes, créateurs et étudiants. Le même projet que la vidéo publicitaire récompensée aux MMI d'Or.\n\nUne page en version française et anglaise : présentation du lieu, ses quatre salles (audiovisuel, bibliothèque, fablab, salle VR) et un accès direct au plan et aux réseaux.",
+      "competences": [
+        "Figma",
+        "Landing page",
+        "FR / EN",
+        "Identité visuelle"
+      ],
+      "plan": "images/maquettes/mo-plan.jpg",
+      "ecrans": [
+        {
+          "nom": "Version FR",
+          "chemin": "",
+          "image": "images/maquettes/mo-fr.jpg"
+        },
+        {
+          "nom": "Version EN",
+          "chemin": "en",
+          "image": "images/maquettes/mo-en.jpg"
+        }
+      ]
+    },
+    {
+      "nom": "Urbanet",
+      "sous_titre": "e-commerce streetwear",
+      "format": "mobile",
+      "domaine": "urbanet.fr",
+      "lien_figma": "https://www.figma.com/design/rnMvJ1iyd5dBhpUZvHjuLZ/Sans-titre?t=4b2yvqOIpbhtR12i-1",
+      "description": "La maquette mobile d'une boutique en ligne de streetwear. J'ai créé l'identité visuelle, du logo à la palette kaki et beige, puis dessiné tout le parcours d'achat.\n\nAccueil, catalogue avec filtres, fiche article, wishlist, panier, compte, paiement et confirmation : chaque écran est pensé pour qu'on trouve vite et qu'on commande sans friction.",
+      "competences": [
+        "Figma",
+        "UI design",
+        "E-commerce",
+        "Mobile"
+      ],
+      "plan": "images/maquettes/u-plan.jpg",
+      "ecrans": [
+        {
+          "nom": "Accueil",
+          "chemin": "",
+          "image": "images/maquettes/u-accueil.jpg"
+        },
+        {
+          "nom": "Menu",
+          "chemin": "menu",
+          "image": "images/maquettes/u-menu.jpg"
+        },
+        {
+          "nom": "Favoris",
+          "chemin": "favoris",
+          "image": "images/maquettes/u-favoris.jpg"
+        },
+        {
+          "nom": "Inscription",
+          "chemin": "inscription",
+          "image": "images/maquettes/u-inscription.jpg"
+        },
+        {
+          "nom": "Paiement",
+          "chemin": "paiement",
+          "image": "images/maquettes/u-paiement.jpg"
+        }
+      ]
+    },
+    {
+      "nom": "MC Prod",
+      "sous_titre": "mon premier portfolio",
+      "format": "mobile",
+      "domaine": "mcprod.fr",
+      "lien_figma": "https://www.figma.com/design/fXqBfDgoHrujZTRhj2P3uw/Sans-titre?node-id=0-1&t=4b2yvqOIpbhtR12i-1",
+      "description": "La maquette de mon premier portfolio, imaginé comme une agence créative. Un univers violet, une typographie condensée et des formes organiques pour présenter mes projets.\n\nAccueil, à propos, galerie de projets, pages détaillées avec synopsis et rôles, formulaire de contact et CV : un site complet pensé pour mobile.",
+      "competences": [
+        "Figma",
+        "UI design",
+        "Portfolio",
+        "Mobile"
+      ],
+      "plan": "images/maquettes/m-plan.jpg",
+      "ecrans": [
+        {
+          "nom": "Accueil",
+          "chemin": "",
+          "image": "images/maquettes/m-accueil.jpg"
+        },
+        {
+          "nom": "Mes projets",
+          "chemin": "projets",
+          "image": "images/maquettes/m-projets.jpg"
+        },
+        {
+          "nom": "Au-delà du jeu",
+          "chemin": "projets/au-dela-du-jeu",
+          "image": "images/maquettes/m-audela.jpg"
+        },
+        {
+          "nom": "Contact",
+          "chemin": "contact",
+          "image": "images/maquettes/m-contact.jpg"
+        }
+      ]
+    }
+  ]
+}

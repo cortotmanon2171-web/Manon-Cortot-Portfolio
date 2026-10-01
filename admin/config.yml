@@ -1,0 +1,177 @@
+# =====================================================================
+#  Configuration de l'espace d'administration du portfolio
+#  ➜ Remplace TON-PSEUDO-GITHUB par ton nom d'utilisateur GitHub
+#    et "portfolio" par le nom de ton dépôt si tu l'as nommé autrement.
+# =====================================================================
+backend:
+  name: github
+  repo: TON-PSEUDO-GITHUB/portfolio
+  branch: main
+
+locale: fr
+media_folder: images/uploads
+public_folder: images/uploads
+
+collections:
+  - name: contenu
+    label: Mon portfolio
+    files:
+
+      # ---------------------------------------------------------- VIDÉOS
+      - name: videos
+        label: 🎬 Vidéos
+        file: content/videos.json
+        fields:
+          - name: videos
+            label: Vidéos
+            label_singular: vidéo
+            widget: list
+            summary: "{{fields.titre}} · {{fields.genre}}"
+            hint: "L'ordre ici est l'ordre d'affichage sur le site. Glisse les vidéos pour les réordonner."
+            fields:
+              - {name: titre, label: Titre, widget: string}
+              - {name: sous_titre, label: Sous-titre, widget: string, required: false, hint: "Petite ligne manuscrite sous le titre (ex. « rêve 327 »)"}
+              - {name: genre, label: Genre, widget: string, hint: "Ex. Court-métrage, Documentaire, Vlog…"}
+              - name: categorie
+                label: Catégorie (pour les filtres)
+                widget: select
+                options:
+                  - {label: Court-métrage, value: court}
+                  - {label: Documentaire, value: docu}
+                  - {label: Cinematic, value: cine}
+                  - {label: Pub & commande, value: pub}
+                  - {label: Vlog, value: vlog}
+                  - {label: Réseaux sociaux, value: reseaux}
+                  - {label: Présentation (CV vidéo), value: presentation}
+              - name: emplacement
+                label: Où l'afficher
+                widget: select
+                default: films
+                options:
+                  - {label: "Grille des films (avec affiche)", value: films}
+                  - {label: "Vlogs & formats courts (format 16/9)", value: formats}
+              - {name: affiche, label: Affiche (format portrait), widget: image, required: false, hint: "Pour la grille des films."}
+              - {name: miniature, label: Miniature (format 16/9), widget: image, required: false, hint: "Facultatif : sans miniature, celle de YouTube est utilisée automatiquement."}
+              - {name: lien, label: Lien de la vidéo (YouTube ou Instagram), widget: string, required: false, hint: "Ex. https://youtu.be/xxxxxxxxxxx ou un lien de réel Instagram"}
+              - {name: roles, label: Mes rôles, widget: list, required: false, hint: "Sépare par des virgules, ex. Montage, Cadrage"}
+              - {name: prix, label: Prix ou distinction, widget: string, required: false}
+              - {name: description, label: Description, widget: text, hint: "Laisse une ligne vide pour faire un nouveau paragraphe."}
+
+      # ---------------------------------------------------------- PHOTOS
+      - name: photos
+        label: 📷 Photos
+        file: content/photos.json
+        fields:
+          - name: series
+            label: Séries de photos
+            label_singular: série
+            widget: list
+            summary: "{{fields.nom}}"
+            fields:
+              - {name: nom, label: Nom de la série, widget: string}
+              - {name: description, label: Texte de présentation, widget: text, required: false}
+              - name: photos
+                label: Photos
+                label_singular: photo
+                widget: list
+                summary: "{{fields.image}}"
+                fields:
+                  - {name: image, label: Photo, widget: image}
+                  - {name: alt, label: Description pour l'accessibilité (invisible sur le site), widget: string, required: false}
+
+      # ---------------------------------------------------------- COM & GRAPHISME
+      - name: graphisme
+        label: 🎨 Com & graphisme
+        file: content/graphisme.json
+        fields:
+          - name: projets
+            label: Projets
+            label_singular: projet
+            widget: list
+            summary: "{{fields.nom}}"
+            fields:
+              - {name: nom, label: Nom (onglet), widget: string}
+              - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
+              - {name: titre, label: Grand titre, widget: string, required: false}
+              - {name: description, label: Description, widget: text}
+              - {name: competences, label: Compétences, widget: list, required: false}
+              - {name: images, label: Images (3 maximum affichées), widget: list, required: false, field: {name: image, label: Image, widget: image}}
+
+      # ---------------------------------------------------------- MAQUETTES
+      - name: maquettes
+        label: 📱 Maquettes Figma
+        file: content/maquettes.json
+        fields:
+          - name: maquettes
+            label: Maquettes
+            label_singular: maquette
+            widget: list
+            summary: "{{fields.nom}}"
+            fields:
+              - {name: nom, label: Nom du projet, widget: string}
+              - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
+              - name: format
+                label: Format
+                widget: select
+                options: [{label: Site ordinateur, value: desktop}, {label: Application / site mobile, value: mobile}]
+              - {name: domaine, label: Adresse affichée dans la barre du navigateur, widget: string, required: false, hint: "Ex. monsite.fr (purement décoratif)"}
+              - {name: lien_figma, label: Lien Figma (fichier), widget: string, required: false}
+              - {name: lien_prototype, label: Lien du prototype Figma, widget: string, required: false, hint: "Dans Figma : ▶ Présenter puis Partager, copie le lien. Sans lui, le site essaie de lancer le prototype du fichier."}
+              - {name: description, label: Description, widget: text}
+              - {name: competences, label: Compétences, widget: list, required: false}
+              - {name: plan, label: Vue d'ensemble (plan complet), widget: image, required: false}
+              - name: ecrans
+                label: Écrans
+                label_singular: écran
+                widget: list
+                summary: "{{fields.nom}}"
+                fields:
+                  - {name: nom, label: Nom de l'écran, widget: string}
+                  - {name: chemin, label: Chemin affiché dans l'adresse, widget: string, required: false, hint: "Ex. contact"}
+                  - {name: image, label: Capture de l'écran (exportée de Figma), widget: image}
+                hint: "Les captures servent de secours si Figma ne peut pas s'afficher."
+
+      # ---------------------------------------------------------- PROFIL
+      - name: profil
+        label: 👤 Profil, à propos & contact
+        file: content/profil.json
+        fields:
+          - {name: prenom, label: Prénom, widget: string}
+          - {name: nom, label: Nom, widget: string}
+          - {name: accroche, label: Phrase d'accueil, widget: text}
+          - {name: photo_decoupe, label: Photo détourée (accueil, PNG ou WebP transparent), widget: image, required: false}
+          - {name: photo_accueil, label: Petite photo de l'accueil, widget: image, required: false}
+          - {name: photo_portrait, label: Portrait (À propos), widget: image, required: false}
+          - {name: photo_contact, label: Photo du contact, widget: image, required: false}
+          - {name: bio, label: Biographie, widget: text}
+          - {name: alternance, label: Encadré « recherche », widget: text, required: false, hint: "Laisse vide pour le masquer."}
+          - name: parcours
+            label: Parcours
+            label_singular: étape
+            widget: list
+            summary: "{{fields.titre}}"
+            fields:
+              - {name: titre, label: Titre, widget: string}
+              - {name: texte, label: Détail, widget: string, required: false}
+          - name: distinctions
+            label: Distinctions
+            label_singular: distinction
+            widget: list
+            required: false
+            summary: "{{fields.titre}}"
+            fields:
+              - {name: nom, label: Nom du prix, widget: string}
+              - {name: titre, label: Catégorie, widget: string}
+              - {name: detail, label: Détail, widget: string, required: false}
+          - {name: competences, label: Compétences (bandeau défilant et À propos), widget: list, required: false}
+          - {name: materiel, label: Mes outils, widget: list, required: false}
+          - {name: email, label: E-mail, widget: string}
+          - {name: telephone, label: Téléphone, widget: string, required: false}
+          - {name: instagram, label: Lien Instagram, widget: string, required: false}
+          - {name: youtube, label: Lien chaîne YouTube, widget: string, required: false}
+          - name: options
+            label: Options
+            widget: object
+            fields:
+              - {name: youtube_integre, label: Lire les vidéos directement sur le site, widget: boolean, default: true}
+              - {name: figma_en_direct, label: Bouton « Figma en direct » sur les maquettes, widget: boolean, default: true}

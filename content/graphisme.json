@@ -1,0 +1,46 @@
+{
+  "projets": [
+    {
+      "nom": "Aelia Pilates",
+      "sous_titre": "stage de communication",
+      "titre": "Aelia Pilates",
+      "description": "En stage de deuxième année, j'étais chargée de communication pour un studio de pilates. J'ai réalisé des photos et vidéos pour mettre en valeur le lieu, mais je me suis surtout occupée des réseaux sociaux.\n\nJ'ai rédigé des contenus pour promouvoir les offres et les cours, créé une série de publications pour présenter les professeurs, et cherché des sponsors et partenariats pour le studio.",
+      "competences": [
+        "Photo",
+        "Réseaux sociaux",
+        "Rédaction",
+        "Partenariats"
+      ],
+      "images": [
+        "images/graphisme/aelia-1.jpg",
+        "images/graphisme/aelia-2.jpg",
+        "images/graphisme/aelia-3.jpg"
+      ]
+    },
+    {
+      "nom": "Livret InDesign",
+      "sous_titre": "festival culturel & gastronomique",
+      "titre": "Le livret",
+      "description": "Un projet qui mêle mes deux passions : la mise en page et l'événementiel. J'ai conçu l'identité visuelle du livret, structuré les contenus et pensé toute la mise en page pour faire vivre l'expérience du festival.\n\nContrainte du projet : utiliser la fonction tableau d'InDesign, tout en gardant une mise en page claire et cohérente avec l'identité visuelle.",
+      "competences": [
+        "InDesign",
+        "Identité visuelle",
+        "Mise en page"
+      ],
+      "images": []
+    },
+    {
+      "nom": "Planète Cacao",
+      "sous_titre": "site WordPress",
+      "titre": "Planète Cacao",
+      "description": "Un site fictif sur le thème du chocolat, réalisé dans le cadre d'un projet autour de WordPress. J'ai conçu l'identité visuelle puis construit le site étape par étape sur Elementor.\n\nCe projet m'a appris le fonctionnement d'un CMS, la gestion de contenu dynamique et l'importance d'une interface claire pour l'utilisateur.",
+      "competences": [
+        "WordPress",
+        "Elementor",
+        "UX",
+        "Identité visuelle"
+      ],
+      "images": []
+    }
+  ]
+}

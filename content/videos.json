@@ -1,0 +1,181 @@
+{
+  "videos": [
+    {
+      "titre": "Dreamboss",
+      "sous_titre": "rêve 327",
+      "genre": "Court-métrage",
+      "categorie": "court",
+      "affiche": "images/affiches/dreamboss.jpg",
+      "miniature": "",
+      "roles": [
+        "Réalisation",
+        "Montage",
+        "Cadrage"
+      ],
+      "prix": "",
+      "description": "Un film sur l'idée de rester maître de sa propre vie face aux influences extérieures. À travers Marie et le Directeur, il montre les pressions qui orientent nos choix et l'importance de reprendre le contrôle de son destin.\n\nL'esthétique joue sur un fort contraste entre réalité et rêve, porté par la lumière, les effets visuels et le travail sonore.",
+      "lien": "",
+      "emplacement": "films"
+    },
+    {
+      "titre": "Interlinked",
+      "sous_titre": "la légende du fil rouge",
+      "genre": "Court-métrage en anglais",
+      "categorie": "court",
+      "affiche": "images/affiches/interlinked.jpg",
+      "miniature": "images/miniatures/interlinked.jpg",
+      "roles": [
+        "Coréalisation avec Agathe Lemierre",
+        "Montage",
+        "Cadrage"
+      ],
+      "prix": "",
+      "description": "Inspiré de la légende japonaise du fil rouge, ce film raconte la rencontre de deux âmes sœurs liées par un destin invisible.\n\nTourné en peu de temps avec un storytelling entièrement en anglais, ce projet m'a fait progresser en post-production et en direction d'acteurs.",
+      "lien": "",
+      "emplacement": "films"
+    },
+    {
+      "titre": "Au-delà du jeu",
+      "sous_titre": "l'île d'Ohana",
+      "genre": "Court-métrage",
+      "categorie": "court",
+      "affiche": "images/affiches/audela.jpg",
+      "miniature": "images/miniatures/audela.jpg",
+      "roles": [
+        "Coréalisation",
+        "Acting",
+        "Montage"
+      ],
+      "prix": "",
+      "description": "Et si une fiction devenait réelle ? Pendant un live sur Uncharted, un spectateur affirme à Rajah que le trésor de l'île d'Ohana existe vraiment.\n\nAvec ses amies Nora et Charly, il suit les indices d'une mystérieuse carte, dans une quête où jeu vidéo et réalité se croisent.",
+      "lien": "",
+      "emplacement": "films"
+    },
+    {
+      "titre": "Marine",
+      "sous_titre": "à travers son art",
+      "genre": "Documentaire",
+      "categorie": "docu",
+      "affiche": "images/affiches/marine.jpg",
+      "miniature": "images/miniatures/marine.jpg",
+      "roles": [
+        "Caméra",
+        "Projet d'équipe MMI Studio"
+      ],
+      "prix": "",
+      "description": "Ce documentaire plonge dans l'univers d'une artiste céramiste : son parcours, sa passion et son processus de création.\n\nEntre façonnage, cuisson et recherche d'inspiration, elle partage son quotidien, ses défis et sa vision de l'artisanat.",
+      "lien": "",
+      "emplacement": "films"
+    },
+    {
+      "titre": "Mosaicc",
+      "sous_titre": "spot publicitaire",
+      "genre": "Vidéo publicitaire",
+      "categorie": "pub",
+      "affiche": "",
+      "miniature": "",
+      "roles": [
+        "Projet d'équipe"
+      ],
+      "prix": "MMI d'Or",
+      "description": "Vidéo publicitaire pour Mosaicc, un hub créatif au cœur d'Arles, réalisée en équipe à l'IUT et récompensée par le prix MMI d'Or de la meilleure vidéo publicitaire.",
+      "lien": "",
+      "emplacement": "films"
+    },
+    {
+      "titre": "CV vidéo",
+      "sous_titre": "2025",
+      "genre": "Présentation",
+      "categorie": "presentation",
+      "affiche": "",
+      "miniature": "",
+      "roles": [
+        "Réalisation",
+        "Montage"
+      ],
+      "prix": "",
+      "description": "Mon CV en vidéo : qui je suis, ce que je sais faire et ce qui me donne envie de filmer.",
+      "lien": "",
+      "emplacement": "films"
+    },
+    {
+      "titre": "Saintes-Maries-de-la-Mer",
+      "sous_titre": "cinematic",
+      "genre": "Cinematic",
+      "categorie": "cine",
+      "affiche": "images/affiches/cinematic.jpg",
+      "miniature": "images/miniatures/cinematic.jpg",
+      "roles": [
+        "Réalisation"
+      ],
+      "prix": "",
+      "description": "Un film d'ambiance tourné aux Saintes-Maries-de-la-Mer : l'eau, la lumière, le sable et le mouvement des vagues, pour capter l'atmosphère du lieu en images.",
+      "lien": "",
+      "emplacement": "formats"
+    },
+    {
+      "titre": "Chalon-sur-Saône",
+      "sous_titre": "",
+      "genre": "Vlog",
+      "categorie": "vlog",
+      "affiche": "",
+      "miniature": "images/miniatures/chalon.jpg",
+      "roles": [
+        "Tournage",
+        "Montage"
+      ],
+      "prix": "",
+      "description": "Une vidéo tournée à Chalon-sur-Saône.",
+      "lien": "",
+      "emplacement": "formats"
+    },
+    {
+      "titre": "Disneyland",
+      "sous_titre": "",
+      "genre": "Vlog",
+      "categorie": "vlog",
+      "affiche": "",
+      "miniature": "images/miniatures/disneyland.jpg",
+      "roles": [
+        "Tournage",
+        "Montage"
+      ],
+      "prix": "",
+      "description": "Un vlog tourné à Disneyland Paris.",
+      "lien": "",
+      "emplacement": "formats"
+    },
+    {
+      "titre": "Santorin",
+      "sous_titre": "",
+      "genre": "Vlog",
+      "categorie": "vlog",
+      "emplacement": "formats",
+      "affiche": "",
+      "miniature": "",
+      "lien": "",
+      "roles": [
+        "Tournage",
+        "Montage"
+      ],
+      "prix": "",
+      "description": "Un vlog tourné à Santorin."
+    },
+    {
+      "titre": "Format court",
+      "sous_titre": "",
+      "genre": "Réel Instagram",
+      "categorie": "reseaux",
+      "emplacement": "formats",
+      "affiche": "",
+      "miniature": "",
+      "lien": "https://www.instagram.com/reel/DcHABZyOSAg/",
+      "roles": [
+        "Tournage",
+        "Montage"
+      ],
+      "prix": "",
+      "description": "Un format court pensé pour Instagram."
+    }
+  ]
+}
