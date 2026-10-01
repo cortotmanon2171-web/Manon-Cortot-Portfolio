@@ -2,148 +2,150 @@
   "videos": [
     {
       "titre": "Dreamboss",
-      "sous_titre": "rêve 327",
+      "sous_titre": "réalisé par Manon Cortot",
       "genre": "Court-métrage",
       "categorie": "court",
+      "emplacement": "films",
       "affiche": "images/affiches/dreamboss.jpg",
       "miniature": "",
+      "lien": "https://youtu.be/gFij3Y0_FPE?si=I5arxFY7Pah9QQyJ",
       "roles": [
         "Réalisation",
         "Montage",
         "Cadrage"
       ],
       "prix": "",
-      "description": "Un film sur l'idée de rester maître de sa propre vie face aux influences extérieures. À travers Marie et le Directeur, il montre les pressions qui orientent nos choix et l'importance de reprendre le contrôle de son destin.\n\nL'esthétique joue sur un fort contraste entre réalité et rêve, porté par la lumière, les effets visuels et le travail sonore.",
-      "lien": "",
-      "emplacement": "films"
+      "description": "Un film sur l'idée de rester maître de sa propre vie face aux influences extérieures. À travers Marie et le Directeur, il montre les pressions qui orientent nos choix et l'importance de reprendre le contrôle de son destin.\n\nL'esthétique joue sur un fort contraste entre réalité et rêve, porté par la lumière, les effets visuels et le travail sonore."
     },
     {
       "titre": "Interlinked",
       "sous_titre": "la légende du fil rouge",
       "genre": "Court-métrage en anglais",
       "categorie": "court",
+      "emplacement": "films",
       "affiche": "images/affiches/interlinked.jpg",
       "miniature": "images/miniatures/interlinked.jpg",
+      "lien": "https://youtu.be/gFfg0YgZvCc?si=1puNEKnxkpHAzNsu",
       "roles": [
         "Coréalisation avec Agathe Lemierre",
         "Montage",
         "Cadrage"
       ],
       "prix": "",
-      "description": "Inspiré de la légende japonaise du fil rouge, ce film raconte la rencontre de deux âmes sœurs liées par un destin invisible.\n\nTourné en peu de temps avec un storytelling entièrement en anglais, ce projet m'a fait progresser en post-production et en direction d'acteurs.",
-      "lien": "",
-      "emplacement": "films"
+      "description": "Inspiré de la légende japonaise du fil rouge, ce film raconte la rencontre de deux âmes sœurs liées par un destin invisible.\n\nTourné en peu de temps avec un storytelling entièrement en anglais, ce projet m'a fait progresser en post-production et en direction d'acteurs."
     },
     {
       "titre": "Au-delà du jeu",
-      "sous_titre": "l'île d'Ohana",
+      "sous_titre": "",
       "genre": "Court-métrage",
       "categorie": "court",
+      "emplacement": "films",
       "affiche": "images/affiches/audela.jpg",
       "miniature": "images/miniatures/audela.jpg",
+      "lien": "https://youtu.be/WAflvTQohpU?si=uTOfDChEIzbP9UXy",
       "roles": [
         "Coréalisation",
         "Acting",
         "Montage"
       ],
       "prix": "",
-      "description": "Et si une fiction devenait réelle ? Pendant un live sur Uncharted, un spectateur affirme à Rajah que le trésor de l'île d'Ohana existe vraiment.\n\nAvec ses amies Nora et Charly, il suit les indices d'une mystérieuse carte, dans une quête où jeu vidéo et réalité se croisent.",
-      "lien": "",
-      "emplacement": "films"
+      "description": "Et si une fiction devenait réelle ? Pendant un live sur Uncharted, un spectateur affirme à Rajah que le trésor de l'île d'Ohana existe vraiment.\n\nAvec ses amies Nora et Charly, il suit les indices d'une mystérieuse carte, dans une quête où jeu vidéo et réalité se croisent."
     },
     {
-      "titre": "Marine",
+      "titre": "Marine Carrara",
       "sous_titre": "à travers son art",
       "genre": "Documentaire",
       "categorie": "docu",
+      "emplacement": "films",
       "affiche": "images/affiches/marine.jpg",
       "miniature": "images/miniatures/marine.jpg",
+      "lien": "https://youtu.be/SEebgaQhtBg?si=tzX_tcQX5djOxJvT",
       "roles": [
-        "Caméra",
-        "Projet d'équipe MMI Studio"
+        "Cadrage",
+        "Montage"
       ],
       "prix": "",
-      "description": "Ce documentaire plonge dans l'univers d'une artiste céramiste : son parcours, sa passion et son processus de création.\n\nEntre façonnage, cuisson et recherche d'inspiration, elle partage son quotidien, ses défis et sa vision de l'artisanat.",
-      "lien": "",
-      "emplacement": "films"
+      "description": "Ce documentaire plonge dans l'univers d'une artiste céramiste : son parcours, sa passion et son processus de création.\n\nEntre façonnage, cuisson et recherche d'inspiration, elle partage son quotidien, ses défis et sa vision de l'artisanat."
     },
     {
       "titre": "Mosaicc",
       "sous_titre": "spot publicitaire",
       "genre": "Vidéo publicitaire",
       "categorie": "pub",
+      "emplacement": "films",
       "affiche": "",
       "miniature": "",
+      "lien": "https://www.instagram.com/reel/DT-N213DEbh/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==",
       "roles": [
         "Projet d'équipe"
       ],
       "prix": "MMI d'Or",
-      "description": "Vidéo publicitaire pour Mosaicc, un hub créatif au cœur d'Arles, réalisée en équipe à l'IUT et récompensée par le prix MMI d'Or de la meilleure vidéo publicitaire.",
-      "lien": "",
-      "emplacement": "films"
+      "description": "Vidéo publicitaire pour Mosaicc, un hub créatif au cœur d'Arles, réalisée en équipe à l'IUT et récompensée par le prix MMI d'Or de la meilleure vidéo publicitaire."
     },
     {
       "titre": "CV vidéo",
       "sous_titre": "2025",
       "genre": "Présentation",
       "categorie": "presentation",
+      "emplacement": "films",
       "affiche": "",
       "miniature": "",
+      "lien": "https://youtu.be/Zx8yKSCnCl8?si=7iPIIzbabFRNsO94",
       "roles": [
         "Réalisation",
         "Montage"
       ],
       "prix": "",
-      "description": "Mon CV en vidéo : qui je suis, ce que je sais faire et ce qui me donne envie de filmer.",
-      "lien": "",
-      "emplacement": "films"
+      "description": "Mon CV en vidéo : qui je suis, ce que je sais faire et ce qui me donne envie de filmer."
     },
     {
       "titre": "Saintes-Maries-de-la-Mer",
-      "sous_titre": "cinematic",
+      "sous_titre": "cinematic shots",
       "genre": "Cinematic",
       "categorie": "cine",
+      "emplacement": "formats",
       "affiche": "images/affiches/cinematic.jpg",
       "miniature": "images/miniatures/cinematic.jpg",
+      "lien": "https://youtu.be/g06eWY-D0Rk?si=8W0MQQXv7pJlybs0",
       "roles": [
-        "Réalisation"
+        "Réalisation",
+        "Cadrage",
+        "Montage"
       ],
       "prix": "",
-      "description": "Un film d'ambiance tourné aux Saintes-Maries-de-la-Mer : l'eau, la lumière, le sable et le mouvement des vagues, pour capter l'atmosphère du lieu en images.",
-      "lien": "",
-      "emplacement": "formats"
+      "description": "Un film d'ambiance tourné aux Saintes-Maries-de-la-Mer : l'eau, la lumière, le sable et le mouvement des vagues, pour capter l'atmosphère du lieu en images."
     },
     {
       "titre": "Chalon-sur-Saône",
-      "sous_titre": "",
+      "sous_titre": "christmas vlog",
       "genre": "Vlog",
       "categorie": "vlog",
+      "emplacement": "formats",
       "affiche": "",
       "miniature": "images/miniatures/chalon.jpg",
+      "lien": "https://youtu.be/xR6NksdACVI?si=orLtlFQvtdeDfDrf",
       "roles": [
         "Tournage",
         "Montage"
       ],
       "prix": "",
-      "description": "Une vidéo tournée à Chalon-sur-Saône.",
-      "lien": "",
-      "emplacement": "formats"
+      "description": "Une vidéo tournée à Chalon-sur-Saône."
     },
     {
       "titre": "Disneyland",
       "sous_titre": "",
       "genre": "Vlog",
       "categorie": "vlog",
+      "emplacement": "formats",
       "affiche": "",
       "miniature": "images/miniatures/disneyland.jpg",
+      "lien": "https://youtu.be/YQzI_Xaoowk?si=TpphUhAyeFv0QkYA",
       "roles": [
         "Tournage",
         "Montage"
       ],
       "prix": "",
-      "description": "Un vlog tourné à Disneyland Paris.",
-      "lien": "",
-      "emplacement": "formats"
+      "description": "Un vlog tourné à Disneyland Paris."
     },
     {
       "titre": "Santorin",
@@ -152,8 +154,8 @@
       "categorie": "vlog",
       "emplacement": "formats",
       "affiche": "",
-      "miniature": "",
-      "lien": "",
+      "miniature": "/images/uploads/miniaturesantorin.jpg",
+      "lien": "https://youtu.be/DO5_oAdHghI?si=8elhwy62tZnj9vGQ",
       "roles": [
         "Tournage",
         "Montage"
@@ -162,8 +164,8 @@
       "description": "Un vlog tourné à Santorin."
     },
     {
-      "titre": "Format court",
-      "sous_titre": "",
+      "titre": "Présentation des micro DJI Mic Mini 2",
+      "sous_titre": "UGC content",
       "genre": "Réel Instagram",
       "categorie": "reseaux",
       "emplacement": "formats",
