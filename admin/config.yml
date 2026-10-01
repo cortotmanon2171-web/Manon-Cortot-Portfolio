@@ -5,7 +5,7 @@
 # =====================================================================
 backend:
   name: github
-  repo: TON-PSEUDO-GITHUB/portfolio
+  repo: cortotmanon2171-web/portfolio
   branch: main
 
 locale: fr
