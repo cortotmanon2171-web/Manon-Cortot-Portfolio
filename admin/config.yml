@@ -5,7 +5,7 @@
 # =====================================================================
 backend:
   name: github
-  repo: cortotmanon2171-web/portfolio
+  repo: cortotmanon2171-web/Manon-Cortot-Portfolio
   branch: main
 
 locale: fr
