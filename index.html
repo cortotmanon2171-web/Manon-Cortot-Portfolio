@@ -485,7 +485,7 @@ dialog[open]{animation:pop .45s var(--courbe)}
 
 /* ---------- À propos ---------- */
 .apropos-grille{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;align-items:start}
-.portrait{position:sticky;top:110px;padding:12px;border-radius:30px}
+.portrait{padding:12px;border-radius:30px}
 .portrait img{border-radius:20px;aspect-ratio:4/5;object-fit:cover;width:100%}
 .portrait .nom{font-family:var(--script);font-size:34px;text-align:center;line-height:1.4}
 .bio{padding:34px}
@@ -508,6 +508,23 @@ dialog[open]{animation:pop .45s var(--courbe)}
 .medaille b{display:block;font-family:var(--display);font-weight:800;font-size:26px;text-transform:uppercase;line-height:1;margin-top:6px}
 .medaille small{display:block;margin-top:6px;opacity:.75}
 .competences{margin-top:30px}
+/* Parcours en méandre sous la photo (ordinateur et tablette) */
+.labyrinthe{grid-column:1/-1;position:relative}
+.trace{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.trace path{fill:none;stroke:url(#trace-degrade);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.6s cubic-bezier(.6,0,.3,1)}
+.trace circle{fill:var(--soleil);opacity:0;transition:opacity .5s}
+.trace circle:last-of-type{fill:var(--pervenche);transition-delay:2.4s}
+.trace-visible .trace path{stroke-dashoffset:0}
+.trace-visible .trace circle{opacity:1}
+@media (min-width:861px){
+  .labyrinthe .frise{display:grid;grid-template-columns:repeat(3,1fr);column-gap:30px;row-gap:34px;margin:4px 0 0;padding:0 48px;z-index:1}
+  .labyrinthe .frise::before{display:none}
+  .labyrinthe .frise li{grid-row:var(--l3);grid-column:var(--c3);margin:0;padding:56px 22px 20px;text-align:center}
+  .labyrinthe .frise li::before{left:50%;top:0;margin-left:-18px}
+  .labyrinthe .frise b{margin-bottom:6px}
+}
+@media (min-width:861px) and (max-width:1100px){.labyrinthe .frise li{grid-row:var(--l2);grid-column:var(--c2)}.labyrinthe .frise{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:860px){.trace{display:none}}
 @media (max-width:860px){.apropos-grille{grid-template-columns:1fr}.portrait{position:relative;top:0;max-width:380px;margin-inline:auto}.bio{padding:24px}}
 
 /* ---------- Contact ---------- */
@@ -622,7 +639,7 @@ function construire(C){
     <div class="wrap">
       <div>
         <p class="petit">le portfolio de</p>
-        <h1><span class="degrade">${esc(P.prenom)}</span><span class="contour">${esc(P.nom)}</span><span class="degrade">films & photos</span></h1>
+        <h1><span class="degrade">${esc(P.prenom)}</span><span class="contour">${esc(P.nom)}</span></h1>
         <p class="intro">${esc(P.accroche)}</p>
         <div class="actions"><a class="btn reflet" href="#videos">Voir mes films</a><a class="btn verre-btn" href="#photos">Mes photos</a></div>
       </div>
@@ -697,10 +714,11 @@ function construire(C){
             <div class="actions" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">${V.some(v=>v.categorie==="presentation")?`<button class="btn reflet" id="voir-cv">Voir mon CV vidéo</button>`:""}<a class="btn verre-btn" href="#contact">Me contacter</a></div>
             ${P.alternance?`<div class="alternance">${esc(P.alternance)}</div>`:""}
           </div>
-          <ol class="frise">${liste(P.parcours).map(e=>`<li><b>${esc(e.titre)}</b><span>${esc(e.texte)}</span></li>`).join("")}</ol>
           ${liste(P.distinctions).length?`<div class="prix-liste">${liste(P.distinctions).map(d=>`<div class="medaille verre reflet"><b>${esc(d.titre)}</b>${d.detail?`<small>${esc(d.detail)}</small>`:""}</div>`).join("")}</div>`:""}
           ${mots.length?`<div class="puces-liste competences">${mots.map(m=>`<span class="puce">${esc(m)}</span>`).join("")}</div>`:""}
         </div>
+        ${liste(P.parcours).length?`<div class="labyrinthe"><svg class="trace" aria-hidden="true"></svg>
+          <ol class="frise">${liste(P.parcours).map((e,i)=>`<li style="${placeMeandre(i,3,"3")};${placeMeandre(i,2,"2")}"><b>${esc(e.titre)}</b><span>${esc(e.texte)}</span></li>`).join("")}</ol></div>`:""}
       </div>
     </div>
   </section>
@@ -1057,7 +1075,33 @@ function construire(C){
   const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("visible");setTimeout(()=>t.classList.remove("visible"),2200)};
   if($("#copier")) $("#copier").onclick=async()=>{try{await navigator.clipboard.writeText(P.email);toast("Adresse copiée")}catch{location.href="mailto:"+P.email}};
 
+  parcours();
   animations();
+}
+
+// Parcours en méandre : les lignes paires vont de gauche à droite, les impaires reviennent
+function placeMeandre(i,n,k){const l=Math.floor(i/n),c=i%n;return `--l${k}:${l+1};--c${k}:${l%2?n-c:c+1}`}
+function tracerParcours(){
+  const ol=$(".frise"), svg=$(".trace"); if(!ol||!svg||getComputedStyle(svg).display==="none") return;
+  const pts=$$(".frise li").map(li=>({x:li.offsetLeft+li.offsetWidth/2,y:li.offsetTop+18}));
+  const W=ol.offsetWidth, r=28, bord=[16,W-16];
+  let sens=1, d=`M ${bord[0]} ${pts[0].y} H ${pts[0].x}`;
+  for(let i=1;i<pts.length;i++){const a=pts[i-1],b=pts[i];
+    if(Math.abs(b.y-a.y)<4){d+=` H ${b.x}`;continue}
+    const x=bord[sens>0?1:0], s=-sens;
+    d+=` H ${x+s*r} Q ${x} ${a.y} ${x} ${a.y+r} V ${b.y-r} Q ${x} ${b.y} ${x+s*r} ${b.y} H ${b.x}`; sens=-sens}
+  const fin=pts[pts.length-1], fx=fin.x+sens*60;
+  svg.setAttribute("viewBox",`0 0 ${W} ${ol.offsetHeight}`);
+  svg.innerHTML=`<defs><linearGradient id="trace-degrade" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="${ol.offsetHeight}">
+    <stop offset="0" stop-color="var(--soleil)"/><stop offset=".5" stop-color="var(--lavande)"/><stop offset="1" stop-color="var(--pervenche)"/></linearGradient></defs>
+    <path d="${d} H ${fx}" pathLength="1"/><circle cx="${bord[0]}" cy="${pts[0].y}" r="5"/><circle cx="${fx}" cy="${fin.y}" r="5"/>`;
+}
+function parcours(){
+  const zone=$(".labyrinthe"); if(!zone) return;
+  tracerParcours(); new ResizeObserver(tracerParcours).observe($(".frise"));
+  if(reduit){zone.classList.add("trace-visible");return}
+  const obs=new IntersectionObserver(es=>{if(es[0].isIntersecting){zone.classList.add("trace-visible");obs.disconnect()}},{rootMargin:"0px 0px -20% 0px"});
+  obs.observe(zone);
 }
 
 function sortiePolaroid(){const sc=$("#scene");if(!sc)return;
