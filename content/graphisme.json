@@ -27,7 +27,21 @@
         "Identité visuelle",
         "Mise en page"
       ],
-      "images": []
+      "images": [],
+      "livret": [
+        "images/livret/page-01.jpg",
+        "images/livret/page-02.jpg",
+        "images/livret/page-03.jpg",
+        "images/livret/page-04.jpg",
+        "images/livret/page-05.jpg",
+        "images/livret/page-06.jpg",
+        "images/livret/page-07.jpg",
+        "images/livret/page-08.jpg",
+        "images/livret/page-09.jpg",
+        "images/livret/page-10.jpg",
+        "images/livret/page-11.jpg",
+        "images/livret/page-12.jpg"
+      ]
     },
     {
       "nom": "Planète Cacao",
