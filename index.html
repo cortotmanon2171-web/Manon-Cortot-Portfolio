@@ -163,7 +163,7 @@ section{padding:120px 0;position:relative}
 .filtres{margin-bottom:34px}
 .grille-affiches{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:26px}
 .affiche{all:unset;cursor:pointer;display:block;position:relative;aspect-ratio:1/1.414;border-radius:18px;overflow:hidden;
-  box-shadow:0 30px 50px -24px #000,0 0 0 1px rgba(255,255,255,.12);transition:transform .45s var(--courbe),box-shadow .45s;transform-style:preserve-3d}
+  box-shadow:0 30px 50px -24px #000,0 0 0 1px rgba(255,255,255,.12);transition:transform .45s var(--courbe),box-shadow .45s}
 .affiche img.fond{width:100%;height:100%;object-fit:cover}
 .affiche:hover{box-shadow:0 40px 70px -24px #000,0 0 50px -10px rgba(246,218,122,.45),0 0 0 1px rgba(255,255,255,.25)}
 .affiche .infos{position:absolute;left:10px;right:10px;bottom:10px;padding:12px 14px;border-radius:14px;transform:translateY(130%);transition:transform .45s var(--courbe)}
@@ -236,14 +236,18 @@ dialog[open]{animation:pop .45s var(--courbe)}
 /* ---------- Photos ---------- */
 .series{margin-bottom:18px}
 .texte-serie{max-width:46em;margin:0 0 30px;color:var(--texte-doux)}
-.galerie{columns:4 240px;column-gap:16px}
-.galerie button{all:unset;display:block;width:100%;margin:0 0 16px;break-inside:avoid;cursor:zoom-in;border-radius:18px;overflow:hidden;position:relative;
+/* mosaïque en grille (et non en colonnes CSS : dans les colonnes, Safari et Chrome
+   font disparaître les photos qui s'animent au survol) */
+.galerie{--ecart:16px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:4px;column-gap:var(--ecart);align-items:start}
+.galerie button{all:unset;display:block;cursor:zoom-in;border-radius:18px;overflow:hidden;position:relative;isolation:isolate;
   box-shadow:var(--ombre);transition:opacity .8s,transform .9s var(--courbe),box-shadow .4s}
-.galerie button img{width:100%;height:auto;transition:transform .9s var(--courbe)}
+.galerie button img{display:block;width:100%;height:auto;transition:transform .9s var(--courbe)}
 .galerie button:hover img{transform:scale(1.05)}
 .galerie button:hover{box-shadow:var(--ombre-forte)}
 .galerie button.entre{opacity:0;transform:translateY(50px) scale(.97)}
-@media (max-width:620px){.galerie{columns:2;column-gap:10px}.galerie button{margin-bottom:10px;border-radius:12px}}
+@media (max-width:1040px){.galerie{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:780px){.galerie{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.galerie{--ecart:10px}.galerie button{border-radius:12px}}
 .outils{margin-top:34px;padding:18px 22px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .outils b{font-family:var(--display);font-size:22px;text-transform:uppercase;letter-spacing:.02em}
 
@@ -819,12 +823,19 @@ function construire(C){
 
   /* --- photos --- */
   if(S.length){
-    const obsGal=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove("entre");obsGal.unobserve(e.target)}}),{rootMargin:"0px 0px -8% 0px"});
+    const obsGal=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const b=e.target;b.classList.remove("entre");obsGal.unobserve(b);
+      setTimeout(()=>b.style.transitionDelay="",1200)}}),{rootMargin:"0px 0px -8% 0px"});
+    // chaque photo occupe autant de rangées de 4px que sa hauteur réelle (+ l'écart)
+    const g=$("#galerie");
+    const caler=b=>{const im=b.firstChild,w=b.offsetWidth;if(!w)return;const r=im.naturalWidth?im.naturalHeight/im.naturalWidth:4/3;
+      b.style.gridRowEnd="span "+Math.ceil((w*r+parseFloat(getComputedStyle(g).columnGap))/4)};
+    new ResizeObserver(()=>g.querySelectorAll("button").forEach(caler)).observe(g);
     const afficherSerie=s=>{
-      $("#texte-serie").textContent=s.description||""; const g=$("#galerie"); g.innerHTML="";
+      $("#texte-serie").textContent=s.description||""; g.innerHTML="";
       liste(s.photos).forEach((ph,i)=>{const b=document.createElement("button");b.setAttribute("aria-label","Agrandir la photo "+(i+1));
         b.innerHTML=`<img src="${esc(ph.image)}" alt="${esc(ph.alt||"")}" loading="lazy">`;b.onclick=()=>ouvrirPhoto(liste(s.photos),i);
-        if(!reduit){b.classList.add("entre");b.style.transitionDelay=(i%4)*90+"ms";obsGal.observe(b)} g.appendChild(b)});
+        b.firstChild.addEventListener("load",()=>caler(b));
+        if(!reduit){b.classList.add("entre");b.style.transitionDelay=(i%4)*90+"ms";obsGal.observe(b)} g.appendChild(b);caler(b)});
     };
     S.forEach((s,i)=>{const b=document.createElement("button");b.textContent=s.nom;b.setAttribute("aria-pressed",i===0);
       b.onclick=()=>{$$("#series button").forEach(x=>x.setAttribute("aria-pressed",x===b));afficherSerie(s)};$("#series").appendChild(b)});
