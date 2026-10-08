@@ -1,7 +1,7 @@
 {
   "titre": "AE2I",
   "sous_titre": "l'asso étudiante de l'IUT d'Arles",
-  "intro": "J'ai d'abord rejoint l'AE2I comme community manager, avant d'en devenir présidente. Une asso qui m'a appris à tout faire : communiquer, créer, organiser et fédérer une équipe.",
+  "intro": "J'ai d'abord été community manager de l'AE2I, puis présidente. Tout ce que tu vois ici, ce sont mes réalisations pour l'asso : identité visuelle, posts Instagram, logos d'événements et merch.",
   "instagram": "https://www.instagram.com/ae2i_arles/",
   "parcours": [
     {
@@ -16,23 +16,13 @@
   "equipe": {
     "titre": "L'équipe",
     "sous_titre": "bureau, pôle com & pôle animation",
-    "description": "Une équipe d'étudiants répartie entre le bureau, le pôle communication et le pôle animation, présentée sur nos réseaux avec cette photo de groupe.",
-    "competences": [
-      "Présidence",
-      "Gestion d'équipe",
-      "Organisation"
-    ],
+    "description": "L'équipe de l'asso, répartie entre le bureau, le pôle communication et le pôle animation, que j'ai présidée.",
     "image": "images/ae2i/equipe.jpg"
   },
   "identite": {
     "titre": "Identité visuelle",
     "sous_titre": "nouvelle DA",
-    "description": "J'ai repensé l'identité de l'asso : un logo plus pop, une palette rose, bleu nuit et crème, et des typographies affirmées.\n\nLe logo se décline selon les occasions : version tampon pour les supports officiels, version fond bleu pour les réseaux, et une version rose pour Octobre rose.",
-    "competences": [
-      "Logo",
-      "Charte graphique",
-      "Déclinaisons"
-    ],
+    "description": "J'ai créé la nouvelle identité visuelle de l'asso : le logo, la palette rose, bleu nuit et crème, et le choix des typographies.\n\nJ'ai aussi réalisé les déclinaisons du logo : une version tampon IUT d'Arles, une version fond bleu pour les réseaux, et une version rose pour Octobre rose.",
     "charte": "images/ae2i/charte.jpg",
     "logos": [
       {
@@ -52,13 +42,7 @@
   "reseaux": {
     "titre": "Réseaux sociaux",
     "sous_titre": "community management",
-    "description": "Sur Instagram, je gérais le feed de l'asso : annonces de soirées, présentation de l'équipe, partenariats et récaps d'événements.\n\nLe carrousel de présentation de la team : une cover, puis une slide par pôle, avec chaque membre détouré et présenté en une phrase.",
-    "competences": [
-      "Instagram",
-      "Carrousel",
-      "Photo",
-      "Détourage"
-    ],
+    "description": "En tant que community manager, je gérais le compte Instagram de l'asso : j'ai réalisé les visuels et les publications du feed.\n\nCe carrousel de présentation de la team, je l'ai entièrement réalisé : une cover, puis une slide par pôle, avec chaque membre détouré et présenté en une phrase.",
     "carrousel": [
       {
         "nom": "Cover",
@@ -80,19 +64,10 @@
     "feed": "images/ae2i/feed.jpg"
   },
   "evenements": {
-    "titre": "Soirées & WED",
-    "sous_titre": "affiches & événements",
-    "description": "Pour chaque soirée, une affiche qui donne envie de venir : date, lieu, prix et un thème bien visible.\n\nPour le week-end d'intégration, j'ai créé un logo dédié, repris ensuite sur les t-shirts.",
-    "competences": [
-      "Affiche",
-      "Événementiel",
-      "Logo"
-    ],
+    "titre": "WED 2026",
+    "sous_titre": "le week-end de fin d'année",
+    "description": "J'ai créé le logo du WED 2026, notre week-end de fin d'année. Je l'ai ensuite décliné sur les t-shirts de l'événement.",
     "affiches": [
-      {
-        "nom": "Soirée parrains / marraines",
-        "image": "images/ae2i/affiche-parrains.jpg"
-      },
       {
         "nom": "Logo WED 2026",
         "image": "images/ae2i/logo-wed-2026.jpg"
@@ -102,23 +77,18 @@
   "merch": {
     "titre": "Le merch",
     "sous_titre": "t-shirts & sweats",
-    "description": "Des t-shirts pour le week-end d'intégration, une version pour les étudiants et une pour le staff, ainsi que des sweats aux couleurs de l'asso.",
-    "competences": [
-      "Textile",
-      "Mockups",
-      "Déclinaisons"
-    ],
+    "description": "J'ai réalisé tout le merch de l'asso :\n\n• les t-shirts du week-end de fin d'année (WED 2026), en version étudiant et en version staff ;\n• les sweats pour le staff ;\n• un t-shirt présidente.",
     "pieces": [
       {
-        "nom": "Sweat AE2I, dos",
+        "nom": "Sweat du staff, dos",
         "image": "images/ae2i/merch/sweat-dos.webp"
       },
       {
-        "nom": "T-shirt étudiant, devant",
+        "nom": "T-shirt du week-end de fin d'année, devant",
         "image": "images/ae2i/merch/tee-etudiant-avant.webp"
       },
       {
-        "nom": "T-shirt staff WED 2026",
+        "nom": "T-shirt staff du week-end de fin d'année",
         "image": "images/ae2i/merch/tee-staff.webp"
       },
       {
@@ -126,14 +96,15 @@
         "image": "images/ae2i/merch/tee-presidente.webp"
       },
       {
-        "nom": "T-shirt étudiant WED 2026, dos",
+        "nom": "T-shirt du week-end de fin d'année, dos",
         "image": "images/ae2i/merch/tee-etudiant-dos.webp"
       },
       {
-        "nom": "Sweat AE2I, devant",
+        "nom": "Sweat du staff, devant",
         "image": "images/ae2i/merch/sweat-avant.webp"
       }
     ]
   },
-  "videos": []
+  "videos": [],
+  "logo": "images/ae2i/logo-detoure.webp"
 }

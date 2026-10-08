@@ -109,6 +109,7 @@ collections:
           - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
           - {name: intro, label: Texte d'introduction, widget: text, required: false}
           - {name: instagram, label: Lien Instagram de l'asso, widget: string, required: false}
+          - {name: logo, label: "Logo sans fond (imprimé sur le dossier du merch)", widget: image, required: false}
           - name: parcours
             label: Mes rôles dans l'asso
             label_singular: rôle
@@ -123,7 +124,6 @@ collections:
               - {name: titre, label: Titre, widget: string}
               - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
               - {name: description, label: Description, widget: text, required: false}
-              - {name: competences, label: Compétences, widget: list, required: false}
               - {name: image, label: Photo d'équipe, widget: image}
           - name: identite
             label: Identité visuelle
@@ -132,7 +132,6 @@ collections:
               - {name: titre, label: Titre, widget: string}
               - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
               - {name: description, label: Description, widget: text, required: false}
-              - {name: competences, label: Compétences, widget: list, required: false}
               - {name: charte, label: Charte graphique, widget: image, required: false}
               - {name: logos, label: "Logos et déclinaisons (le premier est le grand)", widget: list, required: false, summary: "{{fields.nom}}", hint: "Si le nom contient « Octobre rose », un petit ruban s'affiche.", fields: [{name: nom, label: Nom, widget: string}, {name: image, label: Image, widget: image}]}
           - name: reseaux
@@ -142,18 +141,16 @@ collections:
               - {name: titre, label: Titre, widget: string}
               - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
               - {name: description, label: Description, widget: text, required: false}
-              - {name: competences, label: Compétences, widget: list, required: false}
               - {name: carrousel, label: "Slides du carrousel (dans l'ordre)", widget: list, required: false, summary: "{{fields.nom}}", fields: [{name: nom, label: Nom de la slide, widget: string}, {name: image, label: "Image (format 4:5)", widget: image}]}
               - {name: feed, label: Capture du feed (téléphone), widget: image, required: false}
           - name: evenements
-            label: Soirées & événements
+            label: Événements
             widget: object
             fields:
               - {name: titre, label: Titre, widget: string}
               - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
               - {name: description, label: Description, widget: text, required: false}
-              - {name: competences, label: Compétences, widget: list, required: false}
-              - {name: affiches, label: Affiches et logos d'événement, widget: list, required: false, summary: "{{fields.nom}}", hint: "Si le nom contient « logo », l'image s'affiche en rond.", fields: [{name: nom, label: Nom, widget: string}, {name: image, label: Image, widget: image}]}
+              - {name: affiches, label: Logos et affiches d'événement, widget: list, required: false, summary: "{{fields.nom}}", hint: "Si le nom contient « logo », l'image s'affiche en rond.", fields: [{name: nom, label: Nom, widget: string}, {name: image, label: Image, widget: image}]}
           - name: merch
             label: Le merch
             widget: object
@@ -161,8 +158,7 @@ collections:
               - {name: titre, label: Titre, widget: string}
               - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
               - {name: description, label: Description, widget: text, required: false}
-              - {name: competences, label: Compétences, widget: list, required: false}
-              - {name: pieces, label: "Vêtements détourés (PNG ou WebP sans fond), ils sortent du sac en éventail", widget: list, required: false, summary: "{{fields.nom}}", fields: [{name: nom, label: Nom, widget: string}, {name: image, label: Image sans fond, widget: image}]}
+              - {name: pieces, label: "Vêtements détourés (PNG ou WebP sans fond), ils sortent du dossier en éventail", widget: list, required: false, summary: "{{fields.nom}}", fields: [{name: nom, label: Nom, widget: string}, {name: image, label: Image sans fond, widget: image}]}
           - name: videos
             label: Vidéos de l'asso
             label_singular: vidéo
