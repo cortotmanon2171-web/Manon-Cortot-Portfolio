@@ -95,7 +95,10 @@ collections:
               - {name: titre, label: Grand titre, widget: string, required: false}
               - {name: description, label: Description, widget: text}
               - {name: competences, label: Compétences, widget: list, required: false}
-              - {name: images, label: Images (3 maximum affichées), widget: list, required: false, field: {name: image, label: Image, widget: image}}
+              - {name: images, label: Images (galerie), widget: list, required: false, field: {name: image, label: Image, widget: image}}
+              - {name: site, label: "Captures du site (affichées dans un ordinateur)", widget: list, required: false, summary: "{{fields.nom}}", fields: [{name: nom, label: Nom de la page, widget: string}, {name: image, label: "Capture (format 16:9)", widget: image}]}
+              - {name: domaine, label: Adresse affichée dans l'ordinateur, widget: string, required: false}
+              - {name: livret, label: "Pages du livret feuilletable (dans l'ordre, couverture d'abord)", widget: list, required: false, field: {name: page, label: Page, widget: image}}
 
       # ---------------------------------------------------------- MAQUETTES
       - name: maquettes
