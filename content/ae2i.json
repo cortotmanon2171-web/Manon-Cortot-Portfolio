@@ -1,0 +1,101 @@
+{
+  "titre": "AE2I",
+  "sous_titre": "l'asso étudiante de l'IUT d'Arles",
+  "intro": "J'ai d'abord été community manager de l'AE2I, puis présidente. Tout ce que tu vois ici, ce sont mes réalisations pour l'asso : identité visuelle, posts Instagram, logos d'événements et merch.",
+  "instagram": "https://www.instagram.com/ae2i_arles/",
+  "parcours": [
+    {
+      "titre": "Community manager",
+      "texte": "Gestion du compte Instagram, création des visuels et des publications."
+    },
+    {
+      "titre": "Présidente",
+      "texte": "À la tête du bureau : événements, partenariats, merch et coordination de l'équipe."
+    }
+  ],
+  "equipe": {
+    "titre": "L'équipe",
+    "sous_titre": "bureau, pôle com & pôle animation",
+    "description": "L'équipe de l'asso, répartie entre le bureau, le pôle communication et le pôle animation, que j'ai présidée.",
+    "image": "images/ae2i/equipe.jpg"
+  },
+  "identite": {
+    "titre": "Identité visuelle",
+    "sous_titre": "nouvelle DA",
+    "description": "J'ai créé la nouvelle identité visuelle de l'asso : le logo, la palette rose, bleu nuit et crème, et le choix des typographies.\n\nJ'ai aussi réalisé les déclinaisons du logo : une version tampon IUT d'Arles, une version fond bleu pour les réseaux, et une version rose pour Octobre rose.",
+    "charte": "images/ae2i/charte.jpg",
+    "logos": [
+      {
+        "nom": "Logo principal",
+        "image": "images/ae2i/logo-bleu.jpg"
+      },
+      {
+        "nom": "Tampon IUT d'Arles",
+        "image": "images/ae2i/logo-disco.jpg"
+      },
+      {
+        "nom": "Octobre rose",
+        "image": "images/ae2i/logo-octobre-rose.jpg"
+      }
+    ]
+  },
+  "reseaux": {
+    "titre": "Réseaux sociaux",
+    "sous_titre": "community management",
+    "description": "En tant que community manager, je gérais le compte Instagram de l'asso : j'ai réalisé les visuels et les publications du feed.\n\nCe carrousel de présentation de la team, je l'ai entièrement réalisé : une cover, puis une slide par pôle, avec chaque membre détouré et présenté en une phrase.",
+    "carrousel": [
+      {
+        "nom": "Cover",
+        "image": "images/ae2i/carrousel-1.jpg"
+      },
+      {
+        "nom": "Bureau",
+        "image": "images/ae2i/carrousel-2.jpg"
+      },
+      {
+        "nom": "Animation",
+        "image": "images/ae2i/carrousel-3.jpg"
+      },
+      {
+        "nom": "Comm",
+        "image": "images/ae2i/carrousel-4.jpg"
+      }
+    ],
+    "feed": "images/ae2i/feed.jpg"
+  },
+  "merch": {
+    "titre": "Le merch",
+    "sous_titre": "t-shirts & sweats",
+    "description": "J'ai réalisé tout le merch de l'asso :\n\n• le logo du WED 2026, notre week-end de fin d'année, et les t-shirts de l'événement, en version étudiant et en version staff ;\n• les sweats pour le staff ;\n• un t-shirt présidente.",
+    "pieces": [
+      {
+        "nom": "Sweat du staff, dos",
+        "image": "images/ae2i/merch/sweat-dos.webp"
+      },
+      {
+        "nom": "T-shirt du week-end de fin d'année, devant",
+        "image": "images/ae2i/merch/tee-etudiant-avant.webp"
+      },
+      {
+        "nom": "T-shirt staff du week-end de fin d'année",
+        "image": "images/ae2i/merch/tee-staff.webp"
+      },
+      {
+        "nom": "T-shirt présidente",
+        "image": "images/ae2i/merch/tee-presidente.webp"
+      },
+      {
+        "nom": "T-shirt du week-end de fin d'année, dos",
+        "image": "images/ae2i/merch/tee-etudiant-dos.webp"
+      },
+      {
+        "nom": "Sweat du staff, devant",
+        "image": "images/ae2i/merch/sweat-avant.webp"
+      }
+    ],
+    "logo": "images/ae2i/logo-wed-2026.jpg",
+    "logo_nom": "Logo WED 2026"
+  },
+  "logo": "images/ae2i/logo-detoure.webp",
+  "videos": []
+}
