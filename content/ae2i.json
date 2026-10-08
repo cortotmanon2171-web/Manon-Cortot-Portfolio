@@ -63,21 +63,10 @@
     ],
     "feed": "images/ae2i/feed.jpg"
   },
-  "evenements": {
-    "titre": "WED 2026",
-    "sous_titre": "le week-end de fin d'année",
-    "description": "J'ai créé le logo du WED 2026, notre week-end de fin d'année. Je l'ai ensuite décliné sur les t-shirts de l'événement.",
-    "affiches": [
-      {
-        "nom": "Logo WED 2026",
-        "image": "images/ae2i/logo-wed-2026.jpg"
-      }
-    ]
-  },
   "merch": {
     "titre": "Le merch",
     "sous_titre": "t-shirts & sweats",
-    "description": "J'ai réalisé tout le merch de l'asso :\n\n• les t-shirts du week-end de fin d'année (WED 2026), en version étudiant et en version staff ;\n• les sweats pour le staff ;\n• un t-shirt présidente.",
+    "description": "J'ai réalisé tout le merch de l'asso :\n\n• le logo du WED 2026, notre week-end de fin d'année, et les t-shirts de l'événement, en version étudiant et en version staff ;\n• les sweats pour le staff ;\n• un t-shirt présidente.",
     "pieces": [
       {
         "nom": "Sweat du staff, dos",
@@ -103,8 +92,10 @@
         "nom": "Sweat du staff, devant",
         "image": "images/ae2i/merch/sweat-avant.webp"
       }
-    ]
+    ],
+    "logo": "images/ae2i/logo-wed-2026.jpg",
+    "logo_nom": "Logo WED 2026"
   },
-  "videos": [],
-  "logo": "images/ae2i/logo-detoure.webp"
+  "logo": "images/ae2i/logo-detoure.webp",
+  "videos": []
 }

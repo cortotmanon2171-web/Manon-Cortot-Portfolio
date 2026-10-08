@@ -143,14 +143,6 @@ collections:
               - {name: description, label: Description, widget: text, required: false}
               - {name: carrousel, label: "Slides du carrousel (dans l'ordre)", widget: list, required: false, summary: "{{fields.nom}}", fields: [{name: nom, label: Nom de la slide, widget: string}, {name: image, label: "Image (format 4:5)", widget: image}]}
               - {name: feed, label: Capture du feed (téléphone), widget: image, required: false}
-          - name: evenements
-            label: Événements
-            widget: object
-            fields:
-              - {name: titre, label: Titre, widget: string}
-              - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
-              - {name: description, label: Description, widget: text, required: false}
-              - {name: affiches, label: Logos et affiches d'événement, widget: list, required: false, summary: "{{fields.nom}}", hint: "Si le nom contient « logo », l'image s'affiche en rond.", fields: [{name: nom, label: Nom, widget: string}, {name: image, label: Image, widget: image}]}
           - name: merch
             label: Le merch
             widget: object
@@ -158,6 +150,8 @@ collections:
               - {name: titre, label: Titre, widget: string}
               - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
               - {name: description, label: Description, widget: text, required: false}
+              - {name: logo, label: "Logo d'événement (pastille ronde sur le dossier)", widget: image, required: false}
+              - {name: logo_nom, label: Nom du logo, widget: string, required: false}
               - {name: pieces, label: "Vêtements détourés (PNG ou WebP sans fond), ils sortent du dossier en éventail", widget: list, required: false, summary: "{{fields.nom}}", fields: [{name: nom, label: Nom, widget: string}, {name: image, label: Image sans fond, widget: image}]}
           - name: videos
             label: Vidéos de l'asso
