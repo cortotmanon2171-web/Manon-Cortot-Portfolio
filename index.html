@@ -248,6 +248,11 @@ dialog[open]{animation:pop .45s var(--courbe)}
 @media (max-width:1040px){.galerie{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:780px){.galerie{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:620px){.galerie{--ecart:10px}.galerie button{border-radius:12px}}
+.galerie.vide{grid-auto-rows:auto}
+.galerie .bientot{aspect-ratio:3/4;border-radius:18px;border:2px dashed var(--pervenche);display:grid;place-items:center;text-align:center;padding:20px;color:var(--texte-doux)}
+.galerie .bientot b{display:block;font:900 30px/.9 var(--display);text-transform:uppercase;color:var(--texte)}
+.galerie .bientot span{font-family:var(--script);font-size:26px;color:var(--pervenche)}
+@media (max-width:780px){.galerie .bientot:nth-child(3){display:none}.galerie .bientot{padding:10px}.galerie .bientot b{font-size:22px}.galerie .bientot span{font-size:19px}}
 .outils{margin-top:34px;padding:18px 22px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .outils b{font-family:var(--display);font-size:22px;text-transform:uppercase;letter-spacing:.02em}
 
@@ -632,7 +637,7 @@ chargerContenu().then(construire).catch(()=>{
 });
 
 function construire(C){
-  const P=C.profil, V=liste(C.videos.videos), S=liste(C.photos.series).filter(s=>liste(s.photos).length),
+  const P=C.profil, V=liste(C.videos.videos), S=liste(C.photos.series).filter(s=>s.nom),
         G=liste(C.graphisme.projets), M=liste(C.maquettes.maquettes), Z=C.zones||{}, O=P.options||{}, A=C.ae2i||null;
   $("#logo").textContent=`${P.prenom} ${P.nom}`;
   document.title=`${P.prenom} ${P.nom} · Vidéaste, monteuse et photographe`;
@@ -836,6 +841,8 @@ function construire(C){
         b.innerHTML=`<img src="${esc(ph.image)}" alt="${esc(ph.alt||"")}" loading="lazy">`;b.onclick=()=>ouvrirPhoto(liste(s.photos),i);
         b.firstChild.addEventListener("load",()=>caler(b));
         if(!reduit){b.classList.add("entre");b.style.transitionDelay=(i%4)*90+"ms";obsGal.observe(b)} g.appendChild(b);caler(b)});
+      g.classList.toggle("vide",!liste(s.photos).length);
+      if(!liste(s.photos).length) g.innerHTML=[0,1,2].map(()=>`<div class="bientot"><div><b>Photos</b><span>bientôt en ligne</span></div></div>`).join("");
     };
     S.forEach((s,i)=>{const b=document.createElement("button");b.textContent=s.nom;b.setAttribute("aria-pressed",i===0);
       b.onclick=()=>{$$("#series button").forEach(x=>x.setAttribute("aria-pressed",x===b));afficherSerie(s)};$("#series").appendChild(b)});
