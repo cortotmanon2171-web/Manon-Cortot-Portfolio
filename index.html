@@ -31,7 +31,7 @@
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 90px)}
 html,body{overflow-x:clip}
-body{margin:0;background:var(--bg);color:var(--texte);font-family:var(--sans);font-size:17px;line-height:1.6;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--texte);font-family:var(--sans);font-size:17px;line-height:1.6;overflow-x:clip}
 img{max-width:100%;display:block}
 a{color:inherit}
 button{font:inherit;color:inherit}
@@ -122,48 +122,90 @@ button{font:inherit;color:inherit}
 @media (max-width:980px){:root[data-theme="dark"] .nav ul a{color:var(--papier)}}
 @media (max-width:980px) and (prefers-color-scheme: dark){:root:not([data-theme="light"]) .nav ul a{color:var(--papier)}:root:not([data-theme="light"]) .nav ul a.actif{background:var(--soleil);color:var(--encre)}}
 
-/* ---------- Hero ---------- */
-.hero{min-height:100vh;display:flex;align-items:center;padding:130px 0 70px;position:relative}
-.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}
-.hero .petit{font-family:var(--script);font-size:clamp(34px,4.2vw,56px);line-height:1;margin:0 0 -4px 6px;color:var(--pervenche)}
-.hero h1{margin:0;font-family:var(--display);font-weight:900;text-transform:uppercase;line-height:.84;font-size:clamp(82px,13vw,190px);letter-spacing:-.01em}
-.hero h1 span{display:block;will-change:transform}
 .degrade{background:linear-gradient(100deg,var(--encre) 10%,#4A5EA0 45%,var(--pervenche) 80%);-webkit-background-clip:text;background-clip:text;color:transparent}
 :root[data-theme="dark"] .degrade{background-image:linear-gradient(100deg,#FFF4D2,#F6DA7A 40%,#B7B9F2)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .degrade{background-image:linear-gradient(100deg,#FFF4D2,#F6DA7A 40%,#B7B9F2)}}
-.hero h1 .contour{color:transparent;-webkit-text-stroke:2px var(--texte);background:none}
-.hero .intro{max-width:31em;font-size:19px;margin:26px 0 30px;color:var(--texte-doux)}
-.hero .actions{display:flex;gap:14px;flex-wrap:wrap}
-.scene{position:relative;aspect-ratio:1/1;width:100%;max-width:580px;justify-self:center;container-type:inline-size}
-.scene .orbe{position:absolute;inset:6% 2% 8% 6%;border-radius:50%;filter:blur(30px);opacity:.85;
-  background:conic-gradient(from 200deg,var(--soleil),var(--lavande),var(--ciel),var(--soleil));animation:pulse 9s ease-in-out infinite}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
-.dossier{position:absolute;left:0;width:74%;top:30%;bottom:6%}
-.dossier .dos{position:absolute;inset:0;border-radius:3cqw 3cqw 2cqw 2cqw;background:linear-gradient(170deg,#EBD594,#D9BE72);box-shadow:var(--ombre-forte)}
-.dossier .dos::before{content:"";position:absolute;top:-5cqw;left:6%;width:38%;height:6cqw;border-radius:2cqw 2cqw 0 0;background:#EBD594}
-.dossier .feuille{position:absolute;left:7%;right:10%;top:-3cqw;height:55%;border-radius:1.2cqw;background:var(--papier);transform:rotate(-2deg);
-  background-image:repeating-linear-gradient(0deg,transparent 0 2.6cqw,rgba(131,150,192,.35) 2.6cqw calc(2.6cqw + 1px));box-shadow:0 6px 18px -8px rgba(18,34,74,.3)}
-.dossier .feuille.b{left:14%;right:4%;top:-1.5cqw;transform:rotate(3deg);background:var(--ciel);background-image:none}
-.dossier .polaroid{position:absolute;z-index:2;left:3%;top:6%;width:44%;padding:2cqw 2cqw 6cqw;background:#fff;border-radius:1cqw;
-  box-shadow:0 18px 40px -16px rgba(18,34,74,.55);transform:translateY(calc(var(--sortie,0) * -88%)) rotate(calc(var(--sortie,0) * -9deg));transform-origin:50% 100%}
-.dossier .polaroid img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:50% 25%}
-.dossier .polaroid span{position:absolute;left:0;right:0;bottom:1cqw;text-align:center;font-family:var(--script);font-size:5.2cqw;line-height:1.2;color:var(--encre)}
-.dossier .face{position:absolute;z-index:3;left:0;right:0;bottom:0;top:22%;border-radius:2cqw;
-  background:linear-gradient(175deg,#F7E7B0,#EED593);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 -6px 20px -12px rgba(18,34,74,.35);
-  display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 7% 6%;color:var(--encre)}
-.dossier .face .script{font-family:var(--script);font-size:9cqw;line-height:.8}
-.dossier .face .gros{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:8.6cqw;line-height:.86;max-width:46cqw}
-.dossier .face small{font-size:2.6cqw;opacity:.75;margin-top:1.5cqw}
-.scene .moi{position:absolute;z-index:4;right:-3%;bottom:6%;height:92%;width:auto;max-width:none;pointer-events:none;
-  filter:drop-shadow(0 30px 40px rgba(18,34,74,.35))}
-@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}.scene{max-width:460px;margin-top:10px}.hero{padding-top:110px;min-height:auto}}
 
-/* bandeau */
-.bandeau{position:relative;z-index:1;margin:0 auto;width:min(1200px,100% - 24px);border-radius:999px;overflow:hidden;padding:14px 0}
-.bandeau .piste{display:flex;width:max-content;animation:defile 30s linear infinite}
-.bandeau span{font-family:var(--display);font-weight:800;font-size:26px;text-transform:uppercase;padding-right:30px;white-space:nowrap}
-.bandeau i{font-family:var(--script);font-style:normal;font-size:32px;padding-right:30px;color:var(--pervenche)}
+/* ---------- Accueil : le dossier créatif ---------- */
+/* la scène reste collée à l'écran pendant que l'on fait défiler l'accueil : le dossier s'ouvre et les projets en sortent */
+.accueil{position:relative;height:300vh}
+.ac-scene{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;contain:layout paint}
+.ac-nom{position:absolute;z-index:1;left:3vw;top:50%;margin:0;transform:translateY(-54%);font-family:var(--display);font-weight:900;text-transform:uppercase;
+  line-height:.8;font-size:min(18vw,30vh);letter-spacing:-.01em;pointer-events:none;user-select:none}
+.ac-nom span{display:block;will-change:translate,opacity}
+.ac-nom .contour{color:transparent;-webkit-text-stroke:2px var(--texte);background:none;padding-left:.06em}
+.ac-dos,.ac-face{position:absolute;left:var(--dx);bottom:var(--db);width:var(--dw);height:calc(var(--dw) * .74);margin-left:calc(var(--dw) / -2)}
+.accueil{--dx:34%;--db:-7%;--dw:min(32vw,50vh)}
+.ac-dos{z-index:2;border-radius:2.4% 2.4% 0 0/3.2% 3.2% 0 0;background:linear-gradient(170deg,#EBD594,#D9BE72);box-shadow:var(--ombre-forte)}
+.ac-dos::before{content:"";position:absolute;top:-8%;left:6%;width:36%;height:9%;border-radius:12px 12px 0 0;background:#EBD594}
+.ac-face{z-index:4;top:auto;height:calc(var(--dw) * .6);transform-origin:50% 100%;border-radius:12px 12px 0 0;
+  background:linear-gradient(175deg,#F7E7B0,#EED593);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 -8px 24px -14px rgba(18,34,74,.45);
+  display:flex;align-items:flex-start;padding:7% 0 0 7%;color:var(--encre)}
+.ac-face b{font-family:var(--script);font-weight:400;font-size:calc(var(--dw) * .13);line-height:1;transform:rotate(-4deg)}
+.ac-moi{position:absolute;z-index:6;right:1%;bottom:0;height:78%;width:auto;max-width:none;pointer-events:none;filter:drop-shadow(0 30px 40px rgba(18,34,74,.35));will-change:translate}
+/* les projets : ce sont aussi des liens vers leur catégorie */
+.piece-ac{position:absolute;z-index:3;left:0;top:0;width:var(--w,150px);display:block;text-decoration:none;color:var(--encre);will-change:transform;
+  transform:translate(-50%,-50%);-webkit-tap-highlight-color:transparent}
+.piece-ac > div{transition:transform .35s var(--courbe),box-shadow .35s}
+.piece-ac img{width:100%;height:auto;display:block;pointer-events:none;user-select:none}
+.pa-affiche > div,.pa-page > div{border-radius:6px;overflow:hidden;box-shadow:0 26px 44px -22px rgba(18,34,74,.6),0 2px 6px rgba(18,34,74,.15)}
+.pa-photo > div{background:#fff;padding:5%;border-radius:3px;box-shadow:0 26px 44px -22px rgba(18,34,74,.6),0 2px 6px rgba(18,34,74,.15)}
+.pa-photo img{aspect-ratio:3/4;object-fit:cover}
+.pa-detoure > div{filter:drop-shadow(0 18px 22px rgba(18,34,74,.38))}
+.pa-video > div{position:relative;border-radius:10px;overflow:hidden;background:#000;box-shadow:0 26px 44px -22px rgba(18,34,74,.7)}
+.pa-video > div::before{content:"";position:absolute;left:50%;top:50%;width:18%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:rgba(255,255,255,.9) no-repeat 56% 50%/38% url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 12'><path d='M0 0l10 6-10 6z' fill='%2312224A'/></svg>")}
+.pa-video > div::after{content:"";position:absolute;left:5%;right:5%;bottom:6%;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--soleil) 38%,rgba(255,255,255,.45) 38%)}
+.pa-tel > div{padding:5%;border-radius:18%/9%;background:#0d0d14;box-shadow:0 30px 50px -22px rgba(18,34,74,.75),inset 0 0 0 2px #34364a}
+.pa-tel img{border-radius:14%/6.5%}
+.piece-ac .etiq{position:absolute;left:50%;top:100%;translate:-50% 0;margin-top:6px;white-space:nowrap;font:400 26px/1 var(--script);color:var(--encre);
+  opacity:0;transform:translateY(-6px);transition:opacity .3s,transform .35s var(--courbe);pointer-events:none}
+:root[data-theme="dark"] .piece-ac .etiq{color:var(--beurre)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .piece-ac .etiq{color:var(--beurre)}}
+@media (hover:hover) and (pointer:fine){
+  .piece-ac:hover{z-index:7!important}
+  .piece-ac:hover > div{transform:translateY(-10px) rotate(var(--rh,-2deg)) scale(1.06)}
+  .pa-affiche:hover > div,.pa-photo:hover > div,.pa-page:hover > div{box-shadow:0 40px 60px -24px rgba(18,34,74,.7)}
+  .piece-ac:hover .etiq{opacity:1;transform:none}
+}
+.piece-ac:focus-visible{outline:none}.piece-ac:focus-visible > div{outline:3px solid var(--soleil);outline-offset:4px}
+/* le viseur de caméra */
+.viseur{position:absolute;z-index:7;inset:calc(env(safe-area-inset-top,0px) + 86px) 22px 22px;pointer-events:none;color:var(--texte);
+  font:600 13px/1 var(--sans);letter-spacing:.12em;font-variant-numeric:tabular-nums}
+.viseur i{position:absolute;width:26px;height:26px;border:0 solid currentColor;opacity:.55}
+.viseur i:nth-child(1){left:0;top:0;border-width:2px 0 0 2px}.viseur i:nth-child(2){right:0;top:0;border-width:2px 2px 0 0}
+.viseur i:nth-child(3){left:0;bottom:0;border-width:0 0 2px 2px}.viseur i:nth-child(4){right:0;bottom:0;border-width:0 2px 2px 0}
+.viseur .rec,.viseur .tc{position:absolute;bottom:10px}
+.viseur .rec{left:38px;display:flex;align-items:center;gap:8px}
+.viseur .rec::before{content:"";width:10px;height:10px;border-radius:50%;background:#E5484D;animation:clignote 1.2s steps(1) infinite}
+.viseur .tc{right:38px}
+@keyframes clignote{50%{opacity:0}}
+.defile{position:absolute;z-index:7;left:50%;bottom:26px;translate:-50% 0;width:2px;height:54px;border-radius:2px;background:rgba(18,34,74,.18);overflow:hidden;pointer-events:none}
+.defile::after{content:"";position:absolute;left:0;top:0;width:100%;height:40%;border-radius:2px;background:var(--texte);animation:goutte 1.8s var(--courbe) infinite}
+@keyframes goutte{0%{transform:translateY(-100%)}100%{transform:translateY(250%)}}
+/* téléphone et tablette en hauteur : le nom en haut, Manon en bas à droite, le dossier en bas à gauche */
+@media (max-aspect-ratio:10/11){
+  .accueil{height:240vh;--dx:31%;--db:-4%;--dw:min(58vw,40vh)}
+  .ac-nom{top:calc(env(safe-area-inset-top,0px) + 86px);transform:none;left:5vw;font-size:min(25vw,18vh)}
+  .ac-moi{right:-12%;height:44%}
+  .viseur{inset:calc(env(safe-area-inset-top,0px) + 76px) 12px 12px}
+  .viseur .rec{left:30px}.viseur .tc{right:30px}
+  .defile{display:none}
+}
+/* pellicule : les miniatures des vidéos défilent comme un film */
+.pellicule{position:relative;z-index:2;margin:-30px -2vw 0;transform:rotate(-2deg);background:#0d1328;padding:22px 0;overflow:hidden;
+  box-shadow:0 30px 60px -30px rgba(18,34,74,.7)}
+.pellicule::before,.pellicule::after{content:"";position:absolute;left:0;right:0;height:10px;
+  background:repeating-linear-gradient(90deg,transparent 0 14px,rgba(250,245,239,.85) 14px 26px);border-radius:2px}
+.pellicule::before{top:6px}.pellicule::after{bottom:6px}
+.pellicule .piste{display:flex;gap:10px;width:max-content;animation:defile 50s linear infinite}
+.pellicule:hover .piste{animation-play-state:paused}
+.pellicule button{all:unset;cursor:pointer;flex:none;width:clamp(170px,19vw,260px);aspect-ratio:16/9;border-radius:4px;overflow:hidden;position:relative}
+.pellicule button img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--courbe),opacity .3s;opacity:.88}
+.pellicule button:hover img,.pellicule button:focus-visible img{transform:scale(1.06);opacity:1}
+.pellicule button:focus-visible{outline:3px solid var(--soleil);outline-offset:-3px}
 @keyframes defile{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){.accueil{height:auto}.ac-scene{position:relative;height:100vh}.defile{display:none}}
+
 
 /* ---------- Sections ---------- */
 section{padding:120px 0;position:relative}
@@ -692,7 +734,6 @@ footer{position:relative;z-index:1;padding:30px 0 40px;text-align:center;font-si
   .lueur{display:none}
   /* auras : un dégradé fixe à la place d'un flou géant animé */
   .aura,.sombre .aura-locale,#contact .aura-locale{filter:none;animation:none;-webkit-mask-image:radial-gradient(closest-side,#000 15%,transparent);mask-image:radial-gradient(closest-side,#000 15%,transparent)}
-  .scene .orbe{animation:none}
   /* le flou d'arrière-plan reste sur le menu et les fenêtres, pas sur les cartes qui défilent */
   main *,main *::before,main *::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
   :root{--verre:rgba(255,255,255,.62);--verre-fort:rgba(255,255,255,.85)}
@@ -729,14 +770,11 @@ footer{position:relative;z-index:1;padding:30px 0 40px;text-align:center;font-si
 .titre h2.anim.apparu{clip-path:inset(-20% -5% -20% -5%)}
 .titre h2 em{display:block;transition:transform 1s var(--courbe) .3s,opacity 1s .3s}
 .titre h2.anim:not(.apparu) em{transform:translateX(-30px);opacity:0}
-.charge .hero h1 span,.charge .hero .petit,.charge .hero .intro,.charge .hero .actions{opacity:0;transform:translateY(40px)}
-.charge .scene .moi{opacity:0;transform:translateY(60px)}
-.charge .dossier{opacity:0;transform:translateY(50px) rotate(3deg)}
-.hero h1 span,.hero .petit,.hero .intro,.hero .actions,.scene .moi,.dossier{transition:opacity .9s,transform 1s var(--courbe)}
-.hero h1 span:nth-child(2){transition-delay:.1s}.hero h1 span:nth-child(3){transition-delay:.2s}
-.hero .intro{transition-delay:.35s}.hero .actions{transition-delay:.45s}.dossier{transition-delay:.2s}.scene .moi{transition-delay:.45s}
-.dossier .polaroid{transition:transform .25s linear}
-.pret .hero h1 span{transition:none;transform:translateX(var(--px,0px))}
+.charge .ac-nom span{opacity:0!important;transform:translateY(50px)}
+.charge .ac-moi{opacity:0;transform:translateY(60px)}
+.charge .ac-dos,.charge .ac-face,.charge .piece-ac > div{opacity:0}
+.ac-nom span,.ac-moi,.ac-dos,.ac-face,.piece-ac > div{transition:opacity .9s,transform 1s var(--courbe)}
+.ac-nom span:nth-child(2){transition-delay:.1s}.ac-dos,.ac-face{transition-delay:.25s}.piece-ac > div{transition-delay:.4s}.ac-moi{transition-delay:.45s}
 @media (prefers-reduced-motion: reduce){.anim,.titre h2.anim{opacity:1!important;transform:none!important;clip-path:none!important}}
 </style>
 </head>
@@ -805,28 +843,11 @@ function construire(C){
   $("#logo").textContent=`${P.prenom} ${P.nom}`;
   document.title=`${P.prenom} ${P.nom} · Vidéaste, monteuse et photographe`;
 
-  const mots=liste(P.competences);
+  const mots=liste(P.competences), pieces=piecesAccueil(P,V,S,A,G,M);
+  const films=V.filter(v=>v.miniature||ytId(v.lien));
   $("#contenu").innerHTML=`
-  <header class="hero" id="accueil">
-    <div class="wrap">
-      <div>
-        <p class="petit">le portfolio de</p>
-        <h1><span class="degrade">${esc(P.prenom)}</span><span class="contour">${esc(P.nom)}</span></h1>
-        <p class="intro">${esc(P.accroche)}</p>
-        <div class="actions"><a class="btn reflet" href="#videos">Voir mes films</a><a class="btn verre-btn" href="#photos">Mes photos</a></div>
-      </div>
-      <div class="scene" id="scene" aria-hidden="true">
-        <div class="orbe"></div>
-        <div class="dossier">
-          <div class="dos"></div><div class="feuille"></div><div class="feuille b"></div>
-          ${P.photo_accueil?`<div class="polaroid"><img src="${esc(P.photo_accueil)}" alt=""><span>c'est moi</span></div>`:""}
-          <div class="face"><div class="script">Creative</div><div class="gros">Portfolio</div><small>Vidéo · Photo · Graphisme</small></div>
-        </div>
-        ${P.photo_decoupe?`<img class="moi" src="${esc(P.photo_decoupe)}" alt="">`:""}
-      </div>
-    </div>
-  </header>
-  ${mots.length?`<div class="bandeau verre" aria-hidden="true"><div class="piste" id="piste"></div></div>`:""}
+  ${htmlAccueil(P,pieces)}
+  ${films.length?`<div class="pellicule" aria-label="Mes vidéos"><div class="piste" id="piste"></div></div>`:""}
 
   <section class="sombre" id="videos">
     <div class="aura-locale" style="width:520px;height:520px;left:-120px;top:-100px;background:#8396C0"></div>
@@ -911,8 +932,7 @@ function construire(C){
   </section>
   <footer>${esc(P.prenom)} ${esc(P.nom)}, vidéaste et photographe · ${new Date().getFullYear()}</footer>`;
 
-  /* --- bandeau --- */
-  if($("#piste")){const b=mots.map((m,i)=>i%2?`<i>${esc(m)}</i>`:`<span>${esc(m)}</span>`).join("");$("#piste").innerHTML=b+b+b+b}
+  animerAccueil(pieces);
 
   /* --- menu mobile --- */
   const burger=$(".burger"), menu=$("#menu");
@@ -1385,6 +1405,11 @@ function construire(C){
     maqs.forEach(d=>{delete d.dataset.mode;d.chargerCaptures()});alignerTel();
   });
 
+  /* --- pellicule : un clic ouvre la fiche de la vidéo --- */
+  if($("#piste")){const cases=films.map(v=>{const id=ytId(v.lien);return `<button data-v="${V.indexOf(v)}" aria-label="${esc(v.titre)} : ouvrir la fiche"><img src="${esc(v.miniature||`https://i.ytimg.com/vi/${id}/hqdefault.jpg`)}" alt="" loading="lazy" draggable="false"></button>`}).join("");
+    $("#piste").innerHTML=cases+cases.replace(/<button /g,'<button tabindex="-1" aria-hidden="true" ');
+    $$("#piste button").forEach(b=>b.addEventListener("click",()=>{const v=V[b.dataset.v],id=ytId(v.lien);ouvrirVideo(v,v.miniature||(id?`https://i.ytimg.com/vi/${id}/hqdefault.jpg`:""))}))}
+
   /* --- contact --- */
   const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("visible");setTimeout(()=>t.classList.remove("visible"),2200)};
   if($("#copier")) $("#copier").onclick=async()=>{try{await navigator.clipboard.writeText(P.email);toast("Adresse copiée")}catch{location.href="mailto:"+P.email}};
@@ -1410,6 +1435,78 @@ function tracerParcours(){
     <stop offset="0" stop-color="var(--soleil)"/><stop offset=".5" stop-color="var(--lavande)"/><stop offset="1" stop-color="var(--pervenche)"/></linearGradient></defs>
     <path d="${d} H ${fx}" pathLength="1"/><circle cx="${bord[0]}" cy="${pts[0].y}" r="5"/><circle cx="${fx}" cy="${fin.y}" r="5"/>`;
 }
+/* --- accueil : les projets sortent du dossier au défilement --- */
+// chaque pièce : image, lien vers sa catégorie, style, et sa place finale [x %, y %, rotation, largeur %] sur ordinateur puis en hauteur (null : cachée)
+function piecesAccueil(P,V,S,A,G,M){
+  const imgs=o=>JSON.stringify(o||{}).match(/[^"]+\.(?:jpe?g|png|webp)/gi)||[];
+  const aff=V.filter(v=>v.affiche&&v.emplacement!=="formats"), vlogs=V.filter(v=>!v.affiche&&v.miniature);
+  const photo=k=>S[k]&&liste(S[k].photos)[0];
+  const merch=A&&A.merch?liste(A.merch.pieces):[], sweat=(merch.find(x=>/sweat/i.test(x.image||"")&&/avant|devant/i.test(x.image||""))||merch[0]||{}).image;
+  const livret=G.find(g=>liste(g.livret).length), affG=G.map(imgs).flat().find(u=>/affiche/i.test(u));
+  const tel=(M.find(m=>m.format==="mobile"&&/mc/i.test(m.nom))||M.find(m=>m.format==="mobile")||{}), telImg=tel.ecrans&&tel.ecrans[0]&&tel.ecrans[0].image;
+  return [
+    [aff[0]&&aff[0].affiche,"#videos","affiche","vidéos",[9,33,-8,12],[19,41,-7,30]],
+    [aff[1]&&aff[1].affiche,"#videos","affiche","vidéos",[23,24,6,11],[50,35,5,27]],
+    [photo(0),"#photos","photo","photos",[38,27,-5,10],[83,48,7,23]],
+    [vlogs[1]&&vlogs[1].miniature||vlogs[0]&&vlogs[0].miniature,"#videos","video","vlogs",[55,15,4,15],[79,28,6,34]],
+    [A&&A.logo,"#ae2i","detoure","AE2I",[38,54,-8,15],[45,55,-6,40]],
+    [photo(1),"#photos","photo","photos",[21,55,-7,9],[87,15,8,19]],
+    [telImg,"#maquettes","tel","maquettes",[49,36,8,6.5],[13,63,-9,19]],
+    [aff[3]&&aff[3].affiche||aff[2]&&aff[2].affiche,"#videos","affiche","vidéos",[7,73,5,10.5],null],
+    [livret&&livret.livret[0],"#communication","page","com & graphisme",[56,62,-6,10],[64,70,6,24]],
+    [sweat,"#ae2i","detoure","AE2I",[61,85,9,9],null],
+    [photo(2),"#photos","photo","photos",[57,40,7,8.5],null]
+  ].filter(p=>p[0]).slice(0,11).map(([img,lien,type,etiq,d,m])=>({img,lien,type,etiq,d,m}));
+}
+function htmlAccueil(P,pieces){
+  return `<header class="accueil" id="accueil">
+    <div class="ac-scene" id="ac-scene">
+      <h1 class="ac-nom"><span class="degrade">${esc(P.prenom)}</span><span class="contour">${esc(P.nom)}</span></h1>
+      <div class="ac-dos" aria-hidden="true"></div>
+      ${pieces.map((p,k)=>`<a class="piece-ac pa-${p.type}" href="${p.lien}" data-k="${k}" style="--rh:${k%2?3:-3}deg" aria-label="Voir : ${esc(p.etiq)}"><div><img src="${esc(p.img)}" alt="" draggable="false" decoding="async"></div><span class="etiq">${esc(p.etiq)}</span></a>`).join("")}
+      <div class="ac-face" aria-hidden="true"><b>portfolio</b></div>
+      ${P.photo_decoupe?`<img class="ac-moi" src="${esc(P.photo_decoupe)}" alt="${esc(P.prenom)} ${esc(P.nom)}, caméra à la main">`:""}
+      <div class="viseur" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="rec">REC</span><span class="tc">00:00:00:00</span></div>
+      <div class="defile" aria-hidden="true"></div>
+    </div>
+  </header>`;
+}
+function animerAccueil(pieces){
+  const hd=$("#accueil"), sc=$("#ac-scene"); if(!hd) return;
+  const els=$$(".piece-ac"), noms=$$(".ac-nom span"), face=$(".ac-face"), moi=$(".ac-moi"), tc=$(".viseur .tc"), fleche=$(".defile");
+  const doux=t=>1-Math.pow(1-t,3), cl=t=>Math.max(0,Math.min(1,t));
+  let W=0,H=0,haut=false,dep=[0,0],visible=true;
+  const mesurer=()=>{W=sc.clientWidth;H=sc.clientHeight;haut=W/H<10/11;
+    const base=haut?W:Math.min(W,H*1.6), d=$(".ac-face").getBoundingClientRect(), s=sc.getBoundingClientRect();
+    // départ : au fond du dossier, juste sous le bord de la chemise de devant
+    dep=[d.left-s.left+d.width/2,d.top-s.top+d.height*.1];
+    els.forEach((el,k)=>{const p=pieces[k], c=haut?p.m:p.d;el.style.display=c?"":"none";if(c)el.style.setProperty("--w",base*c[3]/100+"px")});
+    maj()};
+  const maj=()=>{
+    const course=hd.offsetHeight-H, p=reduit||course<=0?1:cl(-hd.getBoundingClientRect().top/course);
+    const ouv=doux(cl(p/.18));
+    face.style.transform=`perspective(900px) rotateX(${(-ouv*34).toFixed(2)}deg)`;
+    noms.forEach((n,i)=>{n.style.translate=`${((i?1:-1)*doux(cl(p/.7))*(haut?18:26)).toFixed(2)}vw 0`;n.style.opacity=(1-doux(cl(p/.7))*.78).toFixed(3)});
+    if(moi) moi.style.translate=`0 ${(p*-3).toFixed(2)}vh`;
+    if(fleche) fleche.style.opacity=1-cl(p*12);
+    let n=0;
+    els.forEach((el,k)=>{const c=haut?pieces[k].m:pieces[k].d;if(!c)return;
+      // au repos, les pièces dépassent à peine du dossier ; puis elles sortent l'une après l'autre
+      const t=doux(cl((p-.04-n*.04)/.4)), a=Math.sin(Math.PI*t)*H*.1, fx=W*c[0]/100, fy=H*c[1]/100, peek=(1-t)*(n%3-1)*W*.03;
+      const x=dep[0]+(fx-dep[0])*t+peek, y=dep[1]+(fy-dep[1])*t-a-(1-t)*H*.015*(n%2), drift=cl((p-.8)/.2)*(n%2?-1:1)*H*.02;
+      el.style.transform=`translate3d(${x.toFixed(1)}px,${(y+drift).toFixed(1)}px,0) translate(-50%,-50%) rotate(${(c[2]*t+(1-t)*(n%2?4:-4)).toFixed(2)}deg) scale(${(.5+.5*t).toFixed(3)})`;
+      el.style.zIndex=t>.55?5:3;el.tabIndex=t>.5?0:-1;n++})};
+  mesurer();
+  let tic=false;
+  addEventListener("scroll",()=>{if(tic||!visible)return;tic=true;requestAnimationFrame(()=>{maj();tic=false})},{passive:true});
+  addEventListener("resize",mesurer);document.fonts.ready.then(mesurer);
+  new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible)maj()}).observe(hd);
+  // le compteur de la caméra tourne tant que l'accueil est à l'écran (25 images par seconde)
+  const t0=performance.now(), d2=x=>String(x).padStart(2,"0");
+  if(!reduit) setInterval(()=>{if(!visible||document.hidden)return;const f=Math.floor((performance.now()-t0)/40);
+    tc.textContent=`${d2(Math.floor(f/90000)%24)}:${d2(Math.floor(f/1500)%60)}:${d2(Math.floor(f/25)%60)}:${d2(f%25)}`},40);
+}
+
 function parcours(){
   const zone=$(".labyrinthe"); if(!zone) return;
   tracerParcours(); new ResizeObserver(tracerParcours).observe($(".frise"));
@@ -1418,15 +1515,7 @@ function parcours(){
   obs.observe(zone);
 }
 
-function sortiePolaroid(){const sc=$("#scene");if(!sc)return;
-  const vh=innerHeight;if(scrollY>vh&&sc.style.getPropertyValue("--sortie")==="1.000")return;
-  // 0 quand la scène est en place au chargement, 1 après environ 40 % d'écran de défilement
-  const p=Math.max(0,Math.min(1,(scrollY+(sc.dataset.survol?vh*.4:0))/(vh*.4)));
-  sc.style.setProperty("--sortie",p.toFixed(3));}
 function animations(){
-  const sc=$("#scene");
-  if(sc){sc.addEventListener("pointerenter",()=>{sc.dataset.survol=1;sortiePolaroid()});sc.addEventListener("pointerleave",()=>{delete sc.dataset.survol;sortiePolaroid()})}
-  if(reduit&&sc) sc.style.setProperty("--sortie",1);
   requestAnimationFrame(()=>setTimeout(()=>document.body.classList.remove("charge"),60));
   if(reduit) return;
   setTimeout(()=>document.body.classList.add("pret"),1800);
@@ -1437,20 +1526,16 @@ function animations(){
     setTimeout(()=>{el.classList.remove("anim","apparu","gauche","zoom");el.style.transitionDelay=""},1500+(parseInt(el.style.transitionDelay)||0))}),{rootMargin:"0px 0px -10% 0px"});
   groupes.forEach(([sel,v])=>{const vus=new Map();$$(sel).forEach(el=>{const n=vus.get(el.parentNode)||0;vus.set(el.parentNode,n+1);
     el.classList.add("anim");if(v)el.classList.add(v);el.style.transitionDelay=Math.min(n,7)*80+"ms";obs.observe(el)})});
-  // lueur qui suit la souris, parallaxe, barre de progression
-  const lueur=$(".lueur"), barre=$(".progression"), spans=$$(".hero h1 span"), scene=$("#scene");
+  // lueur qui suit la souris, barre de progression
+  const lueur=$(".lueur"), barre=$(".progression");
   let mx=innerWidth/2,my=innerHeight/2,lx=mx,ly=my;
   addEventListener("pointermove",e=>{mx=e.clientX;my=e.clientY},{passive:true});
   // au doigt il n'y a ni lueur ni curseur à suivre : pas de boucle qui tourne en continu
   if(matchMedia("(hover:hover) and (pointer:fine)").matches)(function boucle(){lx+=(mx-lx)*.08;ly+=(my-ly)*.08;lueur.style.transform=`translate(${lx}px,${ly}px)`;
-    if(scene&&scrollY<innerHeight){const dx=(mx/innerWidth-.5),dy=(my/innerHeight-.5);
-      scene.querySelector(".orbe").style.translate=`${dx*-30}px ${dy*-30}px`;const moi=scene.querySelector(".moi");if(moi)moi.style.translate=`${dx*14}px ${dy*10}px`}
     requestAnimationFrame(boucle)})();
   let tic=false;
   addEventListener("scroll",()=>{if(tic)return;tic=true;requestAnimationFrame(()=>{const y=scrollY,max=document.documentElement.scrollHeight-innerHeight;
     barre.style.transform=`scaleX(${max>0?y/max:0})`;
-    if(y<innerHeight*1.2){spans.forEach((s,i)=>s.style.setProperty("--px",(i%2?1:-1)*y*.12+"px"));if(scene)scene.style.transform=`translateY(${y*.12}px)`}
-    sortiePolaroid();
     tic=false})},{passive:true});
 }
 </script>
