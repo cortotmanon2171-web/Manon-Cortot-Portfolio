@@ -83,22 +83,6 @@
       "description": "Vidéo publicitaire pour Mosaicc, un hub créatif au cœur d'Arles, réalisée en équipe à l'IUT et récompensée par le prix MMI d'Or de la meilleure vidéo publicitaire."
     },
     {
-      "titre": "CV vidéo",
-      "sous_titre": "2025",
-      "genre": "Présentation",
-      "categorie": "presentation",
-      "emplacement": "films",
-      "affiche": "",
-      "miniature": "",
-      "lien": "https://youtu.be/Zx8yKSCnCl8?si=7iPIIzbabFRNsO94",
-      "roles": [
-        "Réalisation",
-        "Montage"
-      ],
-      "prix": "",
-      "description": "Mon CV en vidéo : qui je suis, ce que je sais faire et ce qui me donne envie de filmer."
-    },
-    {
       "titre": "Saintes-Maries-de-la-Mer",
       "sous_titre": "cinematic shots",
       "genre": "Cinematic",
