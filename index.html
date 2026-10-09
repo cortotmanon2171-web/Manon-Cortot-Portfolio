@@ -128,7 +128,7 @@ button{font:inherit;color:inherit}
 
 /* ---------- Accueil : le dossier créatif ---------- */
 /* la scène reste collée à l'écran pendant que l'on fait défiler l'accueil : le dossier s'ouvre et les projets en sortent */
-.accueil{position:relative;height:150vh}
+.accueil{position:relative;height:125vh}
 .ac-scene{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;contain:layout paint}
 .ac-nom{position:absolute;z-index:1;left:3vw;top:50%;margin:0;transform:translateY(-54%);font-family:var(--display);font-weight:900;text-transform:uppercase;
   line-height:.8;font-size:min(18vw,30vh);letter-spacing:-.01em;pointer-events:none;user-select:none}
@@ -168,6 +168,9 @@ button{font:inherit;color:inherit}
   .piece-ac:hover .etiq{opacity:1;transform:none}
 }
 .piece-ac:focus-visible{outline:none}.piece-ac:focus-visible > div{outline:3px solid var(--soleil);outline-offset:4px}
+/* une fois sorties, les cartes flottent doucement (translate et rotate s'ajoutent au survol sans le gêner) */
+.flotte .piece-ac > div{animation:flotte var(--fs,6s) ease-in-out var(--fd,0s) infinite alternate}
+@keyframes flotte{0%{translate:0 0;rotate:0deg}50%{translate:4px -9px;rotate:1.2deg}100%{translate:-3px 5px;rotate:-1deg}}
 /* le viseur de caméra */
 .viseur{position:absolute;z-index:7;inset:calc(env(safe-area-inset-top,0px) + 86px) 22px 22px;pointer-events:none;color:var(--texte);
   font:600 13px/1 var(--sans);letter-spacing:.12em;font-variant-numeric:tabular-nums}
@@ -184,7 +187,7 @@ button{font:inherit;color:inherit}
 @keyframes goutte{0%{transform:translateY(-100%)}100%{transform:translateY(250%)}}
 /* téléphone et tablette en hauteur : le nom en haut, Manon en bas à droite, le dossier en bas à gauche */
 @media (max-aspect-ratio:10/11){
-  .accueil{height:145vh;--dx:37%;--db:-4%;--dw:min(58vw,40vh)}
+  .accueil{height:120vh;--dx:37%;--db:-4%;--dw:min(58vw,40vh)}
   .ac-nom{top:calc(env(safe-area-inset-top,0px) + 86px);transform:none;left:5vw;font-size:min(25vw,18vh)}
   .ac-moi{right:-12%;height:44%}
   .viseur{inset:calc(env(safe-area-inset-top,0px) + 76px) 12px 12px}
@@ -1472,7 +1475,7 @@ function htmlAccueil(P,pieces){
     <div class="ac-scene" id="ac-scene">
       <h1 class="ac-nom"><span class="degrade">${esc(P.prenom)}</span><span class="contour">${esc(P.nom)}</span></h1>
       <div class="ac-dos" aria-hidden="true"></div>
-      ${pieces.map((p,k)=>`<a class="piece-ac pa-${p.type}" href="${p.lien}" data-k="${k}" style="--rh:${k%2?3:-3}deg" aria-label="Voir : ${esc(p.etiq)}"><div><img src="${esc(p.img)}" alt="" draggable="false" decoding="async"></div><span class="etiq">${esc(p.etiq)}</span></a>`).join("")}
+      ${pieces.map((p,k)=>`<a class="piece-ac pa-${p.type}" href="${p.lien}" data-k="${k}" style="--rh:${k%2?3:-3}deg;--fd:${(-k*.7).toFixed(1)}s;--fs:${(5+k%4).toFixed(1)}s" aria-label="Voir : ${esc(p.etiq)}"><div><img src="${esc(p.img)}" alt="" draggable="false" decoding="async"></div><span class="etiq">${esc(p.etiq)}</span></a>`).join("")}
       <div class="ac-face" aria-hidden="true"><b>portfolio</b></div>
       ${P.photo_decoupe?`<img class="ac-moi" src="${esc(P.photo_decoupe)}" alt="${esc(P.prenom)} ${esc(P.nom)}, caméra à la main">`:""}
       <div class="viseur" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="rec">REC</span><span class="tc">00:00:00:00</span></div>
@@ -1505,16 +1508,20 @@ function animerAccueil(pieces){
       const x=dep[0]+(fx-dep[0])*t+peek, y=dep[1]+(fy-dep[1])*t-a-(1-t)*H*.015*(n%2), drift=0;
       el.style.transform=`translate3d(${x.toFixed(1)}px,${(y+drift).toFixed(1)}px,0) translate(-50%,-50%) rotate(${(c[2]*t+(1-t)*(n%2?4:-4)+(pieces[k].tour==="z"?360*t*(n%2?-1:1):0)).toFixed(2)}deg)${pieces[k].tour==="y"?` perspective(900px) rotateY(${(360*t).toFixed(1)}deg)`:""} scale(${(.5+.5*t).toFixed(3)})`;
       el.style.zIndex=t>.55?5:3;el.tabIndex=t>.5?0:-1;n++})};
-  // comme les vêtements de l'AE2I : les cartes suivent le défilement, avec un léger amorti pour rester fluides,
-  // et s'arrêtent dès qu'on arrête de faire défiler
-  let q=0, anim=0;
-  const cible=()=>{const course=hd.offsetHeight-H;return reduit||course<=0?1:cl(-hd.getBoundingClientRect().top/course)};
-  const suivre=()=>{const c=cible();q+=(c-q)*.2;if(Math.abs(c-q)<.0015)q=c;maj();anim=q!==c?requestAnimationFrame(suivre):0};
-  const relancer=()=>{if(!anim)anim=requestAnimationFrame(suivre)};
-  mesurer();q=cible();maj();
-  addEventListener("scroll",()=>{if(visible)relancer()},{passive:true});
+  // comme les vêtements de l'AE2I : au premier geste (molette, glissé du doigt, défilement), toutes les cartes
+  // sortent d'un coup à leur propre rythme, quelle que soit la vitesse du geste ; ensuite elles flottent doucement
+  let q=0, lance=false;
+  const DUREE=1900;
+  const lancer=()=>{if(lance)return;lance=true;["wheel","touchmove","keydown"].forEach(e=>removeEventListener(e,lancer));
+    if(reduit){q=1;maj();sc.classList.add("flotte");return}
+    const t0=performance.now();
+    (function jouer(){q=cl((performance.now()-t0)/DUREE);maj();if(q<1)requestAnimationFrame(jouer);else sc.classList.add("flotte")})()};
+  mesurer();maj();
+  addEventListener("scroll",()=>{if(scrollY>2)lancer()},{passive:true});
+  ["wheel","touchmove","keydown"].forEach(e=>addEventListener(e,lancer,{passive:true}));
+  if(scrollY>2||reduit)lancer();
   addEventListener("resize",mesurer);document.fonts.ready.then(mesurer);
-  new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible)relancer()}).observe(hd);
+  new IntersectionObserver(es=>{visible=es[0].isIntersecting}).observe(hd);
   // le compteur de la caméra tourne tant que l'accueil est à l'écran (25 images par seconde)
   const t0=performance.now(), d2=x=>String(x).padStart(2,"0");
   if(!reduit) setInterval(()=>{if(!visible||document.hidden)return;const f=Math.floor((performance.now()-t0)/40);
