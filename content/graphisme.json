@@ -2,20 +2,75 @@
   "projets": [
     {
       "nom": "Aelia Pilates",
-      "sous_titre": "stage de communication",
+      "sous_titre": "stage de communication au Stud'Aelia",
       "titre": "Aelia Pilates",
-      "description": "En stage de deuxième année, j'étais chargée de communication pour un studio de pilates. J'ai réalisé des photos et vidéos pour mettre en valeur le lieu, mais je me suis surtout occupée des réseaux sociaux.\n\nJ'ai rédigé des contenus pour promouvoir les offres et les cours, créé une série de publications pour présenter les professeurs, et cherché des sponsors et partenariats pour le studio.",
-      "competences": [
-        "Photo",
-        "Réseaux sociaux",
-        "Rédaction",
-        "Partenariats"
+      "description": "Mon stage de deuxième année au Stud'Aelia, un studio de pilates à Marseille. Chargée de communication, j'ai repensé leur Instagram et créé tous les visuels que tu vois ici.",
+      "competences": [],
+      "images": [],
+      "reseaux": {
+        "compte": "aelia.pilates",
+        "avatar": "images/graphisme/aelia-avatar.jpg",
+        "lien": "https://www.instagram.com/aelia.pilates/",
+        "feed": "images/graphisme/aelia-feed.jpg",
+        "legende_feed": "Le nouveau feed que j'ai créé",
+        "carrousels": [
+          {
+            "titre": "Offre fête des mères",
+            "texte": "Les nouvelles cartes de cours.",
+            "slides": [
+              "images/graphisme/aelia-fete-meres-1.jpg",
+              "images/graphisme/aelia-fete-meres-2.jpg"
+            ]
+          },
+          {
+            "titre": "Breakfast & Pilates",
+            "texte": "L'annonce de l'événement au RK.",
+            "slides": [
+              "images/graphisme/aelia-breakfast-1.jpg",
+              "images/graphisme/aelia-breakfast-2.jpg"
+            ]
+          }
+        ]
+      },
+      "chiffres": [
+        {
+          "valeur": "+134",
+          "texte": "abonnés en 2 mois (573 → 707)"
+        },
+        {
+          "valeur": "16 k",
+          "texte": "comptes touchés en 60 jours"
+        }
       ],
-      "images": [
-        "images/graphisme/aelia-1.jpg",
-        "images/graphisme/aelia-2.jpg",
-        "images/graphisme/aelia-3.jpg"
-      ]
+      "planches": [
+        {
+          "titre": "La série « On vous présente »",
+          "texte": "un post par prof.",
+          "images": [
+            "images/graphisme/aelia-prof-1.jpg",
+            "images/graphisme/aelia-prof-2.jpg",
+            "images/graphisme/aelia-prof-3.jpg",
+            "images/graphisme/aelia-prof-4.jpg"
+          ]
+        },
+        {
+          "titre": "Breakfast & Pilates",
+          "texte": "affiche, newsletter et photos du jour J.",
+          "images": [
+            {
+              "image": "images/graphisme/aelia-breakfast-affiche.jpg",
+              "nom": "Affiche"
+            },
+            {
+              "image": "images/graphisme/aelia-breakfast-newsletter.jpg",
+              "nom": "Newsletter"
+            },
+            "images/graphisme/aelia-breakfast-jourj-1.jpg",
+            "images/graphisme/aelia-breakfast-jourj-2.jpg"
+          ]
+        }
+      ],
+      "vignette": "images/graphisme/aelia-fete-meres-1.jpg"
     },
     {
       "nom": "Livret InDesign",
