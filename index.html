@@ -529,9 +529,10 @@ dialog[open]{animation:pop .45s var(--courbe)}
 .appareil:focus-within{outline:3px solid var(--soleil);outline-offset:4px}
 .appareil.figma.desktop .vue{height:min(560px,62vw)}
 /* Figma dessine déjà son propre téléphone : pas de deuxième cadre autour */
-.appareil.figma.mobile{width:241px;height:497px;border:0;border-radius:40px;background:transparent;box-shadow:0 40px 70px -30px rgba(10,20,48,.55)}
+/* --z agrandit le téléphone sans toucher à l'iframe (sinon Figma replace son téléphone) */
+.appareil.figma.mobile{--z:1.32;width:calc(241px * var(--z));height:calc(497px * var(--z));border:0;border-radius:calc(40px * var(--z));background:transparent;box-shadow:0 40px 70px -30px rgba(10,20,48,.55)}
 /* l'iframe garde la taille où Figma place son téléphone à (48,102), 242×498 : on ne montre que ce rectangle */
-.appareil.figma.mobile .vue{position:relative;overflow:hidden;background:transparent}
+.appareil.figma.mobile .vue{position:relative;overflow:hidden;background:transparent;width:241px;height:497px;transform:scale(var(--z));transform-origin:0 0}
 .appareil.figma.mobile iframe{position:absolute;left:-48.5px;top:-102.5px;width:340px;height:700px}
 .appareil.figma.mobile::before{display:none}
 .navig .mode{justify-content:center}
@@ -546,7 +547,12 @@ dialog[open]{animation:pop .45s var(--courbe)}
 .controles .pastilles{justify-content:center}
 .controles .pastilles button{font-size:13px;padding:6px 12px}
 .controles .mode{grid-column:1/-1;justify-self:center}
+/* le téléphone remonte à côté des onglets, et moins de vide avant « À propos » */
+#maquettes{padding-bottom:40px}
+#maquettes + #apropos{padding-top:80px}
+@media (min-width:901px){.maq .navig{margin-top:-120px}}
 @media (max-width:900px){.maq{grid-template-columns:1fr}.appareil.desktop .vue{height:380px}}
+@media (max-width:380px){.appareil.figma.mobile{--z:1.1}}
 @media (max-width:380px){.appareil.mobile{width:260px;height:540px}}
 
 /* ---------- À propos ---------- */
