@@ -128,7 +128,7 @@ button{font:inherit;color:inherit}
 
 /* ---------- Accueil : le dossier créatif ---------- */
 /* la scène reste collée à l'écran pendant que l'on fait défiler l'accueil : le dossier s'ouvre et les projets en sortent */
-.accueil{position:relative;height:125vh}
+.accueil{position:relative;height:150vh}
 .ac-scene{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;contain:layout paint}
 .ac-nom{position:absolute;z-index:1;left:3vw;top:50%;margin:0;transform:translateY(-54%);font-family:var(--display);font-weight:900;text-transform:uppercase;
   line-height:.8;font-size:min(18vw,30vh);letter-spacing:-.01em;pointer-events:none;user-select:none}
@@ -191,7 +191,7 @@ button{font:inherit;color:inherit}
 @keyframes goutte{0%{transform:translateY(-100%)}100%{transform:translateY(250%)}}
 /* téléphone et tablette en hauteur : le nom en haut, Manon en bas à droite, le dossier en bas à gauche */
 @media (max-aspect-ratio:10/11){
-  .accueil{height:120vh;--dx:37%;--db:-4%;--dw:min(58vw,40vh)}
+  .accueil{height:145vh;--dx:37%;--db:-4%;--dw:min(58vw,40vh)}
   .ac-nom{top:calc(env(safe-area-inset-top,0px) + 86px);transform:none;left:5vw;font-size:min(25vw,18vh)}
   .ac-moi{right:-12%;height:44%}
   .viseur{inset:calc(env(safe-area-inset-top,0px) + 76px) 12px 12px}
@@ -1525,12 +1525,13 @@ function animerAccueil(pieces){
   let q=0, but=0, lance=false, raf=0, avant=0;
   const DUREE=1900;
   const jouer=now=>{const dt=Math.min(now-avant,64);avant=now;
-    q=but?Math.min(1,q+dt/DUREE):Math.max(0,q-dt/(DUREE*.75));maj();
+    q=but?Math.min(1,q+dt/DUREE):Math.max(0,q-dt/(DUREE*.45));maj();
     if(q!==but){raf=requestAnimationFrame(jouer);return}
     raf=0;if(q===1)sc.classList.add("flotte")};
   const viser=()=>{if(!lance)return;
-    // l'accueil compte comme « quitté » quand moins de 45 % de sa scène reste à l'écran
-    const v=sc.getBoundingClientRect().bottom>innerHeight*.45?1:0;if(v===but)return;but=v;
+    // l'accueil reste collé à l'écran sur un demi-écran de défilement : passé le premier tiers, les cartes rentrent
+    // pendant que la scène est encore bien visible, et ressortent quand on remonte au-dessus
+    const v=-hd.getBoundingClientRect().top<innerHeight*.22?1:0;if(v===but)return;but=v;
     sc.classList.remove("flotte");
     if(reduit){q=but;maj();if(q)sc.classList.add("flotte");return}
     if(!raf){avant=performance.now();raf=requestAnimationFrame(jouer)}};
