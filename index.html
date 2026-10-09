@@ -135,7 +135,7 @@ button{font:inherit;color:inherit}
 .ac-nom span{display:block;will-change:translate,opacity}
 .ac-nom .contour{color:transparent;-webkit-text-stroke:2px var(--texte);background:none;padding-left:.06em}
 .ac-dos,.ac-face{position:absolute;left:var(--dx);bottom:var(--db);width:var(--dw);height:calc(var(--dw) * .74);margin-left:calc(var(--dw) / -2)}
-.accueil{--dx:34%;--db:-7%;--dw:min(32vw,50vh)}
+.accueil{--dx:53%;--db:-7%;--dw:min(32vw,50vh)}
 .ac-dos{z-index:2;border-radius:2.4% 2.4% 0 0/3.2% 3.2% 0 0;background:linear-gradient(170deg,#EBD594,#D9BE72);box-shadow:var(--ombre-forte)}
 .ac-dos::before{content:"";position:absolute;top:-8%;left:6%;width:36%;height:9%;border-radius:12px 12px 0 0;background:#EBD594}
 .ac-face{z-index:4;top:auto;height:calc(var(--dw) * .6);transform-origin:50% 100%;border-radius:12px 12px 0 0;
@@ -184,13 +184,18 @@ button{font:inherit;color:inherit}
 @keyframes goutte{0%{transform:translateY(-100%)}100%{transform:translateY(250%)}}
 /* téléphone et tablette en hauteur : le nom en haut, Manon en bas à droite, le dossier en bas à gauche */
 @media (max-aspect-ratio:10/11){
-  .accueil{height:240vh;--dx:31%;--db:-4%;--dw:min(58vw,40vh)}
+  .accueil{height:240vh;--dx:37%;--db:-4%;--dw:min(58vw,40vh)}
   .ac-nom{top:calc(env(safe-area-inset-top,0px) + 86px);transform:none;left:5vw;font-size:min(25vw,18vh)}
   .ac-moi{right:-12%;height:44%}
   .viseur{inset:calc(env(safe-area-inset-top,0px) + 76px) 12px 12px}
   .viseur .rec{left:30px}.viseur .tc{right:30px}
   .defile{display:none}
 }
+/* bandeau de mots-clés, sur toute la largeur entre À propos et Contact */
+.bandeau{position:relative;z-index:1;width:100%;overflow:hidden;padding:16px 0;background:var(--verre-fort);border-block:1px solid var(--verre-bord)}
+.bandeau .piste{display:flex;width:max-content;animation:defile 30s linear infinite}
+.bandeau span{font-family:var(--display);font-weight:800;font-size:26px;text-transform:uppercase;padding-right:30px;white-space:nowrap}
+.bandeau i{font-family:var(--script);font-style:normal;font-size:32px;padding-right:30px;color:var(--pervenche)}
 /* pellicule : les miniatures des vidéos défilent comme un film */
 .pellicule{position:relative;z-index:2;margin:-30px -2vw 0;transform:rotate(-2deg);background:#0d1328;padding:22px 0;overflow:hidden;
   box-shadow:0 30px 60px -30px rgba(18,34,74,.7)}
@@ -847,7 +852,7 @@ function construire(C){
   const films=V.filter(v=>v.miniature||ytId(v.lien));
   $("#contenu").innerHTML=`
   ${htmlAccueil(P,pieces)}
-  ${films.length?`<div class="pellicule" aria-label="Mes vidéos"><div class="piste" id="piste"></div></div>`:""}
+  ${films.length?`<div class="pellicule" aria-label="Mes vidéos"><div class="piste" id="pellicule"></div></div>`:""}
 
   <section class="sombre" id="videos">
     <div class="aura-locale" style="width:520px;height:520px;left:-120px;top:-100px;background:#8396C0"></div>
@@ -916,6 +921,8 @@ function construire(C){
     </div>
   </section>
 
+  ${mots.length?`<div class="bandeau" aria-hidden="true"><div class="piste" id="piste"></div></div>`:""}
+
   <section id="contact">
     <div class="aura-locale" style="width:520px;height:520px;left:-140px;top:-120px;background:#4a64c4;opacity:.45"></div>
     <div class="aura-locale" style="width:460px;height:460px;right:-120px;bottom:-100px;background:#F6DA7A;opacity:.18;animation-delay:-9s"></div>
@@ -933,6 +940,7 @@ function construire(C){
   <footer>${esc(P.prenom)} ${esc(P.nom)}, vidéaste et photographe · ${new Date().getFullYear()}</footer>`;
 
   animerAccueil(pieces);
+  if($("#piste")){const b=mots.map((m,i)=>i%2?`<i>${esc(m)}</i>`:`<span>${esc(m)}</span>`).join("");$("#piste").innerHTML=b+b+b+b}
 
   /* --- menu mobile --- */
   const burger=$(".burger"), menu=$("#menu");
@@ -1406,9 +1414,9 @@ function construire(C){
   });
 
   /* --- pellicule : un clic ouvre la fiche de la vidéo --- */
-  if($("#piste")){const cases=films.map(v=>{const id=ytId(v.lien);return `<button data-v="${V.indexOf(v)}" aria-label="${esc(v.titre)} : ouvrir la fiche"><img src="${esc(v.miniature||`https://i.ytimg.com/vi/${id}/hqdefault.jpg`)}" alt="" loading="lazy" draggable="false"></button>`}).join("");
-    $("#piste").innerHTML=cases+cases.replace(/<button /g,'<button tabindex="-1" aria-hidden="true" ');
-    $$("#piste button").forEach(b=>b.addEventListener("click",()=>{const v=V[b.dataset.v],id=ytId(v.lien);ouvrirVideo(v,v.miniature||(id?`https://i.ytimg.com/vi/${id}/hqdefault.jpg`:""))}))}
+  if($("#pellicule")){const cases=films.map(v=>{const id=ytId(v.lien);return `<button data-v="${V.indexOf(v)}" aria-label="${esc(v.titre)} : ouvrir la fiche"><img src="${esc(v.miniature||`https://i.ytimg.com/vi/${id}/hqdefault.jpg`)}" alt="" loading="lazy" draggable="false"></button>`}).join("");
+    $("#pellicule").innerHTML=cases+cases.replace(/<button /g,'<button tabindex="-1" aria-hidden="true" ');
+    $$("#pellicule button").forEach(b=>b.addEventListener("click",()=>{const v=V[b.dataset.v],id=ytId(v.lien);ouvrirVideo(v,v.miniature||(id?`https://i.ytimg.com/vi/${id}/hqdefault.jpg`:""))}))}
 
   /* --- contact --- */
   const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("visible");setTimeout(()=>t.classList.remove("visible"),2200)};
@@ -1436,7 +1444,8 @@ function tracerParcours(){
     <path d="${d} H ${fx}" pathLength="1"/><circle cx="${bord[0]}" cy="${pts[0].y}" r="5"/><circle cx="${fx}" cy="${fin.y}" r="5"/>`;
 }
 /* --- accueil : les projets sortent du dossier au défilement --- */
-// chaque pièce : image, lien vers sa catégorie, style, et sa place finale [x %, y %, rotation, largeur %] sur ordinateur puis en hauteur (null : cachée)
+// chaque pièce : image, lien vers sa catégorie, style, sa place finale [x %, y %, rotation, largeur %] sur ordinateur puis en hauteur (null : cachée),
+// et éventuellement un tour sur elle-même en sortant (« y » : elle pivote comme une carte, « z » : elle tourne à plat)
 function piecesAccueil(P,V,S,A,G,M){
   const imgs=o=>JSON.stringify(o||{}).match(/[^"]+\.(?:jpe?g|png|webp)/gi)||[];
   const aff=V.filter(v=>v.affiche&&v.emplacement!=="formats"), vlogs=V.filter(v=>!v.affiche&&v.miniature);
@@ -1445,18 +1454,18 @@ function piecesAccueil(P,V,S,A,G,M){
   const livret=G.find(g=>liste(g.livret).length), affG=G.map(imgs).flat().find(u=>/affiche/i.test(u));
   const tel=(M.find(m=>m.format==="mobile"&&/mc/i.test(m.nom))||M.find(m=>m.format==="mobile")||{}), telImg=tel.ecrans&&tel.ecrans[0]&&tel.ecrans[0].image;
   return [
-    [aff[0]&&aff[0].affiche,"#videos","affiche","vidéos",[9,33,-8,12],[19,41,-7,30]],
+    [aff[0]&&aff[0].affiche,"#videos","affiche","vidéos",[9,33,-8,12],[19,41,-7,30],"y"],
     [aff[1]&&aff[1].affiche,"#videos","affiche","vidéos",[23,24,6,11],[50,35,5,27]],
-    [photo(0),"#photos","photo","photos",[38,27,-5,10],[83,48,7,23]],
+    [photo(0),"#photos","photo","photos",[38,27,-5,10],[83,48,7,23],"z"],
     [vlogs[1]&&vlogs[1].miniature||vlogs[0]&&vlogs[0].miniature,"#videos","video","vlogs",[55,15,4,15],[79,28,6,34]],
-    [A&&A.logo,"#ae2i","detoure","AE2I",[38,54,-8,15],[45,55,-6,40]],
+    [A&&A.logo,"#ae2i","detoure","AE2I",[38,54,-8,15],[45,55,-6,40],"y"],
     [photo(1),"#photos","photo","photos",[21,55,-7,9],[87,15,8,19]],
-    [telImg,"#maquettes","tel","maquettes",[49,36,8,6.5],[13,63,-9,19]],
-    [aff[3]&&aff[3].affiche||aff[2]&&aff[2].affiche,"#videos","affiche","vidéos",[7,73,5,10.5],null],
-    [livret&&livret.livret[0],"#communication","page","com & graphisme",[56,62,-6,10],[64,70,6,24]],
-    [sweat,"#ae2i","detoure","AE2I",[61,85,9,9],null],
+    [telImg,"#maquettes","tel","maquettes",[49,36,8,6.5],[13,63,-9,19],"z"],
+    [aff[3]&&aff[3].affiche||aff[2]&&aff[2].affiche,"#videos","affiche","vidéos",[7,73,5,10.5],null,"y"],
+    [livret&&livret.livret[0],"#communication","page","com & graphisme",[65,63,-6,10],[64,70,6,24]],
+    [sweat,"#ae2i","detoure","AE2I",[24,83,9,9],null,"z"],
     [photo(2),"#photos","photo","photos",[57,40,7,8.5],null]
-  ].filter(p=>p[0]).slice(0,11).map(([img,lien,type,etiq,d,m])=>({img,lien,type,etiq,d,m}));
+  ].filter(p=>p[0]).slice(0,11).map(([img,lien,type,etiq,d,m,tour])=>({img,lien,type,etiq,d,m,tour}));
 }
 function htmlAccueil(P,pieces){
   return `<header class="accueil" id="accueil">
@@ -1494,7 +1503,7 @@ function animerAccueil(pieces){
       // au repos, les pièces dépassent à peine du dossier ; puis elles sortent l'une après l'autre
       const t=doux(cl((p-.04-n*.04)/.4)), a=Math.sin(Math.PI*t)*H*.1, fx=W*c[0]/100, fy=H*c[1]/100, peek=(1-t)*(n%3-1)*W*.03;
       const x=dep[0]+(fx-dep[0])*t+peek, y=dep[1]+(fy-dep[1])*t-a-(1-t)*H*.015*(n%2), drift=cl((p-.8)/.2)*(n%2?-1:1)*H*.02;
-      el.style.transform=`translate3d(${x.toFixed(1)}px,${(y+drift).toFixed(1)}px,0) translate(-50%,-50%) rotate(${(c[2]*t+(1-t)*(n%2?4:-4)).toFixed(2)}deg) scale(${(.5+.5*t).toFixed(3)})`;
+      el.style.transform=`translate3d(${x.toFixed(1)}px,${(y+drift).toFixed(1)}px,0) translate(-50%,-50%) rotate(${(c[2]*t+(1-t)*(n%2?4:-4)+(pieces[k].tour==="z"?360*t*(n%2?-1:1):0)).toFixed(2)}deg)${pieces[k].tour==="y"?` perspective(900px) rotateY(${(360*t).toFixed(1)}deg)`:""} scale(${(.5+.5*t).toFixed(3)})`;
       el.style.zIndex=t>.55?5:3;el.tabIndex=t>.5?0:-1;n++})};
   mesurer();
   let tic=false;
