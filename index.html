@@ -179,6 +179,12 @@ button{font:inherit;color:inherit}
 /* une fois sorties, les cartes flottent doucement (translate et rotate s'ajoutent au survol sans le gêner) */
 .flotte .piece-ac > div{animation:flotte var(--fs,6s) ease-in-out var(--fd,0s) infinite alternate}
 @keyframes flotte{0%{translate:0 0;rotate:0deg}50%{translate:4px -9px;rotate:1.2deg}100%{translate:-3px 5px;rotate:-1deg}}
+/* le bouton CV : à côté du REC de la caméra, au-dessus de tout, toujours cliquable */
+.ac-cv{position:absolute;z-index:8;left:calc(22px + 104px);bottom:calc(22px + 2px);display:inline-flex;align-items:center;gap:7px;padding:9px 16px 9px 13px;border-radius:999px;
+  background:var(--texte);color:var(--bg);font-size:14px;font-weight:600;letter-spacing:.01em;text-decoration:none;box-shadow:0 10px 24px rgba(18,34,74,.28);
+  transition:opacity .9s .6s,translate .3s var(--courbe),box-shadow .3s}
+.ac-cv:hover{translate:0 -2px;box-shadow:0 14px 30px rgba(18,34,74,.36)}
+.ac-cv:focus-visible{outline:2px solid var(--texte);outline-offset:3px}
 /* le viseur de caméra */
 .viseur{position:absolute;z-index:7;inset:calc(env(safe-area-inset-top,0px) + 86px) 22px 22px;pointer-events:none;color:var(--texte);
   font:600 13px/1 var(--sans);letter-spacing:.12em;font-variant-numeric:tabular-nums}
@@ -201,6 +207,8 @@ button{font:inherit;color:inherit}
   .viseur{inset:calc(env(safe-area-inset-top,0px) + 76px) 12px 12px}
   .viseur .rec{left:30px}.viseur .tc{right:30px}
   .defile{display:none}
+  /* en hauteur le dossier occupe le bas à gauche : le bouton CV se pose à droite, au-dessus du compteur */
+  .ac-cv{left:auto;right:calc(12px + 26px);bottom:calc(12px + 40px)}
 }
 /* bandeau de mots-clés, sur toute la largeur entre À propos et Contact */
 .bandeau{position:relative;z-index:1;width:100%;overflow:hidden;padding:16px 0;background:var(--verre-fort);border-block:1px solid var(--verre-bord)}
@@ -789,6 +797,7 @@ footer{position:relative;z-index:1;padding:30px 0 40px;text-align:center;font-si
 .charge .ac-nom span{opacity:0!important;transform:translateY(50px)}
 .charge .ac-moi{opacity:0;transform:translateY(60px)}
 .charge .ac-dos,.charge .ac-face,.charge .piece-ac > div{opacity:0}
+.charge .ac-cv{opacity:0}
 .ac-nom span,.ac-moi,.ac-dos{transition:opacity .9s,transform 1s var(--courbe)}
 .ac-nom span:nth-child(2){transition-delay:.1s}.ac-dos{transition-delay:.25s}.ac-moi{transition-delay:.45s}
 /* le dossier et les cartes sont animés image par image : leur transition ne porte que sur l'apparition (et le survol des cartes) */
@@ -923,7 +932,7 @@ function construire(C){
         ${P.photo_portrait?`<div class="portrait verre"><img src="${esc(P.photo_portrait)}" alt="Portrait de ${esc(P.prenom)} ${esc(P.nom)}"><div class="nom">${esc(P.prenom)}</div></div>`:"<div></div>"}
         <div>
           <div class="bio verre">${paragraphes(P.bio)}
-            <div class="actions" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">${V.some(v=>v.categorie==="presentation")?`<button class="btn reflet" id="voir-cv">Voir mon CV vidéo</button>`:""}<a class="btn verre-btn" href="#contact">Me contacter</a></div>
+            <div class="actions" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">${V.some(v=>v.categorie==="presentation")?`<button class="btn reflet" id="voir-cv">Voir mon CV vidéo</button>`:""}${P.cv?`<a class="btn verre-btn" href="${esc(P.cv)}" target="_blank" rel="noopener">${ICO_CV}Voir mon CV</a>`:""}<a class="btn verre-btn" href="#contact">Me contacter</a></div>
             ${P.alternance?`<div class="alternance">${esc(P.alternance)}</div>`:""}
           </div>
           ${liste(P.distinctions).length?`<div class="prix-liste">${liste(P.distinctions).map(d=>`<div class="medaille verre reflet"><b>${esc(d.titre)}</b>${d.detail?`<small>${esc(d.detail)}</small>`:""}</div>`).join("")}</div>`:""}
@@ -1481,6 +1490,7 @@ function piecesAccueil(P,V,S,A,G,M){
     [photo(2),"#photos","photo","photos",[57,40,7,8.5],null]
   ].filter(p=>p[0]).slice(0,11).map(([img,lien,type,etiq,d,m,tour])=>({img,lien,type,etiq,d,m,tour}));
 }
+const ICO_CV=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>`;
 function htmlAccueil(P,pieces){
   return `<header class="accueil" id="accueil">
     <div class="ac-scene" id="ac-scene">
@@ -1491,6 +1501,7 @@ function htmlAccueil(P,pieces){
       ${P.photo_decoupe?`<img class="ac-moi" src="${esc(P.photo_decoupe)}" alt="${esc(P.prenom)} ${esc(P.nom)}, caméra à la main">`:""}
       <div class="viseur" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="rec">REC</span><span class="tc">00:00:00:00</span></div>
       <div class="defile" aria-hidden="true"></div>
+      ${P.cv?`<a class="ac-cv" href="${esc(P.cv)}" target="_blank" rel="noopener">${ICO_CV}Mon CV</a>`:""}
     </div>
   </header>`;
 }
