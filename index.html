@@ -1289,10 +1289,18 @@ function construire(C){
     };
     if(figmaBloque||!m.lien_figma) d.chargerCaptures(); else if(maqs.length===1) d.chargerFigma();
   });
+  // ordinateur : le haut du téléphone s'aligne sur le haut du titre « Maquettes »
+  const hautDans=(el,anc)=>{let y=0;for(let e=el;e&&e!==anc;e=e.offsetParent)y+=e.offsetTop;return y};
+  const alignerTel=()=>{const sec=$("#maquettes"),h2=sec&&sec.querySelector("h2");if(!h2)return;
+    maqs.forEach(d=>{const nav=d.querySelector(".navig");nav.style.marginTop="";
+      if(!d.classList.contains("actif")||innerWidth<=900||!nav.querySelector(".appareil.mobile"))return;
+      nav.style.marginTop="0px";nav.style.marginTop=(hautDans(h2,sec)-hautDans(nav,sec))+"px"})};
+  $$("#maq-onglets button").forEach(b=>b.addEventListener("click",alignerTel));
+  addEventListener("resize",alignerTel);document.fonts.ready.then(alignerTel);alignerTel();
   // Si le navigateur ou l'hébergeur bloque Figma, on repasse sur les captures
   document.addEventListener("securitypolicyviolation",e=>{
     if(figmaBloque||!/figma\.com/.test(e.blockedURI||""))return; figmaBloque=true;
-    maqs.forEach(d=>{delete d.dataset.mode;d.chargerCaptures()});
+    maqs.forEach(d=>{delete d.dataset.mode;d.chargerCaptures()});alignerTel();
   });
 
   /* --- contact --- */
