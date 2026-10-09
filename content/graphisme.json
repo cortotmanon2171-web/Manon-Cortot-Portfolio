@@ -44,20 +44,6 @@
       ],
       "planches": [
         {
-          "titre": "Le feed avant / après",
-          "images": [
-            {
-              "image": "images/graphisme/aelia-feed-avant.jpg",
-              "nom": "Avant"
-            },
-            {
-              "image": "images/graphisme/aelia-feed-apres.jpg",
-              "nom": "Après"
-            }
-          ],
-          "grand": true
-        },
-        {
           "titre": "La série « On vous présente »",
           "texte": "un post par prof.",
           "images": [
@@ -80,22 +66,11 @@
               "nom": "Newsletter"
             },
             "images/graphisme/aelia-breakfast-jourj-1.jpg",
-            "images/graphisme/aelia-breakfast-jourj-2.jpg",
-            "images/graphisme/aelia-breakfast-jourj-3.jpg",
-            "images/graphisme/aelia-breakfast-jourj-4.jpg"
-          ]
-        },
-        {
-          "titre": "Shooting Aerial Movement",
-          "texte": "marque de vêtements de sport, au studio.",
-          "images": [
-            "images/graphisme/aelia-1.jpg",
-            "images/graphisme/aelia-2.jpg",
-            "images/graphisme/aelia-3.jpg"
+            "images/graphisme/aelia-breakfast-jourj-2.jpg"
           ]
         }
       ],
-      "vignette": "images/graphisme/aelia-1.jpg"
+      "vignette": "images/graphisme/aelia-fete-meres-1.jpg"
     },
     {
       "nom": "Livret InDesign",
