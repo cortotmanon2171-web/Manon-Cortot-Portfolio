@@ -3,7 +3,7 @@
 Ce dossier contient ton site complet :
 
 - `index.html` : la page du site (design, animations).
-- `content/` : tout le contenu (vidéos, photos, projets, profil), en fichiers `.json`.
+- `content/` : tout le contenu (vidéos, photos, projets, profil), en fichiers `.json`. Chaque projet a son fichier dans `content/videos/`, `content/photos/`, `content/graphisme/` et `content/maquettes/` ; `videos.json`, `photos.json`… sont refaits automatiquement à partir d'eux, inutile de les modifier.
 - `images/` : toutes les images. Celles que tu ajoutes depuis l'admin vont dans `images/uploads/`.
 - `admin/` : ton espace d'administration.
 - `.nojekyll` : un petit fichier vide utile à GitHub Pages, à garder.
@@ -64,7 +64,11 @@ Dans le menu de gauche :
 - **📱 Maquettes Figma** : lien du fichier, lien du prototype et quelques captures d'écran de secours.
 - **👤 Profil** : textes, photos, parcours, distinctions, outils, contacts et options.
 
-Pour réordonner, fais glisser les éléments dans les listes. Clique sur **Enregistrer**, puis recharge ton site au bout d'une minute environ.
+Vidéos, Photos, Com & graphisme et Maquettes s'affichent en **cartes** avec leur image : clique sur une carte pour l'ouvrir, ou sur **Nouveau** pour ajouter un projet. Les boutons en haut à droite passent de la grille à la liste.
+
+Pour changer l'ordre d'affichage sur le site, clique sur **Réorganiser** au-dessus des cartes, déplace-les avec les flèches puis **Terminé**. Dans un projet, les listes (écrans, slides, vêtements…) se réordonnent en les faisant glisser.
+
+Clique sur **Enregistrer**, puis recharge ton site au bout d'une à deux minutes : chaque projet est rangé dans son propre fichier (`content/videos/`, `content/photos/`…) et un petit robot (onglet **Actions** du dépôt, « Assembler le contenu ») les rassemble pour le site avant la mise en ligne.
 
 ### Les maquettes Figma interactives
 
@@ -93,7 +97,7 @@ Achète un nom comme `manoncortot.fr` chez un registraire (OVH, Gandi…), puis 
 - **La page de l'admin reste blanche** : vérifie la ligne `repo:` dans `admin/config.yml`.
 - **Accès refusé à la connexion** : le jeton doit avoir *Contents : Read and write* sur le dépôt `portfolio`, et ne pas être expiré.
 - **« Le contenu n'a pas pu être chargé »** : normal si tu ouvres `index.html` en double-cliquant dessus. Le site se consulte en ligne.
-- **Une modification n'apparaît pas** : attends une ou deux minutes, puis recharge avec `Cmd + Maj + R` (Mac) ou `Ctrl + F5` (Windows). L'onglet **Actions** de ton dépôt montre la mise en ligne en cours.
+- **Une modification n'apparaît pas** : attends une ou deux minutes (vérifie dans l'onglet **Actions** que « Assembler le contenu » est vert), puis recharge avec `Cmd + Maj + R` (Mac) ou `Ctrl + F5` (Windows). L'onglet **Actions** de ton dépôt montre la mise en ligne en cours.
 - **Un fichier `.json` cassé** après une modification à la main : sur GitHub, ouvre le fichier puis **History** pour revenir à la version précédente.
 
 L'admin utilise [Sveltia CMS](https://github.com/sveltia/sveltia-cms), un outil gratuit compatible avec Decap CMS. Si son écran de connexion évolue, leur documentation explique la méthode actuelle.

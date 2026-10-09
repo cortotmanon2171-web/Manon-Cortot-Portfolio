@@ -5,9 +5,129 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <title>Administration · Portfolio de Manon Cortot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Pinyon+Script&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Habillage de l'admin aux couleurs du site : encre, papier, soleil, lavande, ciel.
+       Sveltia CMS se règle avec des variables --sui-… ; « :root:root:root » passe devant ses valeurs par défaut. */
+    :root:root:root {
+      --encre: #12224A; --papier: #FAF5EF; --soleil: #F6DA7A; --lavande: #B7B9F2; --ciel: #C6D8EE;
+      --sui-base-hue: 224;
+      --sui-font-family-default: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+      --sui-control-font-family: var(--sui-font-family-default);
+      --sui-textbox-font-family: var(--sui-font-family-default);
+      --sui-heading-font-family: var(--sui-font-family-default);
+      --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+      --sui-font-size-default: 15px;
+      /* fonds papier crème */
+      --sui-background-color-1-hsl: 36 70% 99%;
+      --sui-background-color-2-hsl: 33 52% 96%;
+      --sui-background-color-3-hsl: 30 36% 93%;
+      --sui-background-color-4-hsl: 30 30% 89%;
+      --sui-background-color-5-hsl: 30 24% 82%;
+      /* textes encre */
+      --sui-foreground-color-1-hsl: 223 61% 12%;
+      --sui-foreground-color-2-hsl: 223 61% 18%;
+      --sui-foreground-color-3-hsl: 224 28% 38%;
+      --sui-foreground-color-4-hsl: 224 20% 50%;
+      --sui-foreground-color-5-hsl: 224 15% 62%;
+      --sui-border-color-1-hsl: 225 28% 66%;
+      --sui-border-color-2-hsl: 225 30% 78%;
+      --sui-border-color-3-hsl: 225 32% 86%;
+      --sui-shadow-color: 223 61% 18%;
+      /* boutons et sélection : encre, avec le jaune soleil au survol */
+      --sui-primary-accent-color: #12224A;
+      --sui-primary-accent-color-text: #2b3f7a;
+      --sui-primary-accent-color-light: #2b3f7a;
+      --sui-primary-accent-color-dark: #0b1633;
+      --sui-primary-accent-color-inverted: #FAF5EF;
+      --sui-primary-accent-color-translucent: rgb(18 34 74 / 55%);
+      --sui-primary-accent-color-translucent-light: rgb(18 34 74 / 30%);
+      --sui-focus-ring-color: #F6DA7A;
+      --sui-control-medium-border-radius: 12px;
+      --sui-textbox-border-radius: 12px;
+    }
+    :root:root:root[data-theme="dark"] {
+      --sui-background-color-1-hsl: 226 60% 9%;
+      --sui-background-color-2-hsl: 226 63% 12%;
+      --sui-background-color-3-hsl: 226 50% 16%;
+      --sui-background-color-4-hsl: 226 42% 21%;
+      --sui-background-color-5-hsl: 226 34% 28%;
+      --sui-foreground-color-1-hsl: 33 60% 98%;
+      --sui-foreground-color-2-hsl: 33 52% 94%;
+      --sui-foreground-color-3-hsl: 213 55% 85%;
+      --sui-foreground-color-4-hsl: 213 30% 70%;
+      --sui-foreground-color-5-hsl: 213 20% 58%;
+      --sui-border-color-1-hsl: 226 30% 45%;
+      --sui-border-color-2-hsl: 226 32% 34%;
+      --sui-border-color-3-hsl: 226 36% 26%;
+      --sui-shadow-color: 226 70% 3%;
+      --sui-primary-accent-color: #F6DA7A;
+      --sui-primary-accent-color-text: #F6DA7A;
+      --sui-primary-accent-color-light: #FBE7A3;
+      --sui-primary-accent-color-dark: #E9C556;
+      --sui-primary-accent-color-inverted: #12224A;
+      --sui-primary-accent-color-translucent: rgb(246 218 122 / 55%);
+      --sui-primary-accent-color-translucent-light: rgb(246 218 122 / 30%);
+    }
+
+    /* ---------- Ambiance du site : auras colorées, verre, cartes arrondies ---------- */
+    :root:root:root { --sui-selected-background-color: rgb(246 218 122 / 45%); --ombre-carte: 0 18px 40px -22px rgb(18 34 74 / 45%), 0 2px 6px -2px rgb(18 34 74 / 10%); }
+    :root:root:root[data-theme="dark"] { --sui-selected-background-color: rgb(183 185 242 / 22%); --ombre-carte: 0 22px 48px -22px rgb(0 0 0 / 75%); }
+    body .sui.app-shell {
+      background:
+        radial-gradient(42vw 42vw at -6vw -8vw, rgb(246 218 122 / 50%), transparent 70%),
+        radial-gradient(48vw 48vw at 104vw 30vh, rgb(183 185 242 / 50%), transparent 70%),
+        radial-gradient(40vw 40vw at 30vw 115vh, rgb(198 216 238 / 60%), transparent 70%),
+        hsl(var(--sui-background-color-2-hsl));
+    }
+    :root[data-theme="dark"] body .sui.app-shell {
+      background:
+        radial-gradient(42vw 42vw at -6vw -8vw, rgb(246 218 122 / 14%), transparent 70%),
+        radial-gradient(48vw 48vw at 104vw 30vh, rgb(183 185 242 / 18%), transparent 70%),
+        hsl(var(--sui-background-color-2-hsl));
+    }
+    body .sui.app-shell > .outer > .main { background: transparent; }
+    body #collection-container, body #page-container > .resizable-pane-group > .resizable-pane > main {
+      background: rgb(255 255 255 / 45%); -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4);
+    }
+    :root[data-theme="dark"] body #collection-container, :root[data-theme="dark"] body #page-container > .resizable-pane-group > .resizable-pane > main { background: rgb(11 20 48 / 55%); }
+    /* titres en Big Shoulders, comme sur le site */
+    .sui.app-shell h2 { font-family: var(--display); font-weight: 800; font-size: 26px; letter-spacing: .01em; }
+    /* cartes des projets */
+    .grid-view #entry-list .grid-row {
+      border-radius: 20px; overflow: hidden; border: 1px solid rgb(255 255 255 / 70%);
+      background: rgb(255 255 255 / 62%); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+      box-shadow: var(--ombre-carte); transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s, border-color .3s;
+    }
+    :root[data-theme="dark"] .grid-view #entry-list .grid-row { background: rgb(255 255 255 / 7%); border-color: rgb(255 255 255 / 14%); }
+    .grid-view #entry-list .grid-row:hover, .grid-view #entry-list .grid-row:focus-visible { transform: translateY(-4px); border-color: #F6DA7A; }
+    .grid-view #entry-list .grid-row[aria-selected="true"] { border-color: #F6DA7A; box-shadow: 0 0 0 3px rgb(246 218 122 / 70%), var(--ombre-carte); }
+    .grid-view #entry-list .grid-row .grid-cell.title { font-weight: 600; }
+    /* sur téléphone : deux cartes par ligne */
+    @media (width < 768px) { .grid-view #entry-list .grid-body { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 12px !important; } }
+  </style>
 </head>
 <body>
   <!-- Espace d'administration (Sveltia CMS, compatible Decap CMS). Configuration : admin/config.yml -->
-  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
+  <script>
+    // Les projets s'affichent en cartes la première fois qu'on ouvre chaque collection
+    // (ensuite l'admin retient le choix fait avec les boutons liste / grille).
+    new MutationObserver(() => {
+      const liste = document.querySelector('#entry-list');
+      const collection = (location.hash.match(/collections\/([^/?]+)/) || [])[1];
+      if (!liste || !collection || liste.closest('.grid-view')) return;
+      const bouton = document.querySelector('[aria-label="Vue grille"], [aria-label="Grid View"], [aria-label="Passer à la vue grille"], [aria-label="Switch to Grid View"]');
+      if (!bouton) return;
+      try {
+        const cle = 'portfolio-admin-cartes-' + collection;
+        if (localStorage.getItem(cle)) return;
+        localStorage.setItem(cle, '1');
+      } catch { return; }
+      bouton.click();
+    }).observe(document.documentElement, { childList: true, subtree: true });
+  </script>
+  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
 </body>
 </html>

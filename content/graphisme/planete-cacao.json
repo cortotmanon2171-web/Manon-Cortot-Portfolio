@@ -1,0 +1,37 @@
+{
+  "nom": "Planète Cacao",
+  "sous_titre": "site WordPress",
+  "titre": "Planète Cacao",
+  "description": "Un site fictif sur le thème du chocolat, réalisé dans le cadre d'un projet autour de WordPress. J'ai conçu l'identité visuelle puis construit le site étape par étape sur Elementor.\n\nCe projet m'a appris le fonctionnement d'un CMS, la gestion de contenu dynamique et l'importance d'une interface claire pour l'utilisateur.",
+  "competences": [
+    "WordPress",
+    "Elementor",
+    "UX",
+    "Identité visuelle"
+  ],
+  "images": [],
+  "site": [
+    {
+      "nom": "Accueil",
+      "image": "/images/graphisme/cacao-1.jpg"
+    },
+    {
+      "nom": "Recette",
+      "image": "/images/graphisme/cacao-2.jpg"
+    },
+    {
+      "nom": "Article Milka",
+      "image": "/images/graphisme/cacao-3.jpg"
+    },
+    {
+      "nom": "À propos",
+      "image": "/images/graphisme/cacao-4.jpg"
+    },
+    {
+      "nom": "Contact",
+      "image": "/images/graphisme/cacao-5.jpg"
+    }
+  ],
+  "domaine": "planete-cacao.fr",
+  "order": 3
+}

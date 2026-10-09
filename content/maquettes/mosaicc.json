@@ -1,0 +1,28 @@
+{
+  "nom": "Mosaicc",
+  "sous_titre": "landing page bilingue",
+  "format": "desktop",
+  "domaine": "mosaicc.fr",
+  "lien_figma": "https://www.figma.com/design/nXGoJrNpTyYIPdwF29JTGZ/Sans-titre?t=4b2yvqOIpbhtR12i-1",
+  "description": "La landing page de Mosaicc, un hub créatif au cœur d'Arles où se croisent artistes, créateurs et étudiants. Le même projet que la vidéo publicitaire récompensée aux MMI d'Or.\n\nUne page en version française et anglaise : présentation du lieu, ses quatre salles (audiovisuel, bibliothèque, fablab, salle VR) et un accès direct au plan et aux réseaux.",
+  "competences": [
+    "Figma",
+    "Landing page",
+    "FR / EN",
+    "Identité visuelle"
+  ],
+  "plan": "/images/maquettes/mo-plan.jpg",
+  "ecrans": [
+    {
+      "nom": "Version FR",
+      "chemin": "",
+      "image": "/images/maquettes/mo-fr.jpg"
+    },
+    {
+      "nom": "Version EN",
+      "chemin": "en",
+      "image": "/images/maquettes/mo-en.jpg"
+    }
+  ],
+  "order": 3
+}

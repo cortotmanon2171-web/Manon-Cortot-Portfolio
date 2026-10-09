@@ -1,0 +1,19 @@
+{
+  "titre": "Au-delà du jeu",
+  "sous_titre": "",
+  "genre": "Court-métrage",
+  "categorie": "court",
+  "emplacement": "films",
+  "affiche": "/images/affiches/audela.jpg",
+  "miniature": "/images/miniatures/audela.jpg",
+  "lien": "https://youtu.be/WAflvTQohpU?si=uTOfDChEIzbP9UXy",
+  "fichier": "",
+  "roles": [
+    "Coréalisation",
+    "Acting",
+    "Montage"
+  ],
+  "prix": "",
+  "description": "Et si une fiction devenait réelle ? Pendant un live sur Uncharted, un spectateur affirme à Rajah que le trésor de l'île d'Ohana existe vraiment.\n\nAvec ses amies Nora et Charly, il suit les indices d'une mystérieuse carte, dans une quête où jeu vidéo et réalité se croisent.",
+  "order": 3
+}

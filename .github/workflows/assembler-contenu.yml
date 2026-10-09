@@ -1,0 +1,47 @@
+# Quand tu enregistres un projet dans l'admin, il est rangé dans son propre fichier
+# (content/videos/…, content/photos/…, content/graphisme/…, content/maquettes/…).
+# Ce petit robot les rassemble dans content/videos.json, photos.json… que lit le site,
+# puis relance la mise en ligne GitHub Pages.
+name: Assembler le contenu
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/videos/**"
+      - "content/photos/**"
+      - "content/graphisme/**"
+      - "content/maquettes/**"
+      - ".github/scripts/assembler-contenu.mjs"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: assembler-contenu
+  cancel-in-progress: false
+
+jobs:
+  assembler:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node .github/scripts/assembler-contenu.mjs
+      - name: Enregistrer et mettre en ligne
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add content/*.json
+          if git diff --cached --quiet; then echo "Rien à enregistrer"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Contenu : mise à jour depuis l'admin"
+          # si tu as enregistré autre chose entre-temps, on se remet à jour avant d'envoyer
+          for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && break; sleep 5; done
+          # un envoi fait par ce robot ne relance pas toujours GitHub Pages : on le demande
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "Pages se mettra à jour au prochain envoi"

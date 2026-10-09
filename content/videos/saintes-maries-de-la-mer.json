@@ -1,0 +1,19 @@
+{
+  "titre": "Saintes-Maries-de-la-Mer",
+  "sous_titre": "cinematic shots",
+  "genre": "Cinematic",
+  "categorie": "cine",
+  "emplacement": "formats",
+  "affiche": "/images/affiches/cinematic.jpg",
+  "miniature": "/images/miniatures/cinematic.jpg",
+  "lien": "https://youtu.be/g06eWY-D0Rk?si=8W0MQQXv7pJlybs0",
+  "fichier": "",
+  "roles": [
+    "Réalisation",
+    "Cadrage",
+    "Montage"
+  ],
+  "prix": "",
+  "description": "Un film d'ambiance tourné aux Saintes-Maries-de-la-Mer.",
+  "order": 6
+}

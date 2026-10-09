@@ -1,0 +1,30 @@
+{
+  "nom": "Shooting de marque",
+  "description": "Pendant mon stage au Stud' Aelia, j'ai réalisé le shooting d'Aerial Movement, une marque de vêtements de sport. L'objectif : mettre en valeur la collection en mouvement, dans le studio.",
+  "photos": [
+    "/images/photos/shooting-marque/dsc05214.jpg",
+    "/images/photos/shooting-marque/dsc05215.jpg",
+    "/images/photos/shooting-marque/dsc05273.jpg",
+    "/images/photos/shooting-marque/dsc05277.jpg",
+    "/images/uploads/DSC05225.webp",
+    "/images/uploads/DSC05235.webp",
+    "/images/uploads/DSC05252.webp",
+    "/images/uploads/DSC05354.webp",
+    "/images/uploads/DSC05356.webp",
+    "/images/uploads/DSC05359.webp",
+    "/images/uploads/DSC07418.webp",
+    "/images/uploads/DSC07415.webp",
+    "/images/uploads/DSC07401.webp",
+    "/images/uploads/DSC05415.webp",
+    "/images/uploads/DSC05449.webp",
+    "/images/uploads/DSC05467.webp",
+    "/images/uploads/DSC05489.webp",
+    "/images/uploads/DSC05519.webp",
+    "/images/uploads/DSC05551.webp",
+    "/images/uploads/DSC05566.webp",
+    "/images/uploads/DSC07307.webp",
+    "/images/uploads/DSC07318.webp",
+    "/images/uploads/DSC07393.webp"
+  ],
+  "order": 3
+}
