@@ -528,7 +528,8 @@ dialog[open]{animation:pop .45s var(--courbe)}
 @keyframes revele{0%,100%{background:transparent;box-shadow:none}25%,70%{background:rgba(246,218,122,.38);box-shadow:0 0 0 2px var(--soleil)}}
 .appareil:focus-within{outline:3px solid var(--soleil);outline-offset:4px}
 .appareil.figma.desktop .vue{height:min(560px,62vw)}
-.appareil.figma.mobile{width:min(100%,380px);height:min(700px,150vw);border-width:8px}
+/* Figma dessine déjà son propre téléphone : pas de deuxième cadre autour */
+.appareil.figma.mobile{width:min(100%,380px);height:min(700px,150vw);border:0;border-radius:24px;background:transparent}
 .appareil.figma.mobile::before{display:none}
 .navig .mode{justify-content:center}
 .note-apercu{margin:0;padding:10px 16px;border-radius:16px;font-size:14px;text-align:center;max-width:660px}
