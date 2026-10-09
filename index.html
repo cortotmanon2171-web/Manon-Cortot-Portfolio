@@ -191,6 +191,8 @@ section{padding:120px 0;position:relative}
 .cache{display:none!important}
 .legende-format{position:absolute;left:10px;right:10px;bottom:10px;padding:10px 14px;border-radius:14px;color:var(--papier);text-align:left;
   background:rgba(10,20,48,.45);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.18)}
+.format .legende-format{transform:translateY(130%);transition:transform .45s var(--courbe)}
+.format:hover .legende-format,.format:focus-visible .legende-format{transform:none}
 .legende-format b{display:block;font-size:15px}.legende-format small{opacity:.8}
 .format-texte{position:absolute;inset:0;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;text-align:left}
 .format-texte .fond{position:absolute;inset:0}
