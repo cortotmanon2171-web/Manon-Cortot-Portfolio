@@ -99,15 +99,28 @@ button{font:inherit;color:inherit}
 .nav ul a{display:block;text-decoration:none;font-weight:500;font-size:15px;padding:8px 14px;border-radius:999px;transition:background .25s}
 .nav ul a:hover{background:rgba(255,255,255,.55)}
 .nav ul a.actif{background:var(--encre);color:var(--beurre)}
-.burger{display:none;border:0;background:var(--encre);color:var(--beurre);font-weight:600;border-radius:999px;padding:9px 16px;cursor:pointer}
+.burger{display:none;border:0;background:var(--encre);color:var(--beurre);font-weight:600;border-radius:999px;padding:9px 16px;cursor:pointer;min-width:84px;-webkit-tap-highlight-color:transparent}
 @media (max-width:980px){
-  .nav ul{position:absolute;top:calc(100% + 10px);left:0;right:0;flex-direction:column;padding:10px;border-radius:24px;display:none;
-    background:var(--verre-fort);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border:1px solid var(--verre-bord);box-shadow:var(--ombre)}
-  .nav ul.ouvert{display:flex}
-  .nav ul a{padding:12px 16px}
+  /* le panneau est opaque : un flou dans le flou du menu ne marche pas et laissait voir la page à travers */
+  .nav ul{position:absolute;top:calc(100% + 8px);left:0;right:0;flex-direction:column;gap:2px;padding:8px;border-radius:26px;
+    max-height:calc(100vh - 110px);max-height:calc(100dvh - 110px - env(safe-area-inset-top,0px));overflow-y:auto;overscroll-behavior:contain;
+    background:var(--papier);border:1px solid rgba(18,34,74,.08);box-shadow:0 30px 60px -20px rgba(18,34,74,.45);
+    opacity:0;visibility:hidden;transform:translateY(-10px) scale(.98);transform-origin:50% 0;transition:opacity .25s,transform .35s var(--courbe),visibility 0s .35s}
+  .nav ul.ouvert{opacity:1;visibility:visible;transform:none;transition:opacity .25s,transform .35s var(--courbe),visibility 0s}
+  .nav ul a{padding:13px 18px;font:800 26px/1 var(--display);text-transform:uppercase;letter-spacing:.01em;color:var(--encre);-webkit-tap-highlight-color:transparent}
+  .nav ul a:hover{background:rgba(18,34,74,.06)}
+  .nav ul a.actif{background:var(--encre);color:var(--beurre)}
+  .nav ul li{opacity:0;transform:translateY(8px);transition:opacity .3s,transform .4s var(--courbe)}
+  .nav ul.ouvert li{opacity:1;transform:none}
+  .nav ul.ouvert li:nth-child(2){transition-delay:.03s}.nav ul.ouvert li:nth-child(3){transition-delay:.06s}.nav ul.ouvert li:nth-child(4){transition-delay:.09s}
+  .nav ul.ouvert li:nth-child(5){transition-delay:.12s}.nav ul.ouvert li:nth-child(6){transition-delay:.15s}.nav ul.ouvert li:nth-child(7){transition-delay:.18s}
   .nav .btn{display:none}
   .burger{display:block}
 }
+:root[data-theme="dark"] .nav ul{background:#13204a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .nav ul{background:#13204a}}
+@media (max-width:980px){:root[data-theme="dark"] .nav ul a{color:var(--papier)}}
+@media (max-width:980px) and (prefers-color-scheme: dark){:root:not([data-theme="light"]) .nav ul a{color:var(--papier)}:root:not([data-theme="light"]) .nav ul a.actif{background:var(--soleil);color:var(--encre)}}
 
 /* ---------- Hero ---------- */
 .hero{min-height:100vh;display:flex;align-items:center;padding:130px 0 70px;position:relative}
@@ -155,7 +168,7 @@ button{font:inherit;color:inherit}
 /* ---------- Sections ---------- */
 section{padding:120px 0;position:relative}
 .titre{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:44px}
-.titre h2{margin:0;font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(58px,8.4vw,120px);line-height:.85}
+.titre h2{margin:0;padding-top:.12em;font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(58px,8.4vw,120px);line-height:.85}
 .titre h2 em{display:block;font-family:var(--script);font-style:normal;text-transform:none;font-weight:400;font-size:.46em;line-height:1;margin-bottom:-2px;color:var(--pervenche);-webkit-text-fill-color:var(--pervenche)}
 .titre p{max-width:29em;margin:0;color:var(--texte-doux)}
 
@@ -501,7 +514,9 @@ dialog[open]{animation:pop .45s var(--courbe)}
 .reel-tel{--d:0;--a:0;position:absolute;left:50%;top:0;width:clamp(230px,24vw,320px);aspect-ratio:9/18.5;margin-left:calc(clamp(230px,24vw,320px) / -2);
   padding:9px;border-radius:38px;background:#05071c;box-shadow:inset 0 0 0 2px #2a2f55,0 40px 60px -30px #000;
   transform:translateX(calc(var(--d) * 74%)) translateZ(calc(var(--a) * -200px)) rotateY(calc(var(--d) * -26deg));
-  transition:transform .8s var(--courbe),opacity .6s,filter .6s;filter:brightness(calc(1 - var(--a) * .22)) saturate(calc(1 - var(--a) * .25))}
+  transition:transform .8s var(--courbe),opacity .6s}
+/* les téléphones de côté sont assombris par un voile (opacité) : un filtre sur des iframes saccade sur téléphone */
+.reel-ecran::after{content:"";position:absolute;inset:0;z-index:4;background:#0a0d33;opacity:calc(var(--a) * .28);transition:opacity .6s;pointer-events:none}
 .reel-tel.loin{opacity:0;pointer-events:none}
 .reel-tel.actif{box-shadow:inset 0 0 0 2px #2a2f55,0 50px 80px -30px #000,0 0 70px -10px rgba(192,17,130,.75)}
 .reel-tel::before{content:"";position:absolute;z-index:3;top:17px;left:50%;width:70px;height:18px;margin-left:-35px;border-radius:10px;background:#05071c;pointer-events:none}
@@ -538,8 +553,9 @@ dialog[open]{animation:pop .45s var(--courbe)}
 .reels-genre{display:inline-block;padding:3px 11px;border-radius:999px;font-size:13px;font-weight:600;background:var(--creme);color:var(--nuit)}
 .reels-infos p{margin:14px 0 0;color:var(--ciel)}
 .reels-infos .btn{margin-top:18px}
-@media (max-width:620px){.reels-scene{height:470px}.reel-tel{width:240px;margin-left:-120px;transform:translateX(calc(var(--d) * 46%)) translateZ(calc(var(--a) * -200px)) rotateY(calc(var(--d) * -28deg))}
-  .reels-fl{top:auto;bottom:-6px;margin-top:0;width:44px;height:44px}.reels-fl.prec{left:4px}.reels-fl.suiv{right:4px}}
+@media (max-width:620px){.reels-scene{height:540px}.reel-tel{width:230px;margin-left:-115px;transform:translateX(calc(var(--d) * 46%)) translateZ(calc(var(--a) * -200px)) rotateY(calc(var(--d) * -28deg))}
+  .reels-fl{top:auto;bottom:0;margin-top:0;width:46px;height:46px}.reels-fl.prec{left:calc(50% - 58px)}.reels-fl.suiv{right:calc(50% - 58px)}
+  .reels-infos{margin-top:18px}}
 /* vidéos à venir */
 .ae-videos{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
 .ae-videos .bientot{aspect-ratio:9/14;border-radius:18px;border:2px dashed rgba(249,235,170,.4);display:grid;place-items:center;text-align:center;padding:20px;color:var(--ciel);
@@ -668,6 +684,41 @@ footer{position:relative;z-index:1;padding:30px 0 40px;text-align:center;font-si
   color:var(--beurre);background:rgba(18,34,74,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:transform .4s var(--courbe)}
 .toast.visible{transform:translate(-50%,0)}
 .erreur{max-width:620px;margin:30vh auto;padding:30px;text-align:center}
+
+/* ---------- Téléphone et tablette : mêmes visuels, effets allégés pour un défilement fluide ---------- */
+@media (max-width:900px),(hover:none){
+  /* grain en fusion sur tout l'écran : très coûteux à chaque image de défilement sur téléphone */
+  .grain{display:none}
+  .lueur{display:none}
+  /* auras : un dégradé fixe à la place d'un flou géant animé */
+  .aura,.sombre .aura-locale,#contact .aura-locale{filter:none;animation:none;-webkit-mask-image:radial-gradient(closest-side,#000 15%,transparent);mask-image:radial-gradient(closest-side,#000 15%,transparent)}
+  .scene .orbe{animation:none}
+  /* le flou d'arrière-plan reste sur le menu et les fenêtres, pas sur les cartes qui défilent */
+  main *,main *::before,main *::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+  :root{--verre:rgba(255,255,255,.62);--verre-fort:rgba(255,255,255,.85)}
+  .piece{will-change:transform}
+  .reel-tel{will-change:transform}
+}
+@media (max-width:900px) and (prefers-color-scheme: dark){:root:not([data-theme="light"]){--verre:rgba(255,255,255,.07);--verre-fort:rgba(255,255,255,.12)}}
+@media (max-width:900px){:root[data-theme="dark"]{--verre:rgba(255,255,255,.07);--verre-fort:rgba(255,255,255,.12)}}
+/* au doigt, un survol « collé » après un tap ne doit pas laisser une carte soulevée ou penchée */
+@media (hover:none){
+  .btn:hover,.cartes-com button:hover,.mosaique button:hover,.format:hover,.medaille:hover,.liens .btn:hover,.tel:hover,.ae-zoom:hover,.planche-rang button:hover,
+  .pastilles button:hover,.livre-nav button:hover,.puce:hover,.ae-equipe:hover{transform:none}
+  .ae-logos > div:nth-child(2) .ae-zoom:hover{transform:rotate(-3deg)}.ae-logos > div:nth-child(3) .ae-zoom:hover{transform:rotate(3deg)}
+  .tel:hover{transform:rotate(3deg)}.ae-equipe:hover{transform:rotate(-1.2deg)}
+  .format:hover img,.galerie button:hover img,.cartes-com button:hover img{transform:none}
+  .reflet:hover::after{left:-60%}
+  button,a{-webkit-tap-highlight-color:transparent}
+}
+/* filtres et onglets sur une ligne qui glisse au doigt, au lieu de quatre lignes de boutons */
+@media (max-width:700px){
+  .filtres,.series,#maq-onglets{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-20px;padding:4px 20px 10px;scroll-padding-inline:20px;-webkit-overflow-scrolling:touch}
+  .filtres::-webkit-scrollbar,.series::-webkit-scrollbar,#maq-onglets::-webkit-scrollbar{display:none}
+  .filtres button,.series button,#maq-onglets button{flex:none;white-space:nowrap}
+  #maquettes + #apropos{padding-top:100px}
+  section{padding:96px 0}
+}
 
 /* ---------- Animations d'apparition ---------- */
 .anim{opacity:0;transform:translateY(40px);transition:opacity .9s var(--courbe),transform 1s var(--courbe)!important}
@@ -864,8 +915,13 @@ function construire(C){
   if($("#piste")){const b=mots.map((m,i)=>i%2?`<i>${esc(m)}</i>`:`<span>${esc(m)}</span>`).join("");$("#piste").innerHTML=b+b+b+b}
 
   /* --- menu mobile --- */
-  $(".burger").onclick=e=>{const o=$("#menu").classList.toggle("ouvert");e.currentTarget.setAttribute("aria-expanded",o)};
-  $$("#menu a").forEach(a=>a.addEventListener("click",()=>{$("#menu").classList.remove("ouvert");$(".burger").setAttribute("aria-expanded","false")}));
+  const burger=$(".burger"), menu=$("#menu");
+  const menuOuvert=o=>{menu.classList.toggle("ouvert",o);burger.setAttribute("aria-expanded",o);burger.textContent=o?"Fermer":"Menu"};
+  burger.onclick=()=>menuOuvert(!menu.classList.contains("ouvert"));
+  $$("#menu a").forEach(a=>a.addEventListener("click",()=>menuOuvert(false)));
+  // un tap à côté du menu ou la touche Échap le referment
+  document.addEventListener("pointerdown",e=>{if(menu.classList.contains("ouvert")&&!e.target.closest(".nav"))menuOuvert(false)});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&menu.classList.contains("ouvert")){menuOuvert(false);burger.focus()}});
   const obsNav=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)$$("#menu a").forEach(a=>a.classList.toggle("actif",a.getAttribute("href")==="#"+e.target.id))}),{rootMargin:"-45% 0px -50% 0px"});
   $$("section[id]").forEach(s=>obsNav.observe(s));
 
@@ -1118,7 +1174,8 @@ function construire(C){
       sc.addEventListener("pointerenter",e=>{if(e.pointerType==="mouse"){sc.dataset.survol=1;sortie()}});
       sc.addEventListener("pointerleave",()=>{delete sc.dataset.survol;sortie()});
       sc.addEventListener("focusin",()=>{sc.dataset.survol=1;sortie()});
-      let tic=false;addEventListener("scroll",()=>{if(tic)return;tic=true;requestAnimationFrame(()=>{sortie();tic=false})},{passive:true});
+      let tic=false, proche=false;new IntersectionObserver(es=>{proche=es[0].isIntersecting;if(proche)sortie()},{rootMargin:"30% 0px"}).observe(sc);
+      addEventListener("scroll",()=>{if(tic||!proche)return;tic=true;requestAnimationFrame(()=>{sortie();tic=false})},{passive:true});
       addEventListener("resize",sortie);sortie()}
 
     // vidéos : carrousel 3D de téléphones, celui du centre lit la vidéo directement sur le site
@@ -1362,7 +1419,7 @@ function parcours(){
 }
 
 function sortiePolaroid(){const sc=$("#scene");if(!sc)return;
-  const r=sc.getBoundingClientRect(), vh=innerHeight;
+  const vh=innerHeight;if(scrollY>vh&&sc.style.getPropertyValue("--sortie")==="1.000")return;
   // 0 quand la scène est en place au chargement, 1 après environ 40 % d'écran de défilement
   const p=Math.max(0,Math.min(1,(scrollY+(sc.dataset.survol?vh*.4:0))/(vh*.4)));
   sc.style.setProperty("--sortie",p.toFixed(3));}
@@ -1384,7 +1441,8 @@ function animations(){
   const lueur=$(".lueur"), barre=$(".progression"), spans=$$(".hero h1 span"), scene=$("#scene");
   let mx=innerWidth/2,my=innerHeight/2,lx=mx,ly=my;
   addEventListener("pointermove",e=>{mx=e.clientX;my=e.clientY},{passive:true});
-  (function boucle(){lx+=(mx-lx)*.08;ly+=(my-ly)*.08;lueur.style.transform=`translate(${lx}px,${ly}px)`;
+  // au doigt il n'y a ni lueur ni curseur à suivre : pas de boucle qui tourne en continu
+  if(matchMedia("(hover:hover) and (pointer:fine)").matches)(function boucle(){lx+=(mx-lx)*.08;ly+=(my-ly)*.08;lueur.style.transform=`translate(${lx}px,${ly}px)`;
     if(scene&&scrollY<innerHeight){const dx=(mx/innerWidth-.5),dy=(my/innerHeight-.5);
       scene.querySelector(".orbe").style.translate=`${dx*-30}px ${dy*-30}px`;const moi=scene.querySelector(".moi");if(moi)moi.style.translate=`${dx*14}px ${dy*10}px`}
     requestAnimationFrame(boucle)})();
