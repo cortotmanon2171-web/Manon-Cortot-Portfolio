@@ -4,13 +4,9 @@
       "nom": "Aelia Pilates",
       "sous_titre": "stage de communication au Stud'Aelia",
       "titre": "Aelia Pilates",
-      "description": "Pendant mon stage de deuxième année (avril à juin 2026), j'étais chargée de communication au Stud'Aelia, un studio de pilates à Marseille ouvert en octobre 2025. Tout ce que tu vois ici, ce sont mes réalisations.\n\nJ'ai repensé le compte Instagram du studio : un nouveau feed, les stories à la une et un calendrier éditorial pour publier régulièrement. J'ai créé les carrousels, les stories, les affiches et les reels sur Canva et Premiere Pro, dont une série pour présenter chaque prof et les posts des offres commerciales.\n\nJ'ai aussi géré la communication de l'événement Breakfast & Pilates (affiche, newsletter, carrousel, reel teaser et photos le jour J), cherché des sponsors et des partenariats, et réalisé le shooting de la marque Aerial Movement.\n\nRésultat : l'objectif des 700 abonnés est atteint, le compte est passé de 573 à 707 followers pendant mon stage, avec plus de 16 000 comptes touchés en 60 jours.",
+      "description": "Mon stage de deuxième année au Stud'Aelia, un studio de pilates à Marseille. Chargée de communication, j'ai repensé leur Instagram et créé tous les visuels que tu vois ici.",
       "competences": [],
-      "images": [
-        "images/graphisme/aelia-1.jpg",
-        "images/graphisme/aelia-2.jpg",
-        "images/graphisme/aelia-3.jpg"
-      ],
+      "images": [],
       "reseaux": {
         "compte": "aelia.pilates",
         "avatar": "images/graphisme/aelia-avatar.jpg",
@@ -20,7 +16,7 @@
         "carrousels": [
           {
             "titre": "Offre fête des mères",
-            "texte": "Le carrousel que j'ai conçu pour lancer les nouvelles cartes de cours.",
+            "texte": "Les nouvelles cartes de cours.",
             "slides": [
               "images/graphisme/aelia-fete-meres-1.jpg",
               "images/graphisme/aelia-fete-meres-2.jpg"
@@ -28,14 +24,78 @@
           },
           {
             "titre": "Breakfast & Pilates",
-            "texte": "Mon carrousel d'annonce de l'événement au RK, avec l'affiche, la newsletter et le teaser.",
+            "texte": "L'annonce de l'événement au RK.",
             "slides": [
               "images/graphisme/aelia-breakfast-1.jpg",
               "images/graphisme/aelia-breakfast-2.jpg"
             ]
           }
         ]
-      }
+      },
+      "chiffres": [
+        {
+          "valeur": "+134",
+          "texte": "abonnés en 2 mois (573 → 707)"
+        },
+        {
+          "valeur": "16 k",
+          "texte": "comptes touchés en 60 jours"
+        }
+      ],
+      "planches": [
+        {
+          "titre": "Le feed avant / après",
+          "images": [
+            {
+              "image": "images/graphisme/aelia-feed-avant.jpg",
+              "nom": "Avant"
+            },
+            {
+              "image": "images/graphisme/aelia-feed-apres.jpg",
+              "nom": "Après"
+            }
+          ],
+          "grand": true
+        },
+        {
+          "titre": "La série « On vous présente »",
+          "texte": "un post par prof.",
+          "images": [
+            "images/graphisme/aelia-prof-1.jpg",
+            "images/graphisme/aelia-prof-2.jpg",
+            "images/graphisme/aelia-prof-3.jpg",
+            "images/graphisme/aelia-prof-4.jpg"
+          ]
+        },
+        {
+          "titre": "Breakfast & Pilates",
+          "texte": "affiche, newsletter et photos du jour J.",
+          "images": [
+            {
+              "image": "images/graphisme/aelia-breakfast-affiche.jpg",
+              "nom": "Affiche"
+            },
+            {
+              "image": "images/graphisme/aelia-breakfast-newsletter.jpg",
+              "nom": "Newsletter"
+            },
+            "images/graphisme/aelia-breakfast-jourj-1.jpg",
+            "images/graphisme/aelia-breakfast-jourj-2.jpg",
+            "images/graphisme/aelia-breakfast-jourj-3.jpg",
+            "images/graphisme/aelia-breakfast-jourj-4.jpg"
+          ]
+        },
+        {
+          "titre": "Shooting Aerial Movement",
+          "texte": "marque de vêtements de sport, au studio.",
+          "images": [
+            "images/graphisme/aelia-1.jpg",
+            "images/graphisme/aelia-2.jpg",
+            "images/graphisme/aelia-3.jpg"
+          ]
+        }
+      ],
+      "vignette": "images/graphisme/aelia-1.jpg"
     },
     {
       "nom": "Livret InDesign",

@@ -431,7 +431,24 @@ dialog[open]{animation:pop .45s var(--courbe)}
 .plusieurs .com-posts{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
 .com-post{display:grid;gap:12px}
 .com-post .post{max-width:430px}
-.com-reseaux + .mosaique{margin-top:44px}
+.com-reseaux + *{margin-top:44px}
+.com-planches{display:grid;gap:34px}
+.com-planches + .mosaique{margin-top:44px}
+.planche{margin:0;display:grid;gap:12px}
+.planche figcaption{font-size:14px;color:var(--texte-doux);line-height:1.45}
+.planche figcaption b{color:var(--texte);font-size:15px}
+.planche-rang{display:flex;gap:12px;align-items:flex-end;overflow-x:auto;scrollbar-width:thin;padding:4px 2px 14px}
+.planche-rang button{all:unset;flex:none;position:relative;cursor:zoom-in;border-radius:14px;overflow:hidden;box-shadow:var(--ombre);transition:transform .45s var(--courbe)}
+.planche-rang button:hover{transform:translateY(-6px)}
+.planche-rang button:focus-visible{outline:3px solid var(--soleil);outline-offset:3px}
+.planche-rang img{display:block;height:210px;width:auto}
+.planche.grand .planche-rang img{height:420px}
+.planche-rang span{position:absolute;left:8px;bottom:8px;padding:3px 10px;border-radius:999px;font:600 12px var(--sans);color:var(--encre);background:var(--verre-fort);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+@media (max-width:700px){.planche-rang img{height:170px}.planche.grand .planche-rang img{height:330px}}
+.com-chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:24px}
+.com-chiffres div{padding:14px 16px;border-radius:18px;background:var(--verre);border:1px solid var(--verre-bord)}
+.com-chiffres b{display:block;font:900 clamp(30px,3vw,40px)/1 var(--display);color:var(--encre)}
+.com-chiffres span{display:block;margin-top:6px;font-size:13px;line-height:1.35;color:var(--texte-doux)}
 @media (max-width:700px){.com-reseaux{grid-template-columns:1fr}}
 /* merch : les vêtements sortent du sac en faisant défiler */
 .sac-scene{position:relative;width:min(100%,640px);margin-inline:auto;aspect-ratio:1/.9;container-type:inline-size}
@@ -952,7 +969,7 @@ function construire(C){
     $("#onglets-com").appendChild(t);
     const d=document.createElement("div");d.className="panneau-com"+(i===0?" actif":"");d.id="panneau-com-"+i;d.setAttribute("role","tabpanel");d.setAttribute("aria-labelledby","com-"+i);
     d.innerHTML=`<div class="com-grille"><div class="com-texte"><p class="script-titre">${esc(g.sous_titre)}</p><h3>${esc(g.titre||g.nom)}</h3><div class="puces-liste">${liste(g.competences).map(c=>`<span class="puce">${esc(c)}</span>`).join("")}</div>
-      <div class="texte">${paragraphes(g.description)}</div></div>
+      <div class="texte">${paragraphes(g.description)}</div>${liste(g.chiffres).length?`<div class="com-chiffres">${liste(g.chiffres).map(c=>`<div><b>${esc(c.valeur)}</b><span>${esc(c.texte)}</span></div>`).join("")}</div>`:""}</div>
       <div class="com-visuel">${imgs.length?`<div class="mosaique n${Math.min(imgs.length,4)}">${imgs.map((im,k)=>`<button data-k="${k}" aria-label="Agrandir l'image ${k+1}"><img src="${esc(im.image)}" alt="${esc(im.alt||g.nom)}" loading="lazy"></button>`).join("")}</div>`:""}</div></div>`;
     d.querySelectorAll(".mosaique button").forEach(b=>b.onclick=()=>ouvrirPhoto(imgs,+b.dataset.k));
     const visuel=d.querySelector(".com-visuel");
@@ -969,6 +986,13 @@ function construire(C){
       r.querySelectorAll(".post").forEach(animerPost);
       visuel.prepend(r);
     }
+    // planches : des rangées de visuels avec un petit titre (série, événement, avant/après…)
+    const pl=liste(g.planches).map(x=>({...x,images:liste(x.images).map(i=>typeof i==="string"?{image:i}:i).filter(i=>i.image)})).filter(x=>x.images.length);
+    if(pl.length){const zl=[], b=document.createElement("div");b.className="com-planches";
+      b.innerHTML=pl.map(x=>`<figure class="planche${x.grand?" grand":""}"><figcaption><b>${esc(x.titre||"")}</b>${x.texte?` ${esc(x.texte)}`:""}</figcaption><div class="planche-rang">${x.images.map(i=>{zl.push({image:i.image,alt:i.nom||x.titre||""});
+        return `<button data-zoom="${zl.length-1}" aria-label="Agrandir : ${esc(i.nom||x.titre||"image")}"><img src="${esc(i.image)}" alt="${esc(i.nom||x.titre||"")}" loading="lazy">${i.nom?`<span>${esc(i.nom)}</span>`:""}</button>`}).join("")}</div></figure>`).join("");
+      b.querySelectorAll("[data-zoom]").forEach(z=>z.onclick=()=>ouvrirPhoto(zl,+z.dataset.zoom));
+      const apres=visuel.querySelector(".com-reseaux");apres?apres.after(b):visuel.prepend(b)}
     if(liste(g.site).length) visuel.appendChild(ordinateur(liste(g.site),g));
     if(pages.length) visuel.appendChild(livre(pages,g.nom));
     $("#projets-com").appendChild(d);

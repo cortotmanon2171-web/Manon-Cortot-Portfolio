@@ -100,7 +100,10 @@ collections:
               - {name: titre, label: Grand titre, widget: string, required: false}
               - {name: description, label: Description, widget: text}
               - {name: competences, label: Compétences, widget: list, required: false}
+              - {name: vignette, label: "Image de la carte du projet (sinon la première image)", widget: image, required: false}
+              - {name: chiffres, label: "Chiffres clés (sous le texte)", widget: list, required: false, summary: "{{fields.valeur}}", fields: [{name: valeur, label: Chiffre, widget: string}, {name: texte, label: Explication, widget: string}]}
               - {name: images, label: Images (galerie), widget: list, required: false, field: {name: image, label: Image, widget: image}}
+              - {name: planches, label: "Rangées de visuels (avec un petit titre)", widget: list, required: false, summary: "{{fields.titre}}", fields: [{name: titre, label: Titre, widget: string}, {name: texte, label: Petite phrase, widget: string, required: false}, {name: grand, label: "Visuels en grand (captures de téléphone)", widget: boolean, required: false}, {name: images, label: Visuels, widget: list, fields: [{name: image, label: Image, widget: image}, {name: nom, label: "Petite étiquette sur l'image (facultatif)", widget: string, required: false}]}]}
               - {name: site, label: "Captures du site (affichées dans un ordinateur)", widget: list, required: false, summary: "{{fields.nom}}", fields: [{name: nom, label: Nom de la page, widget: string}, {name: image, label: "Capture (format 16:9)", widget: image}]}
               - {name: domaine, label: Adresse affichée dans l'ordinateur, widget: string, required: false}
               - {name: livret, label: "Pages du livret feuilletable (dans l'ordre, couverture d'abord)", widget: list, required: false, field: {name: page, label: Page, widget: image}}
