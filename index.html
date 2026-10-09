@@ -835,14 +835,17 @@ function construire(C){
     const caler=b=>{const im=b.firstChild,w=b.offsetWidth;if(!w)return;const r=im.naturalWidth?im.naturalHeight/im.naturalWidth:4/3;
       b.style.gridRowEnd="span "+Math.ceil((w*r+parseFloat(getComputedStyle(g).columnGap))/4)};
     new ResizeObserver(()=>g.querySelectorAll("button").forEach(caler)).observe(g);
+    // une photo peut être un simple chemin (ajout groupé dans l'admin) ou {image, alt}
+    const photosDe=s=>liste(s.photos).map(ph=>typeof ph==="string"?{image:ph,alt:s.nom}:ph).filter(ph=>ph.image);
     const afficherSerie=s=>{
+      const lot=photosDe(s);
       $("#texte-serie").textContent=s.description||""; g.innerHTML="";
-      liste(s.photos).forEach((ph,i)=>{const b=document.createElement("button");b.setAttribute("aria-label","Agrandir la photo "+(i+1));
-        b.innerHTML=`<img src="${esc(ph.image)}" alt="${esc(ph.alt||"")}" loading="lazy">`;b.onclick=()=>ouvrirPhoto(liste(s.photos),i);
+      lot.forEach((ph,i)=>{const b=document.createElement("button");b.setAttribute("aria-label","Agrandir la photo "+(i+1));
+        b.innerHTML=`<img src="${esc(ph.image)}" alt="${esc(ph.alt||"")}" loading="lazy">`;b.onclick=()=>ouvrirPhoto(lot,i);
         b.firstChild.addEventListener("load",()=>caler(b));
         if(!reduit){b.classList.add("entre");b.style.transitionDelay=(i%4)*90+"ms";obsGal.observe(b)} g.appendChild(b);caler(b)});
-      g.classList.toggle("vide",!liste(s.photos).length);
-      if(!liste(s.photos).length) g.innerHTML=[0,1,2].map(()=>`<div class="bientot"><div><b>Photos</b><span>bientôt en ligne</span></div></div>`).join("");
+      g.classList.toggle("vide",!lot.length);
+      if(!lot.length) g.innerHTML=[0,1,2].map(()=>`<div class="bientot"><div><b>Photos</b><span>bientôt en ligne</span></div></div>`).join("");
     };
     S.forEach((s,i)=>{const b=document.createElement("button");b.textContent=s.nom;b.setAttribute("aria-pressed",i===0);
       b.onclick=()=>{$$("#series button").forEach(x=>x.setAttribute("aria-pressed",x===b));afficherSerie(s)};$("#series").appendChild(b)});
