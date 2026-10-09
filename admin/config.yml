@@ -53,6 +53,19 @@ collections:
               - {name: affiche, label: Affiche (format portrait), widget: image, required: false, hint: "Pour la grille des films."}
               - {name: miniature, label: Miniature (format 16/9), widget: image, required: false, hint: "Facultatif : sans miniature, celle de YouTube est utilisée automatiquement."}
               - {name: lien, label: Lien de la vidéo (YouTube ou Instagram), widget: string, required: false, hint: "Ex. https://youtu.be/xxxxxxxxxxx ou un lien de réel Instagram"}
+              - name: fichier
+                label: "Fichier vidéo (envoyé depuis ton ordinateur)"
+                widget: file
+                required: false
+                accept: "video/mp4,video/webm,.mp4,.webm"
+                choose_url: false
+                # GitHub refuse les gros fichiers et le site deviendrait lent : au-delà de 25 Mo l'admin bloque l'envoi
+                # avec le message « Ce fichier ne peut pas être téléversé, car il dépasse la taille maximale ».
+                media_libraries:
+                  default:
+                    config:
+                      max_file_size: 26214400
+                hint: "Pour une vidéo qui n'est pas sur YouTube ou Instagram. MP4, 25 Mo maximum : exporte en 1080p (ou 720p pour une vidéo longue). Si tu mets aussi un lien, c'est le fichier qui est lu sur le site."
               - {name: roles, label: Mes rôles, widget: list, required: false, hint: "Sépare par des virgules, ex. Montage, Cadrage"}
               - {name: prix, label: Prix ou distinction, widget: string, required: false}
               - {name: description, label: Description, widget: text, hint: "Laisse une ligne vide pour faire un nouveau paragraphe."}
@@ -178,11 +191,24 @@ collections:
             widget: list
             required: false
             summary: "{{fields.titre}}"
-            hint: "Les vidéos se regardent directement sur le site, dans le lecteur. Colle le lien du réel Instagram (ou YouTube). La miniature est facultative : elle sert de vignette dans la liste."
+            hint: "Les vidéos se regardent directement sur le site, dans le lecteur. Colle le lien du réel Instagram (ou YouTube), ou envoie le fichier vidéo depuis ton ordinateur. La miniature est facultative : elle sert de vignette dans la liste."
             fields:
               - {name: titre, label: Titre, widget: string}
               - {name: genre, label: Type, widget: string, required: false, hint: "Ex. Aftermovie, Réel"}
               - {name: lien, label: Lien (YouTube ou Instagram), widget: string, required: false}
+              - name: fichier
+                label: "Fichier vidéo (envoyé depuis ton ordinateur)"
+                widget: file
+                required: false
+                accept: "video/mp4,video/webm,.mp4,.webm"
+                choose_url: false
+                # GitHub refuse les gros fichiers et le site deviendrait lent : au-delà de 25 Mo l'admin bloque l'envoi
+                # avec le message « Ce fichier ne peut pas être téléversé, car il dépasse la taille maximale ».
+                media_libraries:
+                  default:
+                    config:
+                      max_file_size: 26214400
+                hint: "Pour une vidéo qui n'est pas sur YouTube ou Instagram. MP4, 25 Mo maximum : exporte en 1080p (ou 720p pour une vidéo longue). Si tu mets aussi un lien, c'est le fichier qui est lu sur le site."
               - {name: miniature, label: Miniature, widget: image, required: false}
               - {name: description, label: Description, widget: text, required: false}
 
