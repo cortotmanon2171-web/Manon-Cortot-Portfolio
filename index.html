@@ -1520,15 +1520,24 @@ function animerAccueil(pieces){
       el.style.transform=`translate3d(${x.toFixed(1)}px,${(y+drift).toFixed(1)}px,0) translate(-50%,-50%) rotate(${(c[2]*t+(1-t)*(n%2?4:-4)+(pieces[k].tour==="z"?360*t*(n%2?-1:1):0)).toFixed(2)}deg)${pieces[k].tour==="y"?` perspective(900px) rotateY(${(360*t).toFixed(1)}deg)`:""} scale(${(.5+.5*t).toFixed(3)})`;
       el.style.zIndex=t>.55?5:3;el.tabIndex=t>.5?0:-1;n++})};
   // comme les vêtements de l'AE2I : au premier geste (molette, glissé du doigt, défilement), toutes les cartes
-  // sortent d'un coup à leur propre rythme, quelle que soit la vitesse du geste ; ensuite elles flottent doucement
-  let q=0, lance=false;
+  // sortent d'un coup à leur propre rythme, quelle que soit la vitesse du geste ; ensuite elles flottent doucement.
+  // Quand on quitte l'accueil elles rentrent dans le dossier, et quand on y remonte elles ressortent.
+  let q=0, but=0, lance=false, raf=0, avant=0;
   const DUREE=1900;
-  const lancer=()=>{if(lance)return;lance=true;["wheel","touchmove","keydown"].forEach(e=>removeEventListener(e,lancer));
-    if(reduit){q=1;maj();sc.classList.add("flotte");return}
-    const t0=performance.now();
-    (function jouer(){q=cl((performance.now()-t0)/DUREE);maj();if(q<1)requestAnimationFrame(jouer);else sc.classList.add("flotte")})()};
+  const jouer=now=>{const dt=Math.min(now-avant,64);avant=now;
+    q=but?Math.min(1,q+dt/DUREE):Math.max(0,q-dt/(DUREE*.75));maj();
+    if(q!==but){raf=requestAnimationFrame(jouer);return}
+    raf=0;if(q===1)sc.classList.add("flotte")};
+  const viser=()=>{if(!lance)return;
+    // l'accueil compte comme « quitté » quand moins de 45 % de sa scène reste à l'écran
+    const v=sc.getBoundingClientRect().bottom>innerHeight*.45?1:0;if(v===but)return;but=v;
+    sc.classList.remove("flotte");
+    if(reduit){q=but;maj();if(q)sc.classList.add("flotte");return}
+    if(!raf){avant=performance.now();raf=requestAnimationFrame(jouer)}};
+  const lancer=()=>{if(lance)return;lance=true;["wheel","touchmove","keydown"].forEach(e=>removeEventListener(e,lancer));viser()};
   mesurer();maj();
-  addEventListener("scroll",()=>{if(scrollY>2)lancer()},{passive:true});
+  let tic=false;
+  addEventListener("scroll",()=>{if(scrollY>2)lancer();if(tic)return;tic=true;requestAnimationFrame(()=>{viser();tic=false})},{passive:true});
   ["wheel","touchmove","keydown"].forEach(e=>addEventListener(e,lancer,{passive:true}));
   if(scrollY>2||reduit)lancer();
   addEventListener("resize",mesurer);document.fonts.ready.then(mesurer);
