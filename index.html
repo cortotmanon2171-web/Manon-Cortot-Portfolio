@@ -86,8 +86,10 @@ button{font:inherit;color:inherit}
 .sombre .pastilles button[aria-pressed="true"]{background:var(--soleil);color:var(--encre);border-color:var(--soleil)}
 
 /* ---------- Navigation ---------- */
-.voile{position:fixed;inset:0;z-index:55;background:var(--bg);opacity:0;pointer-events:none;transition:opacity .28s ease}
-.voile.visible{opacity:1;pointer-events:auto}
+.voile{position:fixed;inset:0;z-index:55;display:grid;place-items:center;visibility:hidden;pointer-events:none;overflow:hidden;
+  background:var(--v-fond,var(--encre));color:var(--v-texte,var(--papier));clip-path:circle(0 at 50% 0)}
+.voile.visible{visibility:visible;pointer-events:auto}
+.voile-mot{font-family:var(--display);font-weight:900;text-transform:uppercase;line-height:.85;font-size:clamp(76px,17vw,250px);text-align:center;padding:0 16px}
 [tabindex="-1"]:focus{outline:none}
 .progression{position:fixed;left:0;top:0;height:3px;width:100%;z-index:70;background:linear-gradient(90deg,var(--soleil),var(--lavande));transform-origin:0 50%;transform:scaleX(0);pointer-events:none}
 .nav{position:fixed;z-index:60;left:50%;top:calc(env(safe-area-inset-top,0px) + 14px);transform:translateX(-50%);width:min(1200px,100% - 24px);
@@ -865,24 +867,42 @@ function construire(C){
   const obsNav=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)$$("#menu a").forEach(a=>a.classList.toggle("actif",a.getAttribute("href")==="#"+e.target.id))}),{rootMargin:"-45% 0px -50% 0px"});
   $$("section[id]").forEach(s=>obsNav.observe(s));
 
-  /* --- aller à une section : fondu, saut net en haut de la section, puis retour --- */
-  // la section arrive pile en haut de l'écran (son espace intérieur laisse la place au menu) ;
-  // on la garde en place quelques instants le temps que les images et vidéos chargées prennent leur taille
-  const voile=document.createElement("div");voile.className="voile";voile.setAttribute("aria-hidden","true");document.body.append(voile);
-  let enCours=0;
+  /* --- aller à une section : volet coloré au nom de la catégorie, saut net en haut de la section, puis le volet remonte --- */
+  // le volet s'ouvre en cercle depuis le lien cliqué ; derrière lui la section arrive pile en haut de l'écran
+  // (son espace intérieur laisse la place au menu) et on la garde en place le temps que les images prennent leur taille
+  const VOLETS={accueil:["var(--papier)","var(--encre)"],videos:["linear-gradient(135deg,#0a1430,#22356e)","var(--soleil)"],
+    photos:["linear-gradient(135deg,var(--soleil),var(--beurre))","var(--encre)"],ae2i:["linear-gradient(135deg,#0F1345,#C01182)","#F9EBAA"],
+    communication:["linear-gradient(135deg,var(--lavande),var(--ciel))","var(--encre)"],maquettes:["linear-gradient(135deg,var(--pervenche),var(--lavande))","var(--papier)"],
+    apropos:["linear-gradient(135deg,var(--beurre),var(--lavande))","var(--encre)"],contact:["linear-gradient(135deg,var(--encre),var(--pervenche))","var(--soleil)"]};
+  const voile=document.createElement("div");voile.className="voile";voile.setAttribute("aria-hidden","true");voile.innerHTML=`<span class="voile-mot"></span>`;document.body.append(voile);
+  const mot=voile.firstChild, courbe="cubic-bezier(.7,0,.25,1)";
+  let enCours=0, anims=[];
   const caler=cible=>{const y=Math.round(cible.getBoundingClientRect().top+scrollY);scrollTo({top:y,behavior:"instant"})};
-  const allerA=(cible,hash)=>{const jeton=++enCours;
-    const arriver=()=>{if(jeton!==enCours)return;caler(cible);history.pushState(null,"",hash);
+  const anime=(el,k,o)=>{const x=el.animate(k,{fill:"forwards",easing:courbe,...o});anims.push(x);return x.finished.catch(()=>{})};
+  const allerA=(cible,hash,depuis)=>{const jeton=++enCours;anims.forEach(x=>x.cancel());anims=[];
+    const arriver=()=>{caler(cible);history.pushState(null,"",hash);
       cible.setAttribute("tabindex","-1");cible.focus({preventScroll:true});
       const fin=performance.now()+900;let stop=false;const arret=()=>{stop=true};
       addEventListener("wheel",arret,{once:true,passive:true});addEventListener("touchstart",arret,{once:true,passive:true});
-      (function tenir(){if(stop||jeton!==enCours)return;if(Math.abs(cible.getBoundingClientRect().top)>1)caler(cible);if(performance.now()<fin)requestAnimationFrame(tenir)})();
-      setTimeout(()=>{if(jeton===enCours)voile.classList.remove("visible")},reduit?0:160)};
+      (function tenir(){if(stop||jeton!==enCours)return;if(Math.abs(cible.getBoundingClientRect().top)>1)caler(cible);if(performance.now()<fin)requestAnimationFrame(tenir)})()};
     if(reduit){arriver();return}
-    voile.classList.add("visible");setTimeout(arriver,280)};
+    const id=cible.id, lien=$(`#menu a[href="#${id}"]`), [fond,texte]=VOLETS[id]||VOLETS.accueil;
+    mot.textContent=lien?lien.textContent:(id==="accueil"?`${P.prenom} ${P.nom}`:"");
+    voile.style.setProperty("--v-fond",fond);voile.style.setProperty("--v-texte",texte);voile.style.background=fond;voile.classList.add("visible");
+    let r=depuis&&depuis.getBoundingClientRect();if(!r||!r.width)r=$(".burger").offsetWidth?$(".burger").getBoundingClientRect():{left:innerWidth/2,top:0,width:0,height:0};
+    const cx=r.left+r.width/2+"px", cy=r.top+r.height/2+"px";
+    // 1. le volet s'ouvre en cercle depuis le lien, le nom monte
+    anime(voile,[{clipPath:`circle(0px at ${cx} ${cy})`},{clipPath:`circle(150vmax at ${cx} ${cy})`}],{duration:650});
+    anime(mot,[{transform:"translateY(60%)",opacity:0},{transform:"none",opacity:1}],{duration:500,delay:220,easing:"cubic-bezier(.2,.8,.2,1)"})
+    .then(()=>{if(jeton!==enCours)return;arriver();
+      // 2. après un court temps de lecture, le volet remonte et découvre la section
+      setTimeout(()=>{if(jeton!==enCours)return;
+        anime(mot,[{transform:"none",opacity:1},{transform:"translateY(-40%)",opacity:0}],{duration:380});
+        anime(voile,[{clipPath:"inset(0 0 0 0)"},{clipPath:"inset(0 0 100% 0)"}],{duration:700,delay:80})
+        .then(()=>{if(jeton===enCours)voile.classList.remove("visible")})},220)})};
   document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]');if(!a||e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey)return;
     const hash=a.getAttribute("href"),cible=hash.length>1&&document.getElementById(hash.slice(1));if(!cible)return;
-    e.preventDefault();allerA(cible,hash)});
+    e.preventDefault();allerA(cible,hash,a)});
   // lien direct vers une section (ex. …/#photos) : même arrivée nette une fois le contenu construit
   if(location.hash.length>1){const c=document.getElementById(location.hash.slice(1));if(c)requestAnimationFrame(()=>caler(c))}
 
