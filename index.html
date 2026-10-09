@@ -226,6 +226,7 @@ dialog[open]{animation:pop .45s var(--courbe)}
 .ecran::before{content:"";position:absolute;inset:0;background:rgba(10,20,48,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .ecran > *{position:relative}
 .ecran iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.ecran video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
 .ecran .script{font-family:var(--script);font-size:42px;color:var(--soleil)}
 .fiche{padding:30px 34px 36px}
 .fiche h3{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:56px;line-height:.9;margin:0 0 6px}
@@ -523,6 +524,7 @@ dialog[open]{animation:pop .45s var(--courbe)}
 .reel-video::-webkit-scrollbar{display:none}
 .lecture-on .reel-video{display:block}
 .reel-video iframe{width:100%;height:100%;border:0;display:block}
+.reel-video video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
 .reel-video .instagram-media{margin:0!important;min-width:0!important;max-width:none!important;width:100%!important;border:0!important;border-radius:0!important;box-shadow:none!important}
 .reel-video .instagram-media{background:transparent!important}
 .reel-video blockquote a{display:grid;place-items:center;min-height:300px;padding-top:40px;color:#fff;font-weight:600;text-decoration:none}
@@ -953,7 +955,9 @@ function construire(C){
     fen.classList.remove("mode-photo");
     ec.style.backgroundImage=fond?`url("${fond}")`:"";
     const plateforme=insta?"Instagram":"YouTube";
-    ec.innerHTML=(O.youtube_integre&&id)
+    ec.innerHTML=v.fichier
+      ?`<video src="${esc(v.fichier)}" controls autoplay playsinline preload="metadata"${fond?` poster="${esc(fond)}"`:""} title="${esc(v.titre)}"></video>`
+      :(O.youtube_integre&&id)
       ?`<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="${esc(v.titre)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`
       :`<div style="padding:20px"><div class="script">${esc(v.sous_titre||v.genre)}</div><p style="margin:6px 0 18px">${v.lien?`La vidéo se regarde sur ${plateforme}.`:"Le lien de cette vidéo arrive bientôt."}</p><a class="btn reflet" href="${esc(lien)}" target="_blank" rel="noopener">${v.lien?`Regarder sur ${plateforme}`:"Voir ma chaîne YouTube"}</a></div>`;
     $("#fiche").innerHTML=`<h3 id="fenetre-titre">${esc(v.titre)}</h3><p class="genre">${esc(v.genre)}</p>${paragraphes(v.description)}
@@ -1143,7 +1147,8 @@ function construire(C){
         scriptIG.onload=()=>window.instgrm&&instgrm.Embeds.process();document.body.appendChild(scriptIG)};
       const lire=k=>{const v=vids[k], id=ytId(v.lien), ig=igCode(v.lien), zone=tels[k].querySelector(".reel-video");
         tels.forEach((t,j)=>{if(j!==k){t.classList.remove("lecture-on");t.querySelector(".reel-video").innerHTML=""}});
-        if(id) zone.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="${esc(v.titre)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+        if(v.fichier) zone.innerHTML=`<video src="${esc(v.fichier)}" controls autoplay playsinline preload="metadata" title="${esc(v.titre)}"></video>`;
+        else if(id) zone.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="${esc(v.titre)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
         else if(ig){const url=`https://www.instagram.com/reel/${ig}/`;zone.innerHTML=`<blockquote class="instagram-media" data-instgrm-permalink="${url}?utm_source=ig_embed" data-instgrm-version="14"><a href="${url}" target="_blank" rel="noopener">Chargement de la vidéo…</a></blockquote>`;chargerIG()}
         else return;
         tels[k].classList.add("lecture-on")};
