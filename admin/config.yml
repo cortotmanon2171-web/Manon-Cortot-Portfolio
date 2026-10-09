@@ -159,7 +159,7 @@ collections:
             widget: list
             required: false
             summary: "{{fields.titre}}"
-            hint: "Tant que la liste est vide, des emplacements « bientôt en ligne » s'affichent."
+            hint: "Les vidéos se regardent directement sur le site, dans le lecteur. Colle le lien du réel Instagram (ou YouTube). La miniature est facultative : elle sert de vignette dans la liste."
             fields:
               - {name: titre, label: Titre, widget: string}
               - {name: genre, label: Type, widget: string, required: false, hint: "Ex. Aftermovie, Réel"}

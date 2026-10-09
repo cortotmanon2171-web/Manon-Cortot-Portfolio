@@ -440,6 +440,33 @@ dialog[open]{animation:pop .45s var(--courbe)}
 .piece .etiquette{position:absolute;left:50%;top:100%;transform:translate(-50%,6px);white-space:nowrap;padding:4px 10px;border-radius:999px;font:600 12px var(--sans);color:var(--nuit);background:var(--creme);opacity:0;transition:opacity .3s,transform .3s}
 .piece:hover .etiquette,.piece:focus-visible .etiquette{opacity:1;transform:translate(-50%,0)}
 .sac-aide{text-align:center;margin:8px 0 0;font-size:14px;color:var(--ciel)}
+/* vidéos : playlist + lecteur intégré */
+.playlist{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:10px}
+.playlist button{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:flex;gap:14px;align-items:flex-start;padding:10px;border-radius:18px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);transition:background .3s,border-color .3s,transform .35s var(--courbe)}
+.playlist button:hover{background:rgba(255,255,255,.1);transform:translateX(4px)}
+.playlist button:focus-visible{outline:3px solid var(--soleil);outline-offset:3px}
+.playlist button[aria-pressed="true"]{background:linear-gradient(120deg,rgba(192,17,130,.55),rgba(192,17,130,.25));border-color:rgba(245,154,208,.6)}
+.vignette{position:relative;flex:none;width:58px;aspect-ratio:9/16;border-radius:10px;overflow:hidden;display:grid;place-items:center;background:linear-gradient(160deg,#C01182,#3b2a9a)}
+.vignette img{width:100%;height:100%;object-fit:cover}
+.mini-lecture{position:absolute;inset:0;display:grid;place-items:center;background:rgba(10,13,51,.25)}
+.mini-lecture::before{content:"";border-left:11px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+.playlist button[aria-pressed="true"] .mini-lecture{background:rgba(192,17,130,.35)}
+.infos-reel{min-width:0;padding-top:2px}
+.infos-reel b{display:block;font:800 21px/1.05 var(--display);text-transform:uppercase}
+.infos-reel small{display:inline-block;margin-top:6px;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600;background:var(--creme);color:var(--nuit)}
+.desc-reel{display:none;margin-top:8px;font-size:14px;line-height:1.5;color:var(--ciel)}
+.playlist button[aria-pressed="true"] .desc-reel{display:block}
+.lecteur-reel{display:flex;flex-direction:column;align-items:center;gap:16px;position:sticky;top:110px}
+.ecran-reel{width:min(100%,380px);min-height:560px;border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -30px #000,0 0 0 8px #05071c,0 0 60px -10px rgba(192,17,130,.55);display:grid;align-items:start}
+.ecran-reel.youtube{aspect-ratio:9/16;min-height:0;background:#000}
+.ecran-reel iframe{width:100%;height:100%;border:0;display:block}
+.ecran-reel .instagram-media{margin:0!important;min-width:0!important;max-width:none!important;width:100%!important;border:0!important;border-radius:0!important;box-shadow:none!important}
+.ecran-reel blockquote,.ecran-reel blockquote a{min-height:inherit}
+.ecran-reel blockquote a{display:grid;place-items:center;align-content:center;gap:10px;color:var(--nuit);text-decoration:none;font-weight:600;padding:0 0 20px}
+.ecran-reel blockquote img{width:100%;aspect-ratio:9/16;object-fit:cover}
+.ecran-reel .note-apercu{color:var(--nuit);padding:30px}
+.lien-reel[hidden]{display:none}
+@media (max-width:900px){.lecteur-reel{position:static;margin-top:6px}.ecran-reel{min-height:480px}}
 /* vidéos à venir */
 .ae-videos{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
 .ae-videos .bientot{aspect-ratio:9/14;border-radius:18px;border:2px dashed rgba(249,235,170,.4);display:grid;place-items:center;text-align:center;padding:20px;color:var(--ciel);
@@ -628,7 +655,8 @@ async function chargerContenu(){
   await Promise.all(noms.map(async n=>{const r=await fetch(`content/${n}.json`,{cache:"no-cache"});if(!r.ok)throw new Error(n);c[n]=await r.json()}));
   // contenus facultatifs : le site s'affiche même s'ils manquent
   await Promise.all(["ae2i"].map(async n=>{try{const r=await fetch(`content/${n}.json`,{cache:"no-cache"});if(r.ok)c[n]=await r.json()}catch{}}));
-  return c;
+  // l'admin peut enregistrer « /images/… » : sur GitHub Pages le site est dans un sous-dossier, on retire la barre du début
+  return JSON.parse(JSON.stringify(c),(k,v)=>typeof v==="string"&&v.startsWith("/images/")?v.slice(1):v);
 }
 
 chargerContenu().then(construire).catch(()=>{
@@ -936,15 +964,36 @@ function construire(C){
       let tic=false;addEventListener("scroll",()=>{if(tic)return;tic=true;requestAnimationFrame(()=>{sortie();tic=false})},{passive:true});
       addEventListener("resize",sortie);sortie()}
 
-    // vidéos : place prête pour les vidéos à venir
-    const vids=liste(A.videos);
-    const dv=bloc({titre:"Vidéos",sous_titre:"aftermovies & réels",description:vids.length?"":"Les vidéos que j'ai réalisées pour l'asso arrivent bientôt ici."},
-      `<div class="ae-videos">${vids.length?"":[0,1,2].map(()=>`<div class="bientot"><div><b>Vidéo</b><span>bientôt en ligne</span></div></div>`).join("")}</div>`);
-    vids.forEach(v=>{const id=ytId(v.lien), mini=v.miniature||(id?`https://i.ytimg.com/vi/${id}/hqdefault.jpg`:"");
-      const b=document.createElement("button");b.className="format";b.setAttribute("aria-label",`${v.titre}. Ouvrir la vidéo`);
-      b.innerHTML=mini?`<img src="${esc(mini)}" alt="" loading="lazy"><div class="legende-format"><b>${esc(v.titre)}</b><small>${esc(v.genre||"AE2I")}</small></div><div class="lecture"></div>`
-        :`<div class="format-texte style${vids.indexOf(v)%3}"><div class="fond"></div><span class="genre">${esc(v.genre||"AE2I")}</span><h3>${esc(v.titre)}</h3></div><div class="lecture"></div>`;
-      b.onclick=()=>ouvrirVideo(v,mini);dv.querySelector(".ae-videos").appendChild(b)});
+    // vidéos : une playlist à gauche, la vidéo se lit directement dans le lecteur à droite
+    const vids=liste(A.videos).filter(v=>v&&v.titre);
+    const dv=bloc({titre:"Vidéos",sous_titre:"aftermovies & réels",description:vids.length?"Clique sur une vidéo pour la regarder ici, sans quitter le site.":"Les vidéos que j'ai réalisées pour l'asso arrivent bientôt ici."},
+      vids.length?`<div class="lecteur-reel"><div class="ecran-reel" aria-live="polite"></div><a class="btn verre-btn lien-reel" target="_blank" rel="noopener">Ouvrir sur Instagram</a></div>`
+        :`<div class="ae-videos">${[0,1,2].map(()=>`<div class="bientot"><div><b>Vidéo</b><span>bientôt en ligne</span></div></div>`).join("")}</div>`);
+    if(vids.length){
+      const igCode=u=>{const m=String(u||"").match(/instagram\.com\/(?:[\w.]+\/)?(?:reel|reels|p|tv)\/([\w-]+)/);return m?m[1]:null};
+      const ecran=dv.querySelector(".ecran-reel"), lien=dv.querySelector(".lien-reel");
+      const liste_=document.createElement("ol");liste_.className="playlist";
+      liste_.innerHTML=vids.map((v,k)=>{const id=ytId(v.lien), mini=v.miniature||(id?`https://i.ytimg.com/vi/${id}/hqdefault.jpg`:"");
+        return `<li><button aria-pressed="${!k}" data-k="${k}"><span class="vignette">${mini?`<img src="${esc(mini)}" alt="" loading="lazy">`:""}<span class="mini-lecture" aria-hidden="true"></span></span>
+          <span class="infos-reel"><b>${esc(v.titre)}</b><small>${esc(v.genre||"Vidéo")}</small>${v.description?`<span class="desc-reel">${esc(v.description)}</span>`:""}</span></button></li>`}).join("");
+      dv.querySelector(".com-texte").appendChild(liste_);
+      let scriptIG=null;
+      const chargerIG=()=>{if(window.instgrm){instgrm.Embeds.process();return}
+        if(scriptIG)return;scriptIG=document.createElement("script");scriptIG.async=true;scriptIG.src="https://www.instagram.com/embed.js";
+        scriptIG.onload=()=>window.instgrm&&instgrm.Embeds.process();document.body.appendChild(scriptIG)};
+      const jouer=(k,defiler)=>{const v=vids[k], id=ytId(v.lien), ig=igCode(v.lien);
+        liste_.querySelectorAll("button").forEach((b,j)=>b.setAttribute("aria-pressed",j===k));
+        const url=ig?`https://www.instagram.com/reel/${ig}/`:(v.lien||"");
+        lien.href=url||"#";lien.textContent=ig?"Ouvrir sur Instagram":"Ouvrir sur YouTube";lien.hidden=!url;
+        ecran.classList.toggle("youtube",!!id);
+        if(id) ecran.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${id}?rel=0" title="${esc(v.titre)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+        else if(ig){ecran.innerHTML=`<blockquote class="instagram-media" data-instgrm-permalink="${url}?utm_source=ig_embed" data-instgrm-version="14"><a href="${url}" target="_blank" rel="noopener">${v.miniature?`<img src="${esc(v.miniature)}" alt="">`:""}<span>Chargement de la vidéo…</span></a></blockquote>`;chargerIG()}
+        else ecran.innerHTML=`<p class="note-apercu">Le lien de cette vidéo arrive bientôt.</p>`;
+        if(defiler&&innerWidth<900) ecran.scrollIntoView({behavior:reduit?"auto":"smooth",block:"center"})};
+      liste_.querySelectorAll("button").forEach(b=>b.onclick=()=>jouer(+b.dataset.k,true));
+      // la première vidéo se charge quand la section approche de l'écran
+      const obsV=new IntersectionObserver(es=>{if(es[0].isIntersecting){obsV.disconnect();jouer(0,false)}},{rootMargin:"400px 0px"});obsV.observe(ecran);
+    }
   }
 
   /* --- site présenté dans un ordinateur, les pages défilent toutes seules --- */
