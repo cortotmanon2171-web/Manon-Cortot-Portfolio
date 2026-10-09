@@ -1,0 +1,58 @@
+{
+  "nom": "What's on Arles",
+  "sous_titre": "SAÉ 301 · agenda culturel",
+  "format": "desktop",
+  "domaine": "whatsonarles.fr",
+  "lien_figma": "https://www.figma.com/design/Jnihe3rsHwE4zZUQFW9Mnq/SAE-301?node-id=0-1&t=7dIHwTpZAOwMiV6l-1",
+  "description": "Un site pour trouver quoi faire à Arles : concerts, sport, cinéma, ateliers, musées. On filtre par thème, par date ou par public, on repère les lieux sur la carte et on garde ses favoris.\n\nCôté professionnels, un espace dédié permet de publier, modifier et suivre ses événements depuis un tableau de bord.",
+  "competences": [
+    "Figma",
+    "UX/UI",
+    "SAÉ 301",
+    "Espace pro"
+  ],
+  "plan": "/images/maquettes/wa-plan.jpg",
+  "ecrans": [
+    {
+      "nom": "Accueil",
+      "chemin": "",
+      "image": "/images/maquettes/wa-accueil.jpg"
+    },
+    {
+      "nom": "Carte",
+      "chemin": "carte",
+      "image": "/images/maquettes/wa-carte.jpg"
+    },
+    {
+      "nom": "Inscription",
+      "chemin": "inscription",
+      "image": "/images/maquettes/wa-inscription.jpg"
+    },
+    {
+      "nom": "Connexion",
+      "chemin": "connexion",
+      "image": "/images/maquettes/wa-connexion.jpg"
+    },
+    {
+      "nom": "Contact",
+      "chemin": "contact",
+      "image": "/images/maquettes/wa-contact.jpg"
+    },
+    {
+      "nom": "Tableau de bord",
+      "chemin": "pro/tableau-de-bord",
+      "image": "/images/maquettes/wa-tableau.jpg"
+    },
+    {
+      "nom": "Ajouter un événement",
+      "chemin": "pro/ajouter",
+      "image": "/images/maquettes/wa-ajout.jpg"
+    },
+    {
+      "nom": "Gérer un événement",
+      "chemin": "pro/gerer",
+      "image": "/images/maquettes/wa-gerer.jpg"
+    }
+  ],
+  "order": 4
+}

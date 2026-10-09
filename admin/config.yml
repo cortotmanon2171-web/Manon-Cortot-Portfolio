@@ -1,292 +1,330 @@
 # =====================================================================
-#  Configuration de l'espace d'administration du portfolio
-#  ➜ Remplace TON-PSEUDO-GITHUB par ton nom d'utilisateur GitHub
-#    et "portfolio" par le nom de ton dépôt si tu l'as nommé autrement.
+#  Configuration de l'espace d'administration du portfolio (Sveltia CMS)
+#  Les couleurs et typos de l'admin sont dans admin/index.html.
 # =====================================================================
 backend:
   name: github
   repo: cortotmanon2171-web/Manon-Cortot-Portfolio
   branch: main
 
-locale: fr
+app_title: Admin · Manon Cortot
+logo:
+  src: https://cortotmanon2171-web.github.io/Manon-Cortot-Portfolio/images/moi/accueil.jpg
+  show_in_header: true
+display_url: https://cortotmanon2171-web.github.io/Manon-Cortot-Portfolio/
 media_folder: images/uploads
 public_folder: images/uploads
+# noms de fichiers sans accents ni espaces pour les nouveaux projets (ex. « Planète Cacao » → planete-cacao.json)
+slug:
+  encoding: ascii
+  clean_accents: true
+editor:
+  preview: false
 
+# Chaque projet est rangé dans son propre fichier : l'admin les affiche en cartes avec leur image.
+# Le robot .github/workflows/assembler-contenu.yml les rassemble ensuite dans content/videos.json, photos.json…
+# que lit le site. Glisse les cartes (bouton « Réorganiser ») pour changer l'ordre d'affichage sur le site.
 collections:
-  - name: contenu
-    label: Mon portfolio
-    files:
 
-      # ---------------------------------------------------------- VIDÉOS
-      - name: videos
-        label: 🎬 Vidéos
-        file: content/videos.json
-        fields:
-          - name: videos
-            label: Vidéos
-            label_singular: vidéo
-            widget: list
-            summary: "{{fields.titre}} · {{fields.genre}}"
-            hint: "L'ordre ici est l'ordre d'affichage sur le site. Glisse les vidéos pour les réordonner."
-            fields:
-              - {name: titre, label: Titre, widget: string}
-              - {name: sous_titre, label: Sous-titre, widget: string, required: false, hint: "Petite ligne manuscrite sous le titre (ex. « rêve 327 »)"}
-              - {name: genre, label: Genre, widget: string, hint: "Ex. Court-métrage, Documentaire, Vlog…"}
-              - name: categorie
-                label: Catégorie (pour les filtres)
-                widget: select
-                options:
-                  - {label: Court-métrage, value: court}
-                  - {label: Documentaire, value: docu}
-                  - {label: Cinematic, value: cine}
-                  - {label: Pub & commande, value: pub}
-                  - {label: Vlog, value: vlog}
-                  - {label: Réseaux sociaux, value: reseaux}
-                  - {label: Présentation (CV vidéo), value: presentation}
-              - name: emplacement
-                label: Où l'afficher
-                widget: select
-                default: films
-                options:
-                  - {label: "Grille des films (avec affiche)", value: films}
-                  - {label: "Vlogs & formats courts (format 16/9)", value: formats}
-              - {name: affiche, label: Affiche (format portrait), widget: image, required: false, hint: "Pour la grille des films."}
-              - {name: miniature, label: Miniature (format 16/9), widget: image, required: false, hint: "Facultatif : sans miniature, celle de YouTube est utilisée automatiquement."}
-              - {name: lien, label: Lien de la vidéo (YouTube ou Instagram), widget: string, required: false, hint: "Ex. https://youtu.be/xxxxxxxxxxx ou un lien de réel Instagram"}
-              - name: fichier
-                label: "Fichier vidéo (envoyé depuis ton ordinateur)"
-                widget: file
-                required: false
-                accept: "video/mp4,video/webm,.mp4,.webm"
-                choose_url: false
-                # GitHub refuse les gros fichiers et le site deviendrait lent : au-delà de 95 Mo (GitHub refuse plus de 100 Mo) l'admin bloque l'envoi
-                # avec le message « Ce fichier ne peut pas être téléversé, car il dépasse la taille maximale ».
-                media_libraries:
-                  default:
-                    config:
-                      max_file_size: 99614720
-                hint: "Pour une vidéo qui n'est pas sur YouTube ou Instagram. MP4, 95 Mo maximum (GitHub refuse les fichiers plus gros). Si ta vidéo est trop lourde, exporte-la en 1080p ou 720p. Si tu mets aussi un lien, c'est le fichier qui est lu sur le site."
-              - {name: roles, label: Mes rôles, widget: list, required: false, hint: "Sépare par des virgules, ex. Montage, Cadrage"}
-              - {name: prix, label: Prix ou distinction, widget: string, required: false}
-              - {name: description, label: Description, widget: text, hint: "Laisse une ligne vide pour faire un nouveau paragraphe."}
+  # ---------------------------------------------------------- VIDÉOS
+  - name: videos
+    label: 🎬 Vidéos
+    label_singular: vidéo
+    description: "Tes films et formats courts. L'ordre des cartes est l'ordre d'affichage sur le site."
+    folder: content/videos
+    format: json
+    extension: json
+    create: true
+    identifier_field: titre
+    summary: "{{titre}}"
+    thumbnail: [affiche, miniature]
+    reorder: true
+    view_groups:
+      - {name: emplacement, label: Emplacement, field: emplacement}
+    fields:
+      - {name: titre, label: Titre, widget: string}
+      - {name: sous_titre, label: Sous-titre, widget: string, required: false, hint: "Petite ligne manuscrite sous le titre (ex. « rêve 327 »)"}
+      - {name: genre, label: Genre, widget: string, hint: "Ex. Court-métrage, Documentaire, Vlog…"}
+      - name: categorie
+        label: Catégorie (pour les filtres)
+        widget: select
+        options:
+          - {label: Court-métrage, value: court}
+          - {label: Documentaire, value: docu}
+          - {label: Cinematic, value: cine}
+          - {label: Pub & commande, value: pub}
+          - {label: Vlog, value: vlog}
+          - {label: Réseaux sociaux, value: reseaux}
+          - {label: Présentation (CV vidéo), value: presentation}
+      - name: emplacement
+        label: Où l'afficher
+        widget: select
+        default: films
+        options:
+          - {label: "Grille des films (avec affiche)", value: films}
+          - {label: "Vlogs & formats courts (format 16/9)", value: formats}
+      - {name: affiche, label: Affiche (format portrait), widget: image, required: false, hint: "Pour la grille des films."}
+      - {name: miniature, label: Miniature (format 16/9), widget: image, required: false, hint: "Facultatif : sans miniature, celle de YouTube est utilisée automatiquement."}
+      - {name: lien, label: Lien de la vidéo (YouTube ou Instagram), widget: string, required: false, hint: "Ex. https://youtu.be/xxxxxxxxxxx ou un lien de réel Instagram"}
+      - name: fichier
+        label: "Fichier vidéo (envoyé depuis ton ordinateur)"
+        widget: file
+        required: false
+        accept: "video/mp4,video/webm,.mp4,.webm"
+        choose_url: false
+        # GitHub refuse les gros fichiers et le site deviendrait lent : au-delà de 95 Mo (GitHub refuse plus de 100 Mo) l'admin bloque l'envoi
+        # avec le message « Ce fichier ne peut pas être téléversé, car il dépasse la taille maximale ».
+        media_libraries:
+          default:
+            config:
+              max_file_size: 99614720
+        hint: "Pour une vidéo qui n'est pas sur YouTube ou Instagram. MP4, 95 Mo maximum (GitHub refuse les fichiers plus gros). Si ta vidéo est trop lourde, exporte-la en 1080p ou 720p. Si tu mets aussi un lien, c'est le fichier qui est lu sur le site."
+      - {name: roles, label: Mes rôles, widget: list, required: false, hint: "Sépare par des virgules, ex. Montage, Cadrage"}
+      - {name: prix, label: Prix ou distinction, widget: string, required: false}
+      - {name: description, label: Description, widget: text, hint: "Laisse une ligne vide pour faire un nouveau paragraphe."}
 
-      # ---------------------------------------------------------- PHOTOS
+  # ---------------------------------------------------------- PHOTOS
+  - name: photos
+    label: 📷 Photos
+    label_singular: série
+    description: "Tes séries de photos."
+    folder: content/photos
+    format: json
+    extension: json
+    create: true
+    identifier_field: nom
+    summary: "{{nom}}"
+    thumbnail: ["photos.*"]
+    reorder: true
+    fields:
+      - {name: nom, label: Nom de la série, widget: string}
+      - {name: description, label: Texte de présentation, widget: text, required: false}
       - name: photos
-        label: 📷 Photos
-        file: content/photos.json
-        fields:
-          - name: series
-            label: Séries de photos
-            label_singular: série
-            widget: list
-            summary: "{{fields.nom}}"
-            fields:
-              - {name: nom, label: Nom de la série, widget: string}
-              - {name: description, label: Texte de présentation, widget: text, required: false}
-              - name: photos
-                label: Photos
-                widget: image
-                multiple: true
-                required: false
-                # Les photos sortent de l'appareil à 20-25 Mo : l'admin les réduit avant l'envoi,
-                # sinon l'enregistrement échoue (« Load failed ») et le site serait très lent.
-                media_libraries:
-                  default:
-                    config:
-                      transformations:
-                        raster_image: {format: webp, quality: 85, width: 2000, height: 2000}
-                hint: "Tu peux sélectionner ou déposer plusieurs photos d'un coup. Glisse-les pour changer l'ordre. Tant que la série est vide, des cadres « bientôt en ligne » s'affichent."
+        label: Photos
+        widget: image
+        multiple: true
+        required: false
+        # Les photos sortent de l'appareil à 20-25 Mo : l'admin les réduit avant l'envoi,
+        # sinon l'enregistrement échoue (« Load failed ») et le site serait très lent.
+        media_libraries:
+          default:
+            config:
+              transformations:
+                raster_image: {format: webp, quality: 85, width: 2000, height: 2000}
+        hint: "Tu peux sélectionner ou déposer plusieurs photos d'un coup. Glisse-les pour changer l'ordre. Tant que la série est vide, des cadres « bientôt en ligne » s'affichent."
 
-      # ---------------------------------------------------------- COM & GRAPHISME
-      - name: graphisme
-        label: 🎨 Com & graphisme
-        file: content/graphisme.json
+  # ---------------------------------------------------------- COM & GRAPHISME
+  - name: graphisme
+    label: 🎨 Com & graphisme
+    label_singular: projet
+    description: "Tes projets de communication et de graphisme."
+    folder: content/graphisme
+    format: json
+    extension: json
+    create: true
+    identifier_field: nom
+    summary: "{{nom}}"
+    thumbnail: [vignette, "images.*", reseaux.feed, "livret.*", "site.*.image"]
+    reorder: true
+    fields:
+      - {name: nom, label: Nom (onglet), widget: string}
+      - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
+      - {name: titre, label: Grand titre, widget: string, required: false}
+      - {name: description, label: Description, widget: text}
+      - {name: competences, label: Compétences, widget: list, required: false}
+      - {name: vignette, label: "Image de la carte du projet (sinon la première image)", widget: image, required: false}
+      - {name: chiffres, label: "Chiffres clés (sous le texte)", widget: list, required: false, collapsed: true, summary: "{{fields.valeur}}", fields: [{name: valeur, label: Chiffre, widget: string}, {name: texte, label: Explication, widget: string}]}
+      - {name: images, label: Images (galerie), widget: list, required: false, field: {name: image, label: Image, widget: image}}
+      - {name: planches, label: "Rangées de visuels (avec un petit titre)", widget: list, required: false, collapsed: true, summary: "{{fields.titre}}", fields: [{name: titre, label: Titre, widget: string}, {name: texte, label: Petite phrase, widget: string, required: false}, {name: images, label: Visuels, widget: list, collapsed: true, thumbnail: image, summary: "{{fields.nom}}", fields: [{name: image, label: Image, widget: image}, {name: nom, label: "Petite étiquette sur l'image (facultatif)", widget: string, required: false}]}]}
+      - {name: site, label: "Captures du site (affichées dans un ordinateur)", widget: list, required: false, collapsed: true, thumbnail: image, summary: "{{fields.nom}}", fields: [{name: nom, label: Nom de la page, widget: string}, {name: image, label: "Capture (format 16:9)", widget: image}]}
+      - {name: domaine, label: Adresse affichée dans l'ordinateur, widget: string, required: false}
+      - {name: livret, label: "Pages du livret feuilletable (dans l'ordre, couverture d'abord)", widget: list, required: false, field: {name: page, label: Page, widget: image}}
+      - name: reseaux
+        label: "Réseaux sociaux : téléphone avec le feed + carrousels"
+        widget: object
+        required: false
         fields:
-          - name: projets
-            label: Projets
-            label_singular: projet
-            widget: list
-            summary: "{{fields.nom}}"
-            fields:
-              - {name: nom, label: Nom (onglet), widget: string}
-              - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
-              - {name: titre, label: Grand titre, widget: string, required: false}
-              - {name: description, label: Description, widget: text}
-              - {name: competences, label: Compétences, widget: list, required: false}
-              - {name: vignette, label: "Image de la carte du projet (sinon la première image)", widget: image, required: false}
-              - {name: chiffres, label: "Chiffres clés (sous le texte)", widget: list, required: false, summary: "{{fields.valeur}}", fields: [{name: valeur, label: Chiffre, widget: string}, {name: texte, label: Explication, widget: string}]}
-              - {name: images, label: Images (galerie), widget: list, required: false, field: {name: image, label: Image, widget: image}}
-              - {name: planches, label: "Rangées de visuels (avec un petit titre)", widget: list, required: false, summary: "{{fields.titre}}", fields: [{name: titre, label: Titre, widget: string}, {name: texte, label: Petite phrase, widget: string, required: false}, {name: images, label: Visuels, widget: list, fields: [{name: image, label: Image, widget: image}, {name: nom, label: "Petite étiquette sur l'image (facultatif)", widget: string, required: false}]}]}
-              - {name: site, label: "Captures du site (affichées dans un ordinateur)", widget: list, required: false, summary: "{{fields.nom}}", fields: [{name: nom, label: Nom de la page, widget: string}, {name: image, label: "Capture (format 16:9)", widget: image}]}
-              - {name: domaine, label: Adresse affichée dans l'ordinateur, widget: string, required: false}
-              - {name: livret, label: "Pages du livret feuilletable (dans l'ordre, couverture d'abord)", widget: list, required: false, field: {name: page, label: Page, widget: image}}
-              - name: reseaux
-                label: "Réseaux sociaux : téléphone avec le feed + carrousels"
-                widget: object
-                required: false
-                fields:
-                  - {name: compte, label: "Nom du compte Instagram (sans @)", widget: string, required: false}
-                  - {name: avatar, label: Photo de profil du compte, widget: image, required: false}
-                  - {name: lien, label: Lien vers le compte Instagram, widget: string, required: false}
-                  - {name: feed, label: "Capture du feed (affichée dans le téléphone)", widget: image, required: false}
-                  - {name: legende_feed, label: Légende sous le téléphone, widget: string, required: false}
-                  - {name: carrousels, label: Carrousels, label_singular: carrousel, widget: list, required: false, summary: "{{fields.titre}}", fields: [{name: titre, label: Titre, widget: string}, {name: texte, label: Petite phrase sous le carrousel, widget: string, required: false}, {name: slides, label: "Slides (dans l'ordre, format 4:5)", widget: list, field: {name: image, label: Slide, widget: image}}]}
+          - {name: compte, label: "Nom du compte Instagram (sans @)", widget: string, required: false}
+          - {name: avatar, label: Photo de profil du compte, widget: image, required: false}
+          - {name: lien, label: Lien vers le compte Instagram, widget: string, required: false}
+          - {name: feed, label: "Capture du feed (affichée dans le téléphone)", widget: image, required: false}
+          - {name: legende_feed, label: Légende sous le téléphone, widget: string, required: false}
+          - {name: carrousels, label: Carrousels, label_singular: carrousel, widget: list, required: false, collapsed: true, summary: "{{fields.titre}}", fields: [{name: titre, label: Titre, widget: string}, {name: texte, label: Petite phrase sous le carrousel, widget: string, required: false}, {name: slides, label: "Slides (dans l'ordre, format 4:5)", widget: list, field: {name: image, label: Slide, widget: image}}]}
 
-      # ---------------------------------------------------------- AE2I
-      - name: ae2i
-        label: 💗 AE2I
-        file: content/ae2i.json
+  # ---------------------------------------------------------- MAQUETTES FIGMA
+  - name: maquettes
+    label: 📱 Maquettes Figma
+    label_singular: maquette
+    description: "Tes maquettes de sites et d'applications."
+    folder: content/maquettes
+    format: json
+    extension: json
+    create: true
+    identifier_field: nom
+    summary: "{{nom}}"
+    thumbnail: [plan, "ecrans.*.image"]
+    reorder: true
+    fields:
+      - {name: nom, label: Nom du projet, widget: string}
+      - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
+      - name: format
+        label: Format
+        widget: select
+        options: [{label: Site ordinateur, value: desktop}, {label: Application / site mobile, value: mobile}]
+      - {name: domaine, label: Adresse affichée dans la barre du navigateur, widget: string, required: false, hint: "Ex. monsite.fr (purement décoratif)"}
+      - {name: lien_figma, label: Lien Figma (fichier), widget: string, required: false}
+      - {name: lien_prototype, label: Lien du prototype Figma, widget: string, required: false, hint: "Dans Figma : ▶ Présenter puis Partager, copie le lien. Sans lui, le site essaie de lancer le prototype du fichier."}
+      - {name: description, label: Description, widget: text}
+      - {name: competences, label: Compétences, widget: list, required: false}
+      - {name: plan, label: Vue d'ensemble (plan complet), widget: image, required: false}
+      - name: ecrans
+        label: Écrans
+        label_singular: écran
+        widget: list
+        collapsed: true
+        thumbnail: image
+        summary: "{{fields.nom}}"
         fields:
-          - {name: titre, label: Grand titre, widget: string}
+          - {name: nom, label: Nom de l'écran, widget: string}
+          - {name: chemin, label: Chemin affiché dans l'adresse, widget: string, required: false, hint: "Ex. contact"}
+          - {name: image, label: Capture de l'écran (exportée de Figma), widget: image}
+        hint: "Les captures servent de secours si Figma ne peut pas s'afficher."
+
+# Toutes les images du site (affiches, photos, visuels…), pour que les cartes et l'onglet Médias les affichent
+asset_collections:
+  - name: images
+    label: 🖼️ Images du site
+    media_folder: images
+    public_folder: /images
+
+# Pages uniques (pas de cartes) : elles s'ouvrent directement depuis le menu
+singletons:
+  # ---------------------------------------------------------- AE2I
+  - name: ae2i
+    label: 💗 AE2I
+    file: content/ae2i.json
+    fields:
+      - {name: titre, label: Grand titre, widget: string}
+      - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
+      - {name: intro, label: Texte d'introduction, widget: text, required: false}
+      - {name: instagram, label: Lien Instagram de l'asso, widget: string, required: false}
+      - {name: logo, label: "Logo sans fond (imprimé sur le dossier du merch)", widget: image, required: false}
+      - name: parcours
+        label: Mes rôles dans l'asso
+        label_singular: rôle
+        widget: list
+        collapsed: true
+        required: false
+        summary: "{{fields.titre}}"
+        fields: [{name: titre, label: Rôle, widget: string}, {name: texte, label: Détail, widget: string}]
+      - name: equipe
+        label: L'équipe
+        widget: object
+        fields:
+          - {name: titre, label: Titre, widget: string}
           - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
-          - {name: intro, label: Texte d'introduction, widget: text, required: false}
-          - {name: instagram, label: Lien Instagram de l'asso, widget: string, required: false}
-          - {name: logo, label: "Logo sans fond (imprimé sur le dossier du merch)", widget: image, required: false}
-          - name: parcours
-            label: Mes rôles dans l'asso
-            label_singular: rôle
-            widget: list
-            required: false
-            summary: "{{fields.titre}}"
-            fields: [{name: titre, label: Rôle, widget: string}, {name: texte, label: Détail, widget: string}]
-          - name: equipe
-            label: L'équipe
-            widget: object
-            fields:
-              - {name: titre, label: Titre, widget: string}
-              - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
-              - {name: description, label: Description, widget: text, required: false}
-              - {name: image, label: Photo d'équipe, widget: image}
-          - name: identite
-            label: Identité visuelle
-            widget: object
-            fields:
-              - {name: titre, label: Titre, widget: string}
-              - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
-              - {name: description, label: Description, widget: text, required: false}
-              - {name: charte, label: Charte graphique, widget: image, required: false}
-              - {name: logos, label: "Logos et déclinaisons (le premier est le grand)", widget: list, required: false, summary: "{{fields.nom}}", hint: "Si le nom contient « Octobre rose », un petit ruban s'affiche.", fields: [{name: nom, label: Nom, widget: string}, {name: image, label: Image, widget: image}]}
-          - name: reseaux
-            label: Réseaux sociaux
-            widget: object
-            fields:
-              - {name: titre, label: Titre, widget: string}
-              - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
-              - {name: description, label: Description, widget: text, required: false}
-              - {name: carrousel, label: "Slides du carrousel (dans l'ordre)", widget: list, required: false, summary: "{{fields.nom}}", fields: [{name: nom, label: Nom de la slide, widget: string}, {name: image, label: "Image (format 4:5)", widget: image}]}
-              - {name: feed, label: Capture du feed (téléphone), widget: image, required: false}
-          - name: merch
-            label: Le merch
-            widget: object
-            fields:
-              - {name: titre, label: Titre, widget: string}
-              - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
-              - {name: description, label: Description, widget: text, required: false}
-              - {name: logo, label: "Logo d'événement (pastille ronde sur le dossier)", widget: image, required: false}
-              - {name: logo_nom, label: Nom du logo, widget: string, required: false}
-              - {name: pieces, label: "Vêtements détourés (PNG ou WebP sans fond), ils sortent du dossier en éventail", widget: list, required: false, summary: "{{fields.nom}}", fields: [{name: nom, label: Nom, widget: string}, {name: image, label: Image sans fond, widget: image}]}
-          - name: videos
-            label: Vidéos de l'asso
-            label_singular: vidéo
-            widget: list
-            required: false
-            summary: "{{fields.titre}}"
-            hint: "Les vidéos se regardent directement sur le site, dans le lecteur. Colle le lien du réel Instagram (ou YouTube), ou envoie le fichier vidéo depuis ton ordinateur. La miniature est facultative : elle sert de vignette dans la liste."
-            fields:
-              - {name: titre, label: Titre, widget: string}
-              - {name: genre, label: Type, widget: string, required: false, hint: "Ex. Aftermovie, Réel"}
-              - {name: lien, label: Lien (YouTube ou Instagram), widget: string, required: false}
-              - name: fichier
-                label: "Fichier vidéo (envoyé depuis ton ordinateur)"
-                widget: file
-                required: false
-                accept: "video/mp4,video/webm,.mp4,.webm"
-                choose_url: false
-                # GitHub refuse les gros fichiers et le site deviendrait lent : au-delà de 95 Mo (GitHub refuse plus de 100 Mo) l'admin bloque l'envoi
-                # avec le message « Ce fichier ne peut pas être téléversé, car il dépasse la taille maximale ».
-                media_libraries:
-                  default:
-                    config:
-                      max_file_size: 99614720
-                hint: "Pour une vidéo qui n'est pas sur YouTube ou Instagram. MP4, 95 Mo maximum (GitHub refuse les fichiers plus gros). Si ta vidéo est trop lourde, exporte-la en 1080p ou 720p. Si tu mets aussi un lien, c'est le fichier qui est lu sur le site."
-              - {name: miniature, label: Miniature, widget: image, required: false}
-              - {name: description, label: Description, widget: text, required: false}
-
-      # ---------------------------------------------------------- MAQUETTES
-      - name: maquettes
-        label: 📱 Maquettes Figma
-        file: content/maquettes.json
+          - {name: description, label: Description, widget: text, required: false}
+          - {name: image, label: Photo d'équipe, widget: image}
+      - name: identite
+        label: Identité visuelle
+        widget: object
         fields:
-          - name: maquettes
-            label: Maquettes
-            label_singular: maquette
-            widget: list
-            summary: "{{fields.nom}}"
-            fields:
-              - {name: nom, label: Nom du projet, widget: string}
-              - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
-              - name: format
-                label: Format
-                widget: select
-                options: [{label: Site ordinateur, value: desktop}, {label: Application / site mobile, value: mobile}]
-              - {name: domaine, label: Adresse affichée dans la barre du navigateur, widget: string, required: false, hint: "Ex. monsite.fr (purement décoratif)"}
-              - {name: lien_figma, label: Lien Figma (fichier), widget: string, required: false}
-              - {name: lien_prototype, label: Lien du prototype Figma, widget: string, required: false, hint: "Dans Figma : ▶ Présenter puis Partager, copie le lien. Sans lui, le site essaie de lancer le prototype du fichier."}
-              - {name: description, label: Description, widget: text}
-              - {name: competences, label: Compétences, widget: list, required: false}
-              - {name: plan, label: Vue d'ensemble (plan complet), widget: image, required: false}
-              - name: ecrans
-                label: Écrans
-                label_singular: écran
-                widget: list
-                summary: "{{fields.nom}}"
-                fields:
-                  - {name: nom, label: Nom de l'écran, widget: string}
-                  - {name: chemin, label: Chemin affiché dans l'adresse, widget: string, required: false, hint: "Ex. contact"}
-                  - {name: image, label: Capture de l'écran (exportée de Figma), widget: image}
-                hint: "Les captures servent de secours si Figma ne peut pas s'afficher."
-
-      # ---------------------------------------------------------- PROFIL
-      - name: profil
-        label: 👤 Profil, à propos & contact
-        file: content/profil.json
+          - {name: titre, label: Titre, widget: string}
+          - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
+          - {name: description, label: Description, widget: text, required: false}
+          - {name: charte, label: Charte graphique, widget: image, required: false}
+          - {name: logos, label: "Logos et déclinaisons (le premier est le grand)", widget: list, required: false, collapsed: true, thumbnail: image, summary: "{{fields.nom}}", hint: "Si le nom contient « Octobre rose », un petit ruban s'affiche.", fields: [{name: nom, label: Nom, widget: string}, {name: image, label: Image, widget: image}]}
+      - name: reseaux
+        label: Réseaux sociaux
+        widget: object
         fields:
-          - {name: prenom, label: Prénom, widget: string}
-          - {name: nom, label: Nom, widget: string}
-          - {name: accroche, label: Phrase d'accueil, widget: text}
-          - {name: photo_decoupe, label: Photo détourée (accueil, PNG ou WebP transparent), widget: image, required: false}
-          - {name: photo_accueil, label: Petite photo de l'accueil, widget: image, required: false}
-          - {name: photo_portrait, label: Portrait (À propos), widget: image, required: false}
-          - {name: photo_contact, label: Photo du contact, widget: image, required: false}
-          - {name: bio, label: Biographie, widget: text}
-          - {name: alternance, label: Encadré « recherche », widget: text, required: false, hint: "Laisse vide pour le masquer."}
-          - name: parcours
-            label: Parcours
-            label_singular: étape
-            widget: list
-            summary: "{{fields.titre}}"
-            fields:
-              - {name: titre, label: Titre, widget: string}
-              - {name: texte, label: Détail, widget: string, required: false}
-          - name: distinctions
-            label: Distinctions
-            label_singular: distinction
-            widget: list
+          - {name: titre, label: Titre, widget: string}
+          - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
+          - {name: description, label: Description, widget: text, required: false}
+          - {name: carrousel, label: "Slides du carrousel (dans l'ordre)", widget: list, required: false, collapsed: true, thumbnail: image, summary: "{{fields.nom}}", fields: [{name: nom, label: Nom de la slide, widget: string}, {name: image, label: "Image (format 4:5)", widget: image}]}
+          - {name: feed, label: Capture du feed (téléphone), widget: image, required: false}
+      - name: merch
+        label: Le merch
+        widget: object
+        fields:
+          - {name: titre, label: Titre, widget: string}
+          - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
+          - {name: description, label: Description, widget: text, required: false}
+          - {name: logo, label: "Logo d'événement (pastille ronde sur le dossier)", widget: image, required: false}
+          - {name: logo_nom, label: Nom du logo, widget: string, required: false}
+          - {name: pieces, label: "Vêtements détourés (PNG ou WebP sans fond), ils sortent du dossier en éventail", widget: list, required: false, collapsed: true, thumbnail: image, summary: "{{fields.nom}}", fields: [{name: nom, label: Nom, widget: string}, {name: image, label: Image sans fond, widget: image}]}
+      - name: videos
+        label: Vidéos de l'asso
+        label_singular: vidéo
+        widget: list
+        collapsed: true
+        thumbnail: miniature
+        required: false
+        summary: "{{fields.titre}}"
+        hint: "Les vidéos se regardent directement sur le site, dans le lecteur. Colle le lien du réel Instagram (ou YouTube), ou envoie le fichier vidéo depuis ton ordinateur. La miniature est facultative : elle sert de vignette dans la liste."
+        fields:
+          - {name: titre, label: Titre, widget: string}
+          - {name: genre, label: Type, widget: string, required: false, hint: "Ex. Aftermovie, Réel"}
+          - {name: lien, label: Lien (YouTube ou Instagram), widget: string, required: false}
+          - name: fichier
+            label: "Fichier vidéo (envoyé depuis ton ordinateur)"
+            widget: file
             required: false
-            summary: "{{fields.titre}}"
-            fields:
-              - {name: nom, label: Nom du prix, widget: string}
-              - {name: titre, label: Catégorie, widget: string}
-              - {name: detail, label: Détail, widget: string, required: false}
-          - {name: competences, label: Compétences (bandeau défilant et À propos), widget: list, required: false}
-          - {name: materiel, label: Mes outils, widget: list, required: false}
-          - {name: email, label: E-mail, widget: string}
-          - {name: telephone, label: Téléphone, widget: string, required: false}
-          - {name: instagram, label: Lien Instagram, widget: string, required: false}
-          - {name: youtube, label: Lien chaîne YouTube, widget: string, required: false}
-          - name: options
-            label: Options
-            widget: object
-            fields:
-              - {name: youtube_integre, label: Lire les vidéos directement sur le site, widget: boolean, default: true}
-              - {name: figma_en_direct, label: Bouton « Figma en direct » sur les maquettes, widget: boolean, default: true}
+            accept: "video/mp4,video/webm,.mp4,.webm"
+            choose_url: false
+            # GitHub refuse les gros fichiers et le site deviendrait lent : au-delà de 95 Mo (GitHub refuse plus de 100 Mo) l'admin bloque l'envoi
+            # avec le message « Ce fichier ne peut pas être téléversé, car il dépasse la taille maximale ».
+            media_libraries:
+              default:
+                config:
+                  max_file_size: 99614720
+            hint: "Pour une vidéo qui n'est pas sur YouTube ou Instagram. MP4, 95 Mo maximum (GitHub refuse les fichiers plus gros). Si ta vidéo est trop lourde, exporte-la en 1080p ou 720p. Si tu mets aussi un lien, c'est le fichier qui est lu sur le site."
+          - {name: miniature, label: Miniature, widget: image, required: false}
+          - {name: description, label: Description, widget: text, required: false}
+
+  # ---------------------------------------------------------- PROFIL
+  - name: profil
+    label: 👤 Profil, à propos & contact
+    file: content/profil.json
+    fields:
+      - {name: prenom, label: Prénom, widget: string}
+      - {name: nom, label: Nom, widget: string}
+      - {name: accroche, label: Phrase d'accueil, widget: text}
+      - {name: photo_decoupe, label: "Photo détourée (accueil, PNG ou WebP transparent)", widget: image, required: false}
+      - {name: photo_accueil, label: Petite photo de l'accueil, widget: image, required: false}
+      - {name: photo_portrait, label: Portrait (À propos), widget: image, required: false}
+      - {name: photo_contact, label: Photo du contact, widget: image, required: false}
+      - {name: bio, label: Biographie, widget: text}
+      - {name: alternance, label: Encadré « recherche », widget: text, required: false, hint: "Laisse vide pour le masquer."}
+      - name: parcours
+        label: Parcours
+        label_singular: étape
+        widget: list
+        collapsed: true
+        summary: "{{fields.titre}}"
+        fields:
+          - {name: titre, label: Titre, widget: string}
+          - {name: texte, label: Détail, widget: string, required: false}
+      - name: distinctions
+        label: Distinctions
+        label_singular: distinction
+        widget: list
+        collapsed: true
+        required: false
+        summary: "{{fields.titre}}"
+        fields:
+          - {name: nom, label: Nom du prix, widget: string}
+          - {name: titre, label: Catégorie, widget: string}
+          - {name: detail, label: Détail, widget: string, required: false}
+      - {name: competences, label: Compétences (bandeau défilant et À propos), widget: list, required: false}
+      - {name: materiel, label: Mes outils, widget: list, required: false}
+      - {name: email, label: E-mail, widget: string}
+      - {name: telephone, label: Téléphone, widget: string, required: false}
+      - {name: instagram, label: Lien Instagram, widget: string, required: false}
+      - {name: youtube, label: Lien chaîne YouTube, widget: string, required: false}
+      - name: options
+        label: Options
+        widget: object
+        fields:
+          - {name: youtube_integre, label: Lire les vidéos directement sur le site, widget: boolean, default: true}
+          - {name: figma_en_direct, label: Bouton « Figma en direct » sur les maquettes, widget: boolean, default: true}

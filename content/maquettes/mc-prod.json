@@ -1,0 +1,38 @@
+{
+  "nom": "MC Prod",
+  "sous_titre": "mon premier portfolio",
+  "format": "mobile",
+  "domaine": "mcprod.fr",
+  "lien_figma": "https://www.figma.com/design/fXqBfDgoHrujZTRhj2P3uw/Sans-titre?node-id=0-1&t=4b2yvqOIpbhtR12i-1",
+  "description": "La maquette de mon premier portfolio, imaginé comme une agence créative. Un univers violet, une typographie condensée et des formes organiques pour présenter mes projets.\n\nAccueil, à propos, galerie de projets, pages détaillées avec synopsis et rôles, formulaire de contact et CV : un site complet pensé pour mobile.",
+  "competences": [
+    "Figma",
+    "UI design",
+    "Portfolio",
+    "Mobile"
+  ],
+  "plan": "/images/maquettes/m-plan.jpg",
+  "ecrans": [
+    {
+      "nom": "Accueil",
+      "chemin": "",
+      "image": "/images/maquettes/m-accueil.jpg"
+    },
+    {
+      "nom": "Mes projets",
+      "chemin": "projets",
+      "image": "/images/maquettes/m-projets.jpg"
+    },
+    {
+      "nom": "Au-delà du jeu",
+      "chemin": "projets/au-dela-du-jeu",
+      "image": "/images/maquettes/m-audela.jpg"
+    },
+    {
+      "nom": "Contact",
+      "chemin": "contact",
+      "image": "/images/maquettes/m-contact.jpg"
+    }
+  ],
+  "order": 2
+}

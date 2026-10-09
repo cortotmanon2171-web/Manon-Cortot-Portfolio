@@ -1,0 +1,27 @@
+{
+  "nom": "Livret InDesign",
+  "sous_titre": "festival culturel & gastronomique",
+  "titre": "Le livret",
+  "description": "Un projet qui mêle mes deux passions : la mise en page et l'événementiel. J'ai conçu l'identité visuelle du livret, structuré les contenus et pensé toute la mise en page pour faire vivre l'expérience du festival.\n\nContrainte du projet : utiliser la fonction tableau d'InDesign, tout en gardant une mise en page claire et cohérente avec l'identité visuelle.",
+  "competences": [
+    "InDesign",
+    "Identité visuelle",
+    "Mise en page"
+  ],
+  "images": [],
+  "livret": [
+    "/images/livret/page-01.jpg",
+    "/images/livret/page-02.jpg",
+    "/images/livret/page-03.jpg",
+    "/images/livret/page-04.jpg",
+    "/images/livret/page-05.jpg",
+    "/images/livret/page-06.jpg",
+    "/images/livret/page-07.jpg",
+    "/images/livret/page-08.jpg",
+    "/images/livret/page-09.jpg",
+    "/images/livret/page-10.jpg",
+    "/images/livret/page-11.jpg",
+    "/images/livret/page-12.jpg"
+  ],
+  "order": 2
+}

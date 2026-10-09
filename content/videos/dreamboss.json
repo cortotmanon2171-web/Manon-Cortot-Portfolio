@@ -1,0 +1,19 @@
+{
+  "titre": "Dreamboss",
+  "sous_titre": "réalisé par Manon Cortot",
+  "genre": "Court-métrage",
+  "categorie": "court",
+  "emplacement": "films",
+  "affiche": "/images/affiches/dreamboss.jpg",
+  "miniature": "",
+  "lien": "https://youtu.be/gFij3Y0_FPE?si=I5arxFY7Pah9QQyJ",
+  "fichier": "",
+  "roles": [
+    "Réalisation",
+    "Montage",
+    "Cadrage"
+  ],
+  "prix": "",
+  "description": "Un film sur l'idée de rester maître de sa propre vie face aux influences extérieures. À travers Marie et le Directeur, il montre les pressions qui orientent nos choix et l'importance de reprendre le contrôle de son destin.\n\nL'esthétique joue sur un fort contraste entre réalité et rêve, porté par la lumière, les effets visuels et le travail sonore.",
+  "order": 1
+}

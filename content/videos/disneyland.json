@@ -1,0 +1,18 @@
+{
+  "titre": "Disneyland",
+  "sous_titre": "",
+  "genre": "Vlog",
+  "categorie": "vlog",
+  "emplacement": "formats",
+  "affiche": "",
+  "miniature": "/images/miniatures/disneyland.jpg",
+  "lien": "https://youtu.be/YQzI_Xaoowk?si=TpphUhAyeFv0QkYA",
+  "fichier": "",
+  "roles": [
+    "Tournage",
+    "Montage"
+  ],
+  "prix": "",
+  "description": "Un vlog tourné à Disneyland Paris.",
+  "order": 8
+}

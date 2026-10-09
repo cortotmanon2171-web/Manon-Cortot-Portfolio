@@ -1,0 +1,18 @@
+{
+  "titre": "Santorin",
+  "sous_titre": "",
+  "genre": "Vlog",
+  "categorie": "vlog",
+  "emplacement": "formats",
+  "affiche": "",
+  "miniature": "/images/uploads/miniaturesantorin.jpg",
+  "lien": "https://youtu.be/DO5_oAdHghI?si=8elhwy62tZnj9vGQ",
+  "fichier": "",
+  "roles": [
+    "Tournage",
+    "Montage"
+  ],
+  "prix": "",
+  "description": "Un vlog tourné à Santorin",
+  "order": 9
+}

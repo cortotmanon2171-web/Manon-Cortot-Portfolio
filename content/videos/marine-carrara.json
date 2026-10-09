@@ -1,0 +1,18 @@
+{
+  "titre": "Marine Carrara",
+  "sous_titre": "à travers son art",
+  "genre": "Documentaire",
+  "categorie": "docu",
+  "emplacement": "films",
+  "affiche": "/images/affiches/marine.jpg",
+  "miniature": "/images/miniatures/marine.jpg",
+  "lien": "https://youtu.be/SEebgaQhtBg?si=tzX_tcQX5djOxJvT",
+  "fichier": "",
+  "roles": [
+    "Cadrage",
+    "Montage"
+  ],
+  "prix": "",
+  "description": "Ce documentaire plonge dans l'univers d'une artiste céramiste : son parcours, sa passion et son processus de création.\n\nEntre façonnage, cuisson et recherche d'inspiration, elle partage son quotidien, ses défis et sa vision de l'artisanat.",
+  "order": 4
+}

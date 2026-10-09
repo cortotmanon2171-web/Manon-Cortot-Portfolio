@@ -9,25 +9,25 @@
       "images": [],
       "reseaux": {
         "compte": "aelia.pilates",
-        "avatar": "images/graphisme/aelia-avatar.jpg",
+        "avatar": "/images/graphisme/aelia-avatar.jpg",
         "lien": "https://www.instagram.com/aelia.pilates/",
-        "feed": "images/graphisme/aelia-feed.jpg",
+        "feed": "/images/graphisme/aelia-feed.jpg",
         "legende_feed": "Le nouveau feed que j'ai créé",
         "carrousels": [
           {
             "titre": "Offre fête des mères",
             "texte": "Les nouvelles cartes de cours.",
             "slides": [
-              "images/graphisme/aelia-fete-meres-1.jpg",
-              "images/graphisme/aelia-fete-meres-2.jpg"
+              "/images/graphisme/aelia-fete-meres-1.jpg",
+              "/images/graphisme/aelia-fete-meres-2.jpg"
             ]
           },
           {
             "titre": "Breakfast & Pilates",
             "texte": "L'annonce de l'événement au RK.",
             "slides": [
-              "images/graphisme/aelia-breakfast-1.jpg",
-              "images/graphisme/aelia-breakfast-2.jpg"
+              "/images/graphisme/aelia-breakfast-1.jpg",
+              "/images/graphisme/aelia-breakfast-2.jpg"
             ]
           }
         ]
@@ -47,10 +47,10 @@
           "titre": "La série « On vous présente »",
           "texte": "un post par prof.",
           "images": [
-            "images/graphisme/aelia-prof-1.jpg",
-            "images/graphisme/aelia-prof-2.jpg",
-            "images/graphisme/aelia-prof-3.jpg",
-            "images/graphisme/aelia-prof-4.jpg"
+            "/images/graphisme/aelia-prof-1.jpg",
+            "/images/graphisme/aelia-prof-2.jpg",
+            "/images/graphisme/aelia-prof-3.jpg",
+            "/images/graphisme/aelia-prof-4.jpg"
           ]
         },
         {
@@ -58,19 +58,19 @@
           "texte": "affiche, newsletter et photos du jour J.",
           "images": [
             {
-              "image": "images/graphisme/aelia-breakfast-affiche.jpg",
+              "image": "/images/graphisme/aelia-breakfast-affiche.jpg",
               "nom": "Affiche"
             },
             {
-              "image": "images/graphisme/aelia-breakfast-newsletter.jpg",
+              "image": "/images/graphisme/aelia-breakfast-newsletter.jpg",
               "nom": "Newsletter"
             },
-            "images/graphisme/aelia-breakfast-jourj-1.jpg",
-            "images/graphisme/aelia-breakfast-jourj-2.jpg"
+            "/images/graphisme/aelia-breakfast-jourj-1.jpg",
+            "/images/graphisme/aelia-breakfast-jourj-2.jpg"
           ]
         }
       ],
-      "vignette": "images/graphisme/aelia-fete-meres-1.jpg"
+      "vignette": "/images/graphisme/aelia-fete-meres-1.jpg"
     },
     {
       "nom": "Livret InDesign",
@@ -84,18 +84,18 @@
       ],
       "images": [],
       "livret": [
-        "images/livret/page-01.jpg",
-        "images/livret/page-02.jpg",
-        "images/livret/page-03.jpg",
-        "images/livret/page-04.jpg",
-        "images/livret/page-05.jpg",
-        "images/livret/page-06.jpg",
-        "images/livret/page-07.jpg",
-        "images/livret/page-08.jpg",
-        "images/livret/page-09.jpg",
-        "images/livret/page-10.jpg",
-        "images/livret/page-11.jpg",
-        "images/livret/page-12.jpg"
+        "/images/livret/page-01.jpg",
+        "/images/livret/page-02.jpg",
+        "/images/livret/page-03.jpg",
+        "/images/livret/page-04.jpg",
+        "/images/livret/page-05.jpg",
+        "/images/livret/page-06.jpg",
+        "/images/livret/page-07.jpg",
+        "/images/livret/page-08.jpg",
+        "/images/livret/page-09.jpg",
+        "/images/livret/page-10.jpg",
+        "/images/livret/page-11.jpg",
+        "/images/livret/page-12.jpg"
       ]
     },
     {
@@ -113,23 +113,23 @@
       "site": [
         {
           "nom": "Accueil",
-          "image": "images/graphisme/cacao-1.jpg"
+          "image": "/images/graphisme/cacao-1.jpg"
         },
         {
           "nom": "Recette",
-          "image": "images/graphisme/cacao-2.jpg"
+          "image": "/images/graphisme/cacao-2.jpg"
         },
         {
           "nom": "Article Milka",
-          "image": "images/graphisme/cacao-3.jpg"
+          "image": "/images/graphisme/cacao-3.jpg"
         },
         {
           "nom": "À propos",
-          "image": "images/graphisme/cacao-4.jpg"
+          "image": "/images/graphisme/cacao-4.jpg"
         },
         {
           "nom": "Contact",
-          "image": "images/graphisme/cacao-5.jpg"
+          "image": "/images/graphisme/cacao-5.jpg"
         }
       ],
       "domaine": "planete-cacao.fr"

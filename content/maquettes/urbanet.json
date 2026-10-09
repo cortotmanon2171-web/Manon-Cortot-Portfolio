@@ -1,0 +1,43 @@
+{
+  "nom": "Urbanet",
+  "sous_titre": "e-commerce streetwear",
+  "format": "mobile",
+  "domaine": "urbanet.fr",
+  "lien_figma": "https://www.figma.com/design/rnMvJ1iyd5dBhpUZvHjuLZ/Sans-titre?t=4b2yvqOIpbhtR12i-1",
+  "description": "La maquette mobile d'une boutique en ligne de streetwear. J'ai créé l'identité visuelle, du logo à la palette kaki et beige, puis dessiné tout le parcours d'achat.\n\nAccueil, catalogue avec filtres, fiche article, wishlist, panier, compte, paiement et confirmation : chaque écran est pensé pour qu'on trouve vite et qu'on commande sans friction.",
+  "competences": [
+    "Figma",
+    "UI design",
+    "E-commerce",
+    "Mobile"
+  ],
+  "plan": "/images/maquettes/u-plan.jpg",
+  "ecrans": [
+    {
+      "nom": "Accueil",
+      "chemin": "",
+      "image": "/images/maquettes/u-accueil.jpg"
+    },
+    {
+      "nom": "Menu",
+      "chemin": "menu",
+      "image": "/images/maquettes/u-menu.jpg"
+    },
+    {
+      "nom": "Favoris",
+      "chemin": "favoris",
+      "image": "/images/maquettes/u-favoris.jpg"
+    },
+    {
+      "nom": "Inscription",
+      "chemin": "inscription",
+      "image": "/images/maquettes/u-inscription.jpg"
+    },
+    {
+      "nom": "Paiement",
+      "chemin": "paiement",
+      "image": "/images/maquettes/u-paiement.jpg"
+    }
+  ],
+  "order": 1
+}

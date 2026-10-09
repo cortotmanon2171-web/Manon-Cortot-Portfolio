@@ -13,32 +13,32 @@
         "E-commerce",
         "Mobile"
       ],
-      "plan": "images/maquettes/u-plan.jpg",
+      "plan": "/images/maquettes/u-plan.jpg",
       "ecrans": [
         {
           "nom": "Accueil",
           "chemin": "",
-          "image": "images/maquettes/u-accueil.jpg"
+          "image": "/images/maquettes/u-accueil.jpg"
         },
         {
           "nom": "Menu",
           "chemin": "menu",
-          "image": "images/maquettes/u-menu.jpg"
+          "image": "/images/maquettes/u-menu.jpg"
         },
         {
           "nom": "Favoris",
           "chemin": "favoris",
-          "image": "images/maquettes/u-favoris.jpg"
+          "image": "/images/maquettes/u-favoris.jpg"
         },
         {
           "nom": "Inscription",
           "chemin": "inscription",
-          "image": "images/maquettes/u-inscription.jpg"
+          "image": "/images/maquettes/u-inscription.jpg"
         },
         {
           "nom": "Paiement",
           "chemin": "paiement",
-          "image": "images/maquettes/u-paiement.jpg"
+          "image": "/images/maquettes/u-paiement.jpg"
         }
       ]
     },
@@ -55,27 +55,27 @@
         "Portfolio",
         "Mobile"
       ],
-      "plan": "images/maquettes/m-plan.jpg",
+      "plan": "/images/maquettes/m-plan.jpg",
       "ecrans": [
         {
           "nom": "Accueil",
           "chemin": "",
-          "image": "images/maquettes/m-accueil.jpg"
+          "image": "/images/maquettes/m-accueil.jpg"
         },
         {
           "nom": "Mes projets",
           "chemin": "projets",
-          "image": "images/maquettes/m-projets.jpg"
+          "image": "/images/maquettes/m-projets.jpg"
         },
         {
           "nom": "Au-delà du jeu",
           "chemin": "projets/au-dela-du-jeu",
-          "image": "images/maquettes/m-audela.jpg"
+          "image": "/images/maquettes/m-audela.jpg"
         },
         {
           "nom": "Contact",
           "chemin": "contact",
-          "image": "images/maquettes/m-contact.jpg"
+          "image": "/images/maquettes/m-contact.jpg"
         }
       ]
     },
@@ -92,17 +92,17 @@
         "FR / EN",
         "Identité visuelle"
       ],
-      "plan": "images/maquettes/mo-plan.jpg",
+      "plan": "/images/maquettes/mo-plan.jpg",
       "ecrans": [
         {
           "nom": "Version FR",
           "chemin": "",
-          "image": "images/maquettes/mo-fr.jpg"
+          "image": "/images/maquettes/mo-fr.jpg"
         },
         {
           "nom": "Version EN",
           "chemin": "en",
-          "image": "images/maquettes/mo-en.jpg"
+          "image": "/images/maquettes/mo-en.jpg"
         }
       ]
     },
@@ -119,47 +119,47 @@
         "SAÉ 301",
         "Espace pro"
       ],
-      "plan": "images/maquettes/wa-plan.jpg",
+      "plan": "/images/maquettes/wa-plan.jpg",
       "ecrans": [
         {
           "nom": "Accueil",
           "chemin": "",
-          "image": "images/maquettes/wa-accueil.jpg"
+          "image": "/images/maquettes/wa-accueil.jpg"
         },
         {
           "nom": "Carte",
           "chemin": "carte",
-          "image": "images/maquettes/wa-carte.jpg"
+          "image": "/images/maquettes/wa-carte.jpg"
         },
         {
           "nom": "Inscription",
           "chemin": "inscription",
-          "image": "images/maquettes/wa-inscription.jpg"
+          "image": "/images/maquettes/wa-inscription.jpg"
         },
         {
           "nom": "Connexion",
           "chemin": "connexion",
-          "image": "images/maquettes/wa-connexion.jpg"
+          "image": "/images/maquettes/wa-connexion.jpg"
         },
         {
           "nom": "Contact",
           "chemin": "contact",
-          "image": "images/maquettes/wa-contact.jpg"
+          "image": "/images/maquettes/wa-contact.jpg"
         },
         {
           "nom": "Tableau de bord",
           "chemin": "pro/tableau-de-bord",
-          "image": "images/maquettes/wa-tableau.jpg"
+          "image": "/images/maquettes/wa-tableau.jpg"
         },
         {
           "nom": "Ajouter un événement",
           "chemin": "pro/ajouter",
-          "image": "images/maquettes/wa-ajout.jpg"
+          "image": "/images/maquettes/wa-ajout.jpg"
         },
         {
           "nom": "Gérer un événement",
           "chemin": "pro/gerer",
-          "image": "images/maquettes/wa-gerer.jpg"
+          "image": "/images/maquettes/wa-gerer.jpg"
         }
       ]
     }
