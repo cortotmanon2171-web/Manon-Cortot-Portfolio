@@ -86,6 +86,9 @@ button{font:inherit;color:inherit}
 .sombre .pastilles button[aria-pressed="true"]{background:var(--soleil);color:var(--encre);border-color:var(--soleil)}
 
 /* ---------- Navigation ---------- */
+.voile{position:fixed;inset:0;z-index:55;background:var(--bg);opacity:0;pointer-events:none;transition:opacity .28s ease}
+.voile.visible{opacity:1;pointer-events:auto}
+[tabindex="-1"]:focus{outline:none}
 .progression{position:fixed;left:0;top:0;height:3px;width:100%;z-index:70;background:linear-gradient(90deg,var(--soleil),var(--lavande));transform-origin:0 50%;transform:scaleX(0);pointer-events:none}
 .nav{position:fixed;z-index:60;left:50%;top:calc(env(safe-area-inset-top,0px) + 14px);transform:translateX(-50%);width:min(1200px,100% - 24px);
   display:flex;align-items:center;justify-content:space-between;gap:14px;padding:8px 10px 8px 22px;border-radius:999px}
@@ -859,6 +862,27 @@ function construire(C){
   $$("#menu a").forEach(a=>a.addEventListener("click",()=>{$("#menu").classList.remove("ouvert");$(".burger").setAttribute("aria-expanded","false")}));
   const obsNav=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)$$("#menu a").forEach(a=>a.classList.toggle("actif",a.getAttribute("href")==="#"+e.target.id))}),{rootMargin:"-45% 0px -50% 0px"});
   $$("section[id]").forEach(s=>obsNav.observe(s));
+
+  /* --- aller à une section : fondu, saut net en haut de la section, puis retour --- */
+  // la section arrive pile en haut de l'écran (son espace intérieur laisse la place au menu) ;
+  // on la garde en place quelques instants le temps que les images et vidéos chargées prennent leur taille
+  const voile=document.createElement("div");voile.className="voile";voile.setAttribute("aria-hidden","true");document.body.append(voile);
+  let enCours=0;
+  const caler=cible=>{const y=Math.round(cible.getBoundingClientRect().top+scrollY);scrollTo({top:y,behavior:"instant"})};
+  const allerA=(cible,hash)=>{const jeton=++enCours;
+    const arriver=()=>{if(jeton!==enCours)return;caler(cible);history.pushState(null,"",hash);
+      cible.setAttribute("tabindex","-1");cible.focus({preventScroll:true});
+      const fin=performance.now()+900;let stop=false;const arret=()=>{stop=true};
+      addEventListener("wheel",arret,{once:true,passive:true});addEventListener("touchstart",arret,{once:true,passive:true});
+      (function tenir(){if(stop||jeton!==enCours)return;if(Math.abs(cible.getBoundingClientRect().top)>1)caler(cible);if(performance.now()<fin)requestAnimationFrame(tenir)})();
+      setTimeout(()=>{if(jeton===enCours)voile.classList.remove("visible")},reduit?0:160)};
+    if(reduit){arriver();return}
+    voile.classList.add("visible");setTimeout(arriver,280)};
+  document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]');if(!a||e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey)return;
+    const hash=a.getAttribute("href"),cible=hash.length>1&&document.getElementById(hash.slice(1));if(!cible)return;
+    e.preventDefault();allerA(cible,hash)});
+  // lien direct vers une section (ex. …/#photos) : même arrivée nette une fois le contenu construit
+  if(location.hash.length>1){const c=document.getElementById(location.hash.slice(1));if(c)requestAnimationFrame(()=>caler(c))}
 
   /* --- fenêtre --- */
   const fen=$("#fenetre");
