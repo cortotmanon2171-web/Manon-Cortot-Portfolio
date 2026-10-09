@@ -134,6 +134,10 @@ button{font:inherit;color:inherit}
   line-height:.8;font-size:min(18vw,30vh);letter-spacing:-.01em;pointer-events:none;user-select:none}
 .ac-nom span{display:block;will-change:translate,opacity}
 .ac-nom .contour{color:transparent;-webkit-text-stroke:2px var(--texte);background:none;padding-left:.06em}
+/* une fois les cartes sorties, le nom passe devant elles et « CORTOT » se remplit pour rester lisible */
+.ac-nom{transform-origin:0 100%;will-change:translate,scale}
+.ac-nom.net{z-index:6}
+.ac-nom.net .contour{color:var(--texte);transition:color .7s,opacity .9s,transform 1s var(--courbe)}
 .ac-dos,.ac-face{position:absolute;left:var(--dx);bottom:var(--db);width:var(--dw);height:calc(var(--dw) * .74);margin-left:calc(var(--dw) / -2)}
 .accueil{--dx:53%;--db:-7%;--dw:min(32vw,50vh)}
 .ac-dos{z-index:2;border-radius:2.4% 2.4% 0 0/3.2% 3.2% 0 0;background:linear-gradient(170deg,#EBD594,#D9BE72);box-shadow:var(--ombre-forte)}
@@ -1464,9 +1468,9 @@ function piecesAccueil(P,V,S,A,G,M){
     [A&&A.logo,"#ae2i","detoure","AE2I",[38,54,-8,15],[45,55,-6,40],"y"],
     [photo(1),"#photos","photo","photos",[21,55,-7,9],[87,15,8,19]],
     [telImg,"#maquettes","tel","maquettes",[49,36,8,6.5],[13,63,-9,19],"z"],
-    [aff[3]&&aff[3].affiche||aff[2]&&aff[2].affiche,"#videos","affiche","vidéos",[7,73,5,10.5],null,"y"],
+    [aff[3]&&aff[3].affiche||aff[2]&&aff[2].affiche,"#videos","affiche","vidéos",null,null,"y"],
     [livret&&livret.livret[0],"#communication","page","com & graphisme",[65,63,-6,10],[64,70,6,24]],
-    [sweat,"#ae2i","detoure","AE2I",[24,83,9,9],null,"z"],
+    [sweat,"#ae2i","detoure","AE2I",[29,72,9,8],null,"z"],
     [photo(2),"#photos","photo","photos",[57,40,7,8.5],null]
   ].filter(p=>p[0]).slice(0,11).map(([img,lien,type,etiq,d,m,tour])=>({img,lien,type,etiq,d,m,tour}));
 }
@@ -1485,20 +1489,27 @@ function htmlAccueil(P,pieces){
 }
 function animerAccueil(pieces){
   const hd=$("#accueil"), sc=$("#ac-scene"); if(!hd) return;
-  const els=$$(".piece-ac"), noms=$$(".ac-nom span"), face=$(".ac-face"), moi=$(".ac-moi"), tc=$(".viseur .tc"), fleche=$(".defile");
+  const els=$$(".piece-ac"), nom=$(".ac-nom"), noms=$$(".ac-nom span"), face=$(".ac-face"), moi=$(".ac-moi"), tc=$(".viseur .tc"), fleche=$(".defile");
   const doux=t=>1-Math.pow(1-t,3), cl=t=>Math.max(0,Math.min(1,t));
-  let W=0,H=0,haut=false,dep=[0,0],visible=true;
+  let W=0,H=0,haut=false,dep=[0,0],visible=true,nomFin=[0,1];
   const mesurer=()=>{W=sc.clientWidth;H=sc.clientHeight;haut=W/H<10/11;
     const base=haut?W:Math.min(W,H*1.6), d=$(".ac-face").getBoundingClientRect(), s=sc.getBoundingClientRect();
     // départ : au fond du dossier, juste sous le bord de la chemise de devant
     dep=[d.left-s.left+d.width/2,d.top-s.top+d.height*.1];
+    // le nom : sur ordinateur il se pose en bas à gauche, plus petit ; en hauteur il reste en haut
+    const sf=haut?1:.42;nom.style.translate="";nom.style.scale=sf;const r=nom.getBoundingClientRect();
+    nomFin=[haut?0:H*.9-(r.bottom-s.top),sf];
     els.forEach((el,k)=>{const p=pieces[k], c=haut?p.m:p.d;el.style.display=c?"":"none";if(c)el.style.setProperty("--w",base*c[3]/100+"px")});
     maj()};
   const maj=()=>{
     const p=q;
     const ouv=doux(cl(p/.25));
     face.style.transform=`perspective(900px) rotateX(${(-ouv*34).toFixed(2)}deg)`;
-    noms.forEach((n,i)=>{n.style.translate=`${((i?1:-1)*doux(cl(p))*(haut?18:26)).toFixed(2)}vw 0`;n.style.opacity=(1-doux(cl(p))*.78).toFixed(3)});
+    // pendant la sortie le nom s'efface un peu derrière les cartes, puis revient net à sa place finale
+    const e=doux(cl(p)), retour=doux(cl((p-.6)/.4));
+    nom.style.translate=`0 ${(nomFin[0]*e).toFixed(1)}px`;nom.style.scale=(1-(1-nomFin[1])*e).toFixed(4);
+    noms.forEach(n=>n.style.opacity=(1-Math.sin(Math.PI*cl(p))*.6).toFixed(3));
+    nom.classList.toggle("net",retour>0);
     if(moi) moi.style.translate=`0 ${(p*-3).toFixed(2)}vh`;
     if(fleche) fleche.style.opacity=1-cl(p*12);
     let n=0;const nb=els.filter(el=>el.style.display!=="none").length;
