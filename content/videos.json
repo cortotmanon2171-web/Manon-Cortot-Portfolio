@@ -79,6 +79,7 @@
       "roles": [
         "Projet d'équipe"
       ],
+      "prix": "",
       "description": "Vidéo publicitaire pour Mosaicc, un hub créatif au cœur d'Arles, réalisée en équipe à l'IUT et récompensée par le prix MMI d'Or de la meilleure vidéo publicitaire."
     },
     {
@@ -161,6 +162,19 @@
       ],
       "prix": "",
       "description": "Un format court pensé pour Instagram."
+    },
+    {
+      "titre": "CV vidéo - Motion Design",
+      "sous_titre": "Maîtrise de l'IA",
+      "genre": "Présentation",
+      "categorie": "presentation",
+      "emplacement": "films",
+      "affiche": "",
+      "miniature": "",
+      "lien": "",
+      "roles": [],
+      "prix": "",
+      "description": "J'ai réalisé ce CV vidéo en 3ème année de BUT MMI dans le but de m'entraîner à utiliser l'IA pour le motion design (Claude PRO)"
     }
   ]
 }
