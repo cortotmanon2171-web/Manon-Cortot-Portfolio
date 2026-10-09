@@ -128,7 +128,7 @@ button{font:inherit;color:inherit}
 
 /* ---------- Accueil : le dossier créatif ---------- */
 /* la scène reste collée à l'écran pendant que l'on fait défiler l'accueil : le dossier s'ouvre et les projets en sortent */
-.accueil{position:relative;height:300vh}
+.accueil{position:relative;height:150vh}
 .ac-scene{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;contain:layout paint}
 .ac-nom{position:absolute;z-index:1;left:3vw;top:50%;margin:0;transform:translateY(-54%);font-family:var(--display);font-weight:900;text-transform:uppercase;
   line-height:.8;font-size:min(18vw,30vh);letter-spacing:-.01em;pointer-events:none;user-select:none}
@@ -184,7 +184,7 @@ button{font:inherit;color:inherit}
 @keyframes goutte{0%{transform:translateY(-100%)}100%{transform:translateY(250%)}}
 /* téléphone et tablette en hauteur : le nom en haut, Manon en bas à droite, le dossier en bas à gauche */
 @media (max-aspect-ratio:10/11){
-  .accueil{height:240vh;--dx:37%;--db:-4%;--dw:min(58vw,40vh)}
+  .accueil{height:145vh;--dx:37%;--db:-4%;--dw:min(58vw,40vh)}
   .ac-nom{top:calc(env(safe-area-inset-top,0px) + 86px);transform:none;left:5vw;font-size:min(25vw,18vh)}
   .ac-moi{right:-12%;height:44%}
   .viseur{inset:calc(env(safe-area-inset-top,0px) + 76px) 12px 12px}
@@ -1492,24 +1492,29 @@ function animerAccueil(pieces){
     els.forEach((el,k)=>{const p=pieces[k], c=haut?p.m:p.d;el.style.display=c?"":"none";if(c)el.style.setProperty("--w",base*c[3]/100+"px")});
     maj()};
   const maj=()=>{
-    const course=hd.offsetHeight-H, p=reduit||course<=0?1:cl(-hd.getBoundingClientRect().top/course);
-    const ouv=doux(cl(p/.18));
+    const p=q;
+    const ouv=doux(cl(p/.25));
     face.style.transform=`perspective(900px) rotateX(${(-ouv*34).toFixed(2)}deg)`;
-    noms.forEach((n,i)=>{n.style.translate=`${((i?1:-1)*doux(cl(p/.7))*(haut?18:26)).toFixed(2)}vw 0`;n.style.opacity=(1-doux(cl(p/.7))*.78).toFixed(3)});
+    noms.forEach((n,i)=>{n.style.translate=`${((i?1:-1)*doux(cl(p))*(haut?18:26)).toFixed(2)}vw 0`;n.style.opacity=(1-doux(cl(p))*.78).toFixed(3)});
     if(moi) moi.style.translate=`0 ${(p*-3).toFixed(2)}vh`;
     if(fleche) fleche.style.opacity=1-cl(p*12);
-    let n=0;
+    let n=0;const nb=els.filter(el=>el.style.display!=="none").length;
     els.forEach((el,k)=>{const c=haut?pieces[k].m:pieces[k].d;if(!c)return;
       // au repos, les pièces dépassent à peine du dossier ; puis elles sortent l'une après l'autre
-      const t=doux(cl((p-.04-n*.04)/.4)), a=Math.sin(Math.PI*t)*H*.1, fx=W*c[0]/100, fy=H*c[1]/100, peek=(1-t)*(n%3-1)*W*.03;
-      const x=dep[0]+(fx-dep[0])*t+peek, y=dep[1]+(fy-dep[1])*t-a-(1-t)*H*.015*(n%2), drift=cl((p-.8)/.2)*(n%2?-1:1)*H*.02;
+      const t=doux(cl(p*1.45-n/Math.max(nb-1,1)*.45)), a=Math.sin(Math.PI*t)*H*.1, fx=W*c[0]/100, fy=H*c[1]/100, peek=(1-t)*(n%3-1)*W*.03;
+      const x=dep[0]+(fx-dep[0])*t+peek, y=dep[1]+(fy-dep[1])*t-a-(1-t)*H*.015*(n%2), drift=0;
       el.style.transform=`translate3d(${x.toFixed(1)}px,${(y+drift).toFixed(1)}px,0) translate(-50%,-50%) rotate(${(c[2]*t+(1-t)*(n%2?4:-4)+(pieces[k].tour==="z"?360*t*(n%2?-1:1):0)).toFixed(2)}deg)${pieces[k].tour==="y"?` perspective(900px) rotateY(${(360*t).toFixed(1)}deg)`:""} scale(${(.5+.5*t).toFixed(3)})`;
       el.style.zIndex=t>.55?5:3;el.tabIndex=t>.5?0:-1;n++})};
-  mesurer();
-  let tic=false;
-  addEventListener("scroll",()=>{if(tic||!visible)return;tic=true;requestAnimationFrame(()=>{maj();tic=false})},{passive:true});
+  // comme les vêtements de l'AE2I : les cartes suivent le défilement, avec un léger amorti pour rester fluides,
+  // et s'arrêtent dès qu'on arrête de faire défiler
+  let q=0, anim=0;
+  const cible=()=>{const course=hd.offsetHeight-H;return reduit||course<=0?1:cl(-hd.getBoundingClientRect().top/course)};
+  const suivre=()=>{const c=cible();q+=(c-q)*.2;if(Math.abs(c-q)<.0015)q=c;maj();anim=q!==c?requestAnimationFrame(suivre):0};
+  const relancer=()=>{if(!anim)anim=requestAnimationFrame(suivre)};
+  mesurer();q=cible();maj();
+  addEventListener("scroll",()=>{if(visible)relancer()},{passive:true});
   addEventListener("resize",mesurer);document.fonts.ready.then(mesurer);
-  new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible)maj()}).observe(hd);
+  new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible)relancer()}).observe(hd);
   // le compteur de la caméra tourne tant que l'accueil est à l'écran (25 images par seconde)
   const t0=performance.now(), d2=x=>String(x).padStart(2,"0");
   if(!reduit) setInterval(()=>{if(!visible||document.hidden)return;const f=Math.floor((performance.now()-t0)/40);
