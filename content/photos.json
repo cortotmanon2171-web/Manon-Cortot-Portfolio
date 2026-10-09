@@ -41,8 +41,6 @@
         "images/photos/portraits/dsc03958.jpg",
         "images/photos/portraits/dsc03072.jpg",
         "images/photos/portraits/dsc03426.jpg",
-        "images/photos/portraits/dsc03568.jpg",
-        "images/photos/portraits/dsc04032.jpg",
         "images/photos/portraits/dsc04004.jpg",
         "images/photos/portraits/dsc03729.jpg",
         "images/photos/portraits/dsc03240.jpg"
@@ -51,7 +49,18 @@
     {
       "nom": "Shooting de marque",
       "description": "Pendant mon stage au Stud' Aelia, j'ai réalisé le shooting d'Aerial Movement, une marque de vêtements de sport. L'objectif : mettre en valeur la collection en mouvement, dans le studio.",
-      "photos": []
+      "photos": [
+        "blob:https://cortotmanon2171-web.github.io/999df706-0dc3-4142-8fdd-ad9bffe52fdd",
+        "blob:https://cortotmanon2171-web.github.io/9b1a924b-19e0-438d-81e3-f360c045f752",
+        "blob:https://cortotmanon2171-web.github.io/ab09c9b8-4815-4ed3-9235-85269266bfb2",
+        "blob:https://cortotmanon2171-web.github.io/6f41cde3-c124-4e09-9974-1525cfd85a32",
+        "blob:https://cortotmanon2171-web.github.io/47dee243-44eb-4803-a2e1-0d0e56160991",
+        "blob:https://cortotmanon2171-web.github.io/4d32ddbe-31ff-4743-b311-427e75ba8ad5",
+        "blob:https://cortotmanon2171-web.github.io/2c223d6a-96f5-490f-ad3d-63ec6cac7469",
+        "blob:https://cortotmanon2171-web.github.io/1a639108-91fd-40f1-a0f2-10a644b2fbaa",
+        "blob:https://cortotmanon2171-web.github.io/4dcaecb0-ccde-44a4-afc8-2a8f0f556b5e",
+        "blob:https://cortotmanon2171-web.github.io/ab9362cc-56b4-4673-809f-d83234455ac3"
+      ]
     }
   ]
 }
