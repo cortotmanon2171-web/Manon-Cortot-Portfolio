@@ -529,9 +529,13 @@ dialog[open]{animation:pop .45s var(--courbe)}
 .appareil:focus-within{outline:3px solid var(--soleil);outline-offset:4px}
 .appareil.figma.desktop .vue{height:min(560px,62vw)}
 /* Figma dessine déjà son propre téléphone : pas de deuxième cadre autour */
-.appareil.figma.mobile{width:min(100%,340px);height:auto;aspect-ratio:340/700;border:0;border-radius:52px;background:transparent;box-shadow:0 40px 70px -30px rgba(10,20,48,.55)}
+.appareil.figma.mobile{width:241px;height:497px;border:0;border-radius:40px;background:transparent;box-shadow:0 40px 70px -30px rgba(10,20,48,.55)}
+/* l'iframe garde la taille où Figma place son téléphone à (48,102), 242×498 : on ne montre que ce rectangle */
+.appareil.figma.mobile .vue{position:relative;overflow:hidden;background:transparent}
+.appareil.figma.mobile iframe{position:absolute;left:-48.5px;top:-102.5px;width:340px;height:700px}
 .appareil.figma.mobile::before{display:none}
 .navig .mode{justify-content:center}
+.note-figma{margin:0;max-width:300px;font-size:14px;text-align:center;opacity:.75}
 .note-apercu{margin:0;padding:10px 16px;border-radius:16px;font-size:14px;text-align:center;max-width:660px}
 .indice{position:absolute;right:12px;bottom:12px;z-index:4;padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;color:var(--encre);pointer-events:none;transition:opacity .4s;
   background:rgba(255,255,255,.75);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:var(--ombre)}
@@ -1135,11 +1139,7 @@ function construire(C){
           ${m.format!=="mobile"?`<div class="barre"><i></i><i></i><i></i><span class="url">${esc(m.domaine||"figma.com")}</span></div>`:""}
           <div class="vue"><iframe src="${embed(ajusteMobile(protoUrl(m),m))}" title="Prototype Figma ${esc(m.nom)}" allowfullscreen loading="lazy"></iframe></div>
         </div>
-        <div class="pastilles mode" role="group" aria-label="Affichage">
-          <button aria-pressed="true" data-v="proto">Prototype cliquable</button><button aria-pressed="false" data-v="design">Fichier complet</button>
-        </div>`;
-      nav.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>{nav.querySelectorAll("[data-v]").forEach(x=>x.setAttribute("aria-pressed",x===b));
-        nav.querySelector("iframe").src=embed(b.dataset.v==="proto"?ajusteMobile(protoUrl(m),m):m.lien_figma)});
+        <p class="note-figma">La maquette met quelques secondes à charger, puis tu peux naviguer dedans en cliquant.</p>`;
     };
 
     // ---- mode captures (repli)
