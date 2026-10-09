@@ -2,20 +2,40 @@
   "projets": [
     {
       "nom": "Aelia Pilates",
-      "sous_titre": "stage de communication",
+      "sous_titre": "stage de communication au Stud'Aelia",
       "titre": "Aelia Pilates",
-      "description": "En stage de deuxième année, j'étais chargée de communication pour un studio de pilates. J'ai réalisé des photos et vidéos pour mettre en valeur le lieu, mais je me suis surtout occupée des réseaux sociaux.\n\nJ'ai rédigé des contenus pour promouvoir les offres et les cours, créé une série de publications pour présenter les professeurs, et cherché des sponsors et partenariats pour le studio.",
-      "competences": [
-        "Photo",
-        "Réseaux sociaux",
-        "Rédaction",
-        "Partenariats"
-      ],
+      "description": "Pendant mon stage de deuxième année (avril à juin 2026), j'étais chargée de communication au Stud'Aelia, un studio de pilates à Marseille ouvert en octobre 2025. Tout ce que tu vois ici, ce sont mes réalisations.\n\nJ'ai repensé le compte Instagram du studio : un nouveau feed, les stories à la une et un calendrier éditorial pour publier régulièrement. J'ai créé les carrousels, les stories, les affiches et les reels sur Canva et Premiere Pro, dont une série pour présenter chaque prof et les posts des offres commerciales.\n\nJ'ai aussi géré la communication de l'événement Breakfast & Pilates (affiche, newsletter, carrousel, reel teaser et photos le jour J), cherché des sponsors et des partenariats, et réalisé le shooting de la marque Aerial Movement.\n\nRésultat : l'objectif des 700 abonnés est atteint, le compte est passé de 573 à 707 followers pendant mon stage, avec plus de 16 000 comptes touchés en 60 jours.",
+      "competences": [],
       "images": [
         "images/graphisme/aelia-1.jpg",
         "images/graphisme/aelia-2.jpg",
         "images/graphisme/aelia-3.jpg"
-      ]
+      ],
+      "reseaux": {
+        "compte": "aelia.pilates",
+        "avatar": "images/graphisme/aelia-avatar.jpg",
+        "lien": "https://www.instagram.com/aelia.pilates/",
+        "feed": "images/graphisme/aelia-feed.jpg",
+        "legende_feed": "Le nouveau feed que j'ai créé",
+        "carrousels": [
+          {
+            "titre": "Offre fête des mères",
+            "texte": "Le carrousel que j'ai conçu pour lancer les nouvelles cartes de cours.",
+            "slides": [
+              "images/graphisme/aelia-fete-meres-1.jpg",
+              "images/graphisme/aelia-fete-meres-2.jpg"
+            ]
+          },
+          {
+            "titre": "Breakfast & Pilates",
+            "texte": "Mon carrousel d'annonce de l'événement au RK, avec l'affiche, la newsletter et le teaser.",
+            "slides": [
+              "images/graphisme/aelia-breakfast-1.jpg",
+              "images/graphisme/aelia-breakfast-2.jpg"
+            ]
+          }
+        ]
+      }
     },
     {
       "nom": "Livret InDesign",
