@@ -890,7 +890,7 @@ function construire(C){
       b.style.gridRowEnd="span "+Math.ceil((w*r+parseFloat(getComputedStyle(g).columnGap))/4)};
     new ResizeObserver(()=>g.querySelectorAll("button").forEach(caler)).observe(g);
     // une photo peut être un simple chemin (ajout groupé dans l'admin) ou {image, alt}
-    const photosDe=s=>liste(s.photos).map(ph=>typeof ph==="string"?{image:ph,alt:s.nom}:ph).filter(ph=>ph.image);
+    const photosDe=s=>liste(s.photos).map(ph=>typeof ph==="string"?{image:ph,alt:s.nom}:ph).filter(ph=>ph.image&&!/^blob:/.test(ph.image)); // blob: = envoi raté dans l'admin
     const afficherSerie=s=>{
       const lot=photosDe(s);
       $("#texte-serie").textContent=s.description||""; g.innerHTML="";
