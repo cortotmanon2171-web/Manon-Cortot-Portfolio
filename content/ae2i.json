@@ -3,6 +3,7 @@
   "sous_titre": "l'association étudiante de",
   "intro": "J'ai d'abord été community manager de l'AE2I, puis présidente. Tout ce que tu vois ici, ce sont mes réalisations pour l'asso : identité visuelle, posts Instagram, logos d'événements et merch.",
   "instagram": "https://www.instagram.com/ae2i_arles/",
+  "logo": "images/ae2i/logo-detoure.webp",
   "parcours": [
     {
       "titre": "Community manager",
@@ -67,6 +68,8 @@
     "titre": "Le merch",
     "sous_titre": "t-shirts & sweats",
     "description": "J'ai réalisé tout le merch de l'asso :\n\n• le logo du WED 2026, notre week-end de fin d'année, et les t-shirts de l'événement, en version étudiant et en version staff ;\n• les sweats pour le staff ;\n• un t-shirt présidente.",
+    "logo": "images/ae2i/logo-wed-2026.jpg",
+    "logo_nom": "Logo WED 2026",
     "pieces": [
       {
         "nom": "Sweat du staff, dos",
@@ -92,10 +95,15 @@
         "nom": "Sweat du staff, devant",
         "image": "images/ae2i/merch/sweat-avant.webp"
       }
-    ],
-    "logo": "images/ae2i/logo-wed-2026.jpg",
-    "logo_nom": "Logo WED 2026"
+    ]
   },
-  "logo": "images/ae2i/logo-detoure.webp",
-  "videos": []
+  "videos": [
+    {
+      "titre": "Annonce boat party WED 2026",
+      "genre": "Reel",
+      "lien": "https://www.instagram.com/reel/DWGvVfTjTH7/?utm_source=ig_web_copy_link&dlrf=MzRlODBiNWFlZA==&srtk=MzRlODBiNWFlZA==",
+      "miniature": "/images/uploads/Capture d’écran 2026-10-09 à 10.38.13.png",
+      "description": "J'ai réaliser ce réel pour annoncer l'activité surprise prévue pour notre weekend de fin d'année en Espagne."
+    }
+  ]
 }
