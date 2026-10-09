@@ -75,6 +75,13 @@ collections:
                 widget: image
                 multiple: true
                 required: false
+                # Les photos sortent de l'appareil à 20-25 Mo : l'admin les réduit avant l'envoi,
+                # sinon l'enregistrement échoue (« Load failed ») et le site serait très lent.
+                media_libraries:
+                  default:
+                    config:
+                      transformations:
+                        raster_image: {format: webp, quality: 85, width: 2000, height: 2000}
                 hint: "Tu peux sélectionner ou déposer plusieurs photos d'un coup. Glisse-les pour changer l'ordre. Tant que la série est vide, des cadres « bientôt en ligne » s'affichent."
 
       # ---------------------------------------------------------- COM & GRAPHISME
