@@ -417,6 +417,22 @@ dialog[open]{animation:pop .45s var(--courbe)}
 .tel .ae-zoom{border-radius:32px;aspect-ratio:1170/2532;box-shadow:none}
 .tel .ae-zoom:hover{transform:none}
 .tel .ae-zoom img{object-position:top}
+/* projets de com : le téléphone avec le feed, puis les carrousels (côte à côte s'il y en a deux) */
+.com-reseaux{display:grid;grid-template-columns:minmax(200px,.75fr) 1.25fr;gap:40px 28px;align-items:center}
+.com-reseaux.sans-tel{grid-template-columns:1fr}
+.com-reseaux.plusieurs{grid-template-columns:1fr}
+.com-reseaux figure{margin:0}
+.com-tel{display:grid;justify-items:center;gap:14px}
+.com-tel .tel{width:min(100%,260px)}
+.com-reseaux figcaption{font-size:14px;color:var(--texte-doux);text-align:center;line-height:1.45}
+.com-reseaux figcaption a{color:inherit}
+.com-reseaux figcaption b{display:block;color:var(--texte);font-size:15px}
+.com-posts{display:grid;gap:34px 22px;align-items:start}
+.plusieurs .com-posts{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.com-post{display:grid;gap:12px}
+.com-post .post{max-width:430px}
+.com-reseaux + .mosaique{margin-top:44px}
+@media (max-width:700px){.com-reseaux{grid-template-columns:1fr}}
 /* merch : les vêtements sortent du sac en faisant défiler */
 .sac-scene{position:relative;width:min(100%,640px);margin-inline:auto;aspect-ratio:1/.9;container-type:inline-size}
 .sac-scene .halo{position:absolute;left:10%;right:10%;top:12%;bottom:6%;border-radius:50%;filter:blur(40px);opacity:.6;background:conic-gradient(from 90deg,var(--rose),#3b2a9a,var(--creme),var(--rose))}
@@ -906,6 +922,24 @@ function construire(C){
     afficherSerie(S[0]);
   }
 
+  /* --- carrousel Instagram qu'on fait glisser (projets de com et AE2I) --- */
+  // sl : slides {nom,image} ; base : indice de la première slide dans la liste agrandie
+  const postInsta=(sl,compte,avatar,base=0)=>`<div class="post">
+      <div class="post-tete">${avatar?`<img src="${esc(avatar)}" alt="">`:""}${esc(compte)}<small>carrousel</small></div>
+      <div class="post-cadre"><div class="post-piste" tabindex="0" aria-label="Carrousel Instagram : fais glisser pour voir les slides">${sl.map((s,k)=>`<button data-zoom="${base+k}" aria-label="Agrandir la slide ${esc(s.nom||k+1)}"><img src="${esc(s.image)}" alt="Slide ${k+1} : ${esc(s.nom||"")}" loading="lazy" draggable="false"></button>`).join("")}</div>
+        <button class="post-fl prec" aria-label="Slide précédente">←</button><button class="post-fl suiv" aria-label="Slide suivante">→</button><span class="post-compte">1/${sl.length}</span></div>
+      <div class="post-pied"><div class="post-points">${sl.map((_,k)=>`<i${k?"":' class="actif"'}></i>`).join("")}</div></div>
+      ${sl.some(s=>s.nom)?`<div class="post-onglets" role="tablist" aria-label="Slides">${sl.map((s,k)=>`<button role="tab" aria-selected="${!k}" data-k="${k}">${esc(s.nom||"Slide "+(k+1))}</button>`).join("")}</div>`:""}
+    </div>`;
+  const animerPost=post=>{const piste=post.querySelector(".post-piste"), n=piste.children.length, pts=[...post.querySelectorAll(".post-points i")], ong=[...post.querySelectorAll(".post-onglets button")], cpt=post.querySelector(".post-compte"), pr=post.querySelector(".post-fl.prec"), sv=post.querySelector(".post-fl.suiv");
+    const cur=()=>piste.clientWidth?Math.round(piste.scrollLeft/piste.clientWidth):0;
+    const aller=k=>piste.scrollTo({left:k*piste.clientWidth,behavior:reduit?"auto":"smooth"});
+    const maj=()=>{const k=cur();pts.forEach((p,j)=>p.classList.toggle("actif",j===k));ong.forEach((b,j)=>b.setAttribute("aria-selected",j===k));cpt.textContent=`${k+1}/${n}`;pr.disabled=k===0;sv.disabled=k===n-1};
+    piste.addEventListener("scroll",()=>requestAnimationFrame(maj),{passive:true});
+    pr.onclick=()=>aller(cur()-1);sv.onclick=()=>aller(cur()+1);ong.forEach(b=>b.onclick=()=>aller(+b.dataset.k));
+    piste.addEventListener("keydown",e=>{if(e.key==="ArrowRight"){e.preventDefault();aller(cur()+1)}if(e.key==="ArrowLeft"){e.preventDefault();aller(cur()-1)}});
+    maj()};
+
   /* --- communication & graphisme --- */
   G.forEach((g,i)=>{
     const imgs=liste(g.images).map(x=>typeof x==="string"?{image:x}:x), pages=liste(g.livret).map(x=>typeof x==="string"?x:x.page||x.image).filter(Boolean);
@@ -922,6 +956,19 @@ function construire(C){
       <div class="com-visuel">${imgs.length?`<div class="mosaique n${Math.min(imgs.length,4)}">${imgs.map((im,k)=>`<button data-k="${k}" aria-label="Agrandir l'image ${k+1}"><img src="${esc(im.image)}" alt="${esc(im.alt||g.nom)}" loading="lazy"></button>`).join("")}</div>`:""}</div></div>`;
     d.querySelectorAll(".mosaique button").forEach(b=>b.onclick=()=>ouvrirPhoto(imgs,+b.dataset.k));
     const visuel=d.querySelector(".com-visuel");
+    const RS=g.reseaux, crs=RS?liste(RS.carrousels).map(c=>({...c,slides:liste(c.slides).map(x=>typeof x==="string"?{image:x}:x).filter(x=>x.image)})).filter(c=>c.slides.length):[];
+    if(RS&&(RS.feed||crs.length)){
+      const compte=RS.compte||g.nom, zl=[], ajout=(x,nom)=>(zl.push({image:x.image,alt:nom}),zl.length-1);
+      const tel=RS.feed?ajout({image:RS.feed},"Feed Instagram"):-1;
+      const posts=crs.map(c=>{const base=zl.length;c.slides.forEach((x,k)=>ajout(x,`${c.titre||"Carrousel"} : slide ${k+1}`));
+        return `<figure class="com-post">${postInsta(c.slides,compte,RS.avatar,base)}${c.titre||c.texte?`<figcaption><b>${esc(c.titre||"")}</b>${c.texte?` ${esc(c.texte)}`:""}</figcaption>`:""}</figure>`});
+      const r=document.createElement("div");r.className="com-reseaux"+(tel<0?" sans-tel":"")+(posts.length>1?" plusieurs":"");
+      r.innerHTML=`${tel<0?"":`<figure class="com-tel"><div class="tel"><button class="ae-zoom" data-zoom="${tel}" aria-label="Agrandir le feed Instagram"><img src="${esc(RS.feed)}" alt="Le feed Instagram de ${esc(compte)}" loading="lazy"></button></div><figcaption>${esc(RS.legende_feed||"Le feed Instagram")}${RS.lien?` · <a href="${esc(RS.lien)}" target="_blank" rel="noopener">@${esc(compte)}</a>`:""}</figcaption></figure>`}
+        <div class="com-posts">${posts.join("")}</div>`;
+      r.querySelectorAll("[data-zoom]").forEach(z=>z.onclick=()=>ouvrirPhoto(zl,+z.dataset.zoom));
+      r.querySelectorAll(".post").forEach(animerPost);
+      visuel.prepend(r);
+    }
     if(liste(g.site).length) visuel.appendChild(ordinateur(liste(g.site),g));
     if(pages.length) visuel.appendChild(livre(pages,g.nom));
     $("#projets-com").appendChild(d);
@@ -953,23 +1000,9 @@ function construire(C){
     const R=A.reseaux;
     if(R){const sl=liste(R.carrousel).map(img), l=[...sl,...(R.feed?[{image:R.feed,nom:"Feed Instagram"}]:[])];
       const compte=(A.instagram||"").replace(/\/$/,"").split("/").pop()||"ae2i";
-      const d=bloc(R,`<div class="ae-reseaux">${sl.length?`<div class="post">
-          <div class="post-tete">${liste(I&&I.logos)[0]?`<img src="${esc(img(I.logos[0]).image)}" alt="">`:""}${esc(compte)}<small>carrousel</small></div>
-          <div class="post-cadre"><div class="post-piste" tabindex="0" aria-label="Carrousel Instagram : fais glisser pour voir les slides">${sl.map((s,k)=>`<button data-zoom="${k}" aria-label="Agrandir la slide ${esc(s.nom||k+1)}"><img src="${esc(s.image)}" alt="Slide ${k+1} : ${esc(s.nom||"")}" loading="lazy" draggable="false"></button>`).join("")}</div>
-            <button class="post-fl prec" aria-label="Slide précédente">←</button><button class="post-fl suiv" aria-label="Slide suivante">→</button><span class="post-compte">1/${sl.length}</span></div>
-          <div class="post-pied"><div class="post-points">${sl.map((_,k)=>`<i${k?"":' class="actif"'}></i>`).join("")}</div></div>
-          <div class="post-onglets" role="tablist" aria-label="Slides">${sl.map((s,k)=>`<button role="tab" aria-selected="${!k}" data-k="${k}">${esc(s.nom||"Slide "+(k+1))}</button>`).join("")}</div>
-        </div>`:""}
+      const d=bloc(R,`<div class="ae-reseaux">${sl.length?postInsta(sl,compte,liste(I&&I.logos)[0]?img(I.logos[0]).image:""):""}
         ${R.feed?`<div><div class="tel">${zoom(l,sl.length)}</div><span class="ae-legende">Le feed Instagram${A.instagram?` · <a href="${esc(A.instagram)}" target="_blank" rel="noopener">@${esc(compte)}</a>`:""}</span></div>`:""}</div>`,l);
-      const piste=d.querySelector(".post-piste");
-      if(piste){const pts=[...d.querySelectorAll(".post-points i")], ong=[...d.querySelectorAll(".post-onglets button")], cpt=d.querySelector(".post-compte"), pr=d.querySelector(".post-fl.prec"), sv=d.querySelector(".post-fl.suiv");
-        const cur=()=>Math.round(piste.scrollLeft/piste.clientWidth);
-        const aller=k=>piste.scrollTo({left:k*piste.clientWidth,behavior:reduit?"auto":"smooth"});
-        const maj=()=>{const k=cur();pts.forEach((p,j)=>p.classList.toggle("actif",j===k));ong.forEach((b,j)=>b.setAttribute("aria-selected",j===k));cpt.textContent=`${k+1}/${sl.length}`;pr.disabled=k===0;sv.disabled=k===sl.length-1};
-        piste.addEventListener("scroll",()=>requestAnimationFrame(maj),{passive:true});
-        pr.onclick=()=>aller(cur()-1);sv.onclick=()=>aller(cur()+1);ong.forEach(b=>b.onclick=()=>aller(+b.dataset.k));
-        piste.addEventListener("keydown",e=>{if(e.key==="ArrowRight"){e.preventDefault();aller(cur()+1)}if(e.key==="ArrowLeft"){e.preventDefault();aller(cur()-1)}});
-        maj()}}
+      d.querySelectorAll(".post").forEach(animerPost)}
 
     // merch : les vêtements détourés sortent du dossier quand on fait défiler
     const MR=A.merch, pc=MR?liste(MR.pieces).map(img):[];

@@ -104,6 +104,17 @@ collections:
               - {name: site, label: "Captures du site (affichées dans un ordinateur)", widget: list, required: false, summary: "{{fields.nom}}", fields: [{name: nom, label: Nom de la page, widget: string}, {name: image, label: "Capture (format 16:9)", widget: image}]}
               - {name: domaine, label: Adresse affichée dans l'ordinateur, widget: string, required: false}
               - {name: livret, label: "Pages du livret feuilletable (dans l'ordre, couverture d'abord)", widget: list, required: false, field: {name: page, label: Page, widget: image}}
+              - name: reseaux
+                label: "Réseaux sociaux : téléphone avec le feed + carrousels"
+                widget: object
+                required: false
+                fields:
+                  - {name: compte, label: "Nom du compte Instagram (sans @)", widget: string, required: false}
+                  - {name: avatar, label: Photo de profil du compte, widget: image, required: false}
+                  - {name: lien, label: Lien vers le compte Instagram, widget: string, required: false}
+                  - {name: feed, label: "Capture du feed (affichée dans le téléphone)", widget: image, required: false}
+                  - {name: legende_feed, label: Légende sous le téléphone, widget: string, required: false}
+                  - {name: carrousels, label: Carrousels, label_singular: carrousel, widget: list, required: false, summary: "{{fields.titre}}", fields: [{name: titre, label: Titre, widget: string}, {name: texte, label: Petite phrase sous le carrousel, widget: string, required: false}, {name: slides, label: "Slides (dans l'ordre, format 4:5)", widget: list, field: {name: image, label: Slide, widget: image}}]}
 
       # ---------------------------------------------------------- AE2I
       - name: ae2i
