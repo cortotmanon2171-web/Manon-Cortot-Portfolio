@@ -45,11 +45,14 @@ button{font:inherit;color:inherit}
 .aura.a1{width:46vw;height:46vw;left:-12vw;top:-10vw;background:var(--soleil)}
 .aura.a2{width:52vw;height:52vw;right:-16vw;top:18vh;background:var(--lavande);animation-duration:32s;animation-delay:-8s}
 .aura.a3{width:40vw;height:40vw;left:20vw;bottom:-18vw;background:var(--ciel);animation-duration:22s;animation-delay:-4s}
+/* pendant que les cartes de l'accueil bougent, les auras (flous géants) se figent : leur dérive de 26 s ne se voit pas */
+.anim-accueil .aura{animation-play-state:paused}
 @keyframes derive{0%{transform:translate(0,0) scale(1)}50%{transform:translate(6vw,4vh) scale(1.12)}100%{transform:translate(-4vw,8vh) scale(.95)}}
 .lueur{position:fixed;z-index:0;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;pointer-events:none;
   background:radial-gradient(circle,rgba(246,218,122,.35),rgba(183,185,242,.18) 45%,transparent 70%);transition:opacity .4s;opacity:0;left:0;top:0}
 @media (hover:hover) and (pointer:fine){.lueur{opacity:1}}
-.grain{position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.14;mix-blend-mode:multiply;
+/* grain en fondu normal : même rendu que « multiply » ici, sans forcer le navigateur à refondre toute la page à chaque image */
+.grain{position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.14;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .3  0 0 0 0 .3  0 0 0 0 .35  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 
 /* ---------- Verre ---------- */
@@ -135,9 +138,10 @@ button{font:inherit;color:inherit}
 .ac-nom span{display:block;will-change:translate,opacity}
 .ac-nom .contour{color:transparent;-webkit-text-stroke:2px var(--texte);background:none;padding-left:.06em}
 /* une fois les cartes sorties, le nom passe devant elles et « CORTOT » se remplit pour rester lisible */
-.ac-nom{transform-origin:0 100%;will-change:translate,scale}
+.ac-nom{transform-origin:0 100%;will-change:translate,scale,opacity}
 .ac-nom.net{z-index:6}
-.ac-nom.net .contour{color:var(--texte);transition:color .7s,opacity .9s,transform 1s var(--courbe)}
+.ac-nom .contour{transition:color .6s,opacity .9s .1s,transform 1s var(--courbe) .1s}
+.ac-nom.net .contour{color:var(--texte)}
 .ac-dos,.ac-face{position:absolute;left:var(--dx);bottom:var(--db);width:var(--dw);height:calc(var(--dw) * .74);margin-left:calc(var(--dw) / -2)}
 .accueil{--dx:53%;--db:-7%;--dw:min(32vw,50vh)}
 .ac-dos{z-index:2;border-radius:2.4% 2.4% 0 0/3.2% 3.2% 0 0;background:linear-gradient(170deg,#EBD594,#D9BE72);box-shadow:var(--ombre-forte)}
@@ -150,7 +154,7 @@ button{font:inherit;color:inherit}
 /* les projets : ce sont aussi des liens vers leur catégorie */
 .piece-ac{position:absolute;z-index:3;left:0;top:0;width:var(--w,150px);display:block;text-decoration:none;color:var(--encre);will-change:transform;
   transform:translate(-50%,-50%);-webkit-tap-highlight-color:transparent}
-.piece-ac > div{transition:transform .35s var(--courbe),box-shadow .35s}
+.piece-ac > div{will-change:translate,rotate}
 .piece-ac img{width:100%;height:auto;display:block;pointer-events:none;user-select:none}
 .pa-affiche > div,.pa-page > div{border-radius:6px;overflow:hidden;box-shadow:0 26px 44px -22px rgba(18,34,74,.6),0 2px 6px rgba(18,34,74,.15)}
 .pa-photo > div{background:#fff;padding:5%;border-radius:3px;box-shadow:0 26px 44px -22px rgba(18,34,74,.6),0 2px 6px rgba(18,34,74,.15)}
@@ -192,7 +196,7 @@ button{font:inherit;color:inherit}
 /* téléphone et tablette en hauteur : le nom en haut, Manon en bas à droite, le dossier en bas à gauche */
 @media (max-aspect-ratio:10/11){
   .accueil{height:145vh;--dx:37%;--db:-4%;--dw:min(58vw,40vh)}
-  .ac-nom{top:calc(env(safe-area-inset-top,0px) + 86px);transform:none;left:5vw;font-size:min(25vw,18vh)}
+  .ac-nom{top:calc(env(safe-area-inset-top,0px) + 86px);transform:none;left:5vw;font-size:min(25vw,13vh)}
   .ac-moi{right:-12%;height:44%}
   .viseur{inset:calc(env(safe-area-inset-top,0px) + 76px) 12px 12px}
   .viseur .rec{left:30px}.viseur .tc{right:30px}
@@ -785,8 +789,11 @@ footer{position:relative;z-index:1;padding:30px 0 40px;text-align:center;font-si
 .charge .ac-nom span{opacity:0!important;transform:translateY(50px)}
 .charge .ac-moi{opacity:0;transform:translateY(60px)}
 .charge .ac-dos,.charge .ac-face,.charge .piece-ac > div{opacity:0}
-.ac-nom span,.ac-moi,.ac-dos,.ac-face,.piece-ac > div{transition:opacity .9s,transform 1s var(--courbe)}
-.ac-nom span:nth-child(2){transition-delay:.1s}.ac-dos,.ac-face{transition-delay:.25s}.piece-ac > div{transition-delay:.4s}.ac-moi{transition-delay:.45s}
+.ac-nom span,.ac-moi,.ac-dos{transition:opacity .9s,transform 1s var(--courbe)}
+.ac-nom span:nth-child(2){transition-delay:.1s}.ac-dos{transition-delay:.25s}.ac-moi{transition-delay:.45s}
+/* le dossier et les cartes sont animés image par image : leur transition ne porte que sur l'apparition (et le survol des cartes) */
+.ac-face{transition:opacity .9s .25s}
+.piece-ac > div{transition:opacity .9s .4s,transform .35s var(--courbe),box-shadow .35s}
 @media (prefers-reduced-motion: reduce){.anim,.titre h2.anim{opacity:1!important;transform:none!important;clip-path:none!important}}
 </style>
 </head>
@@ -1489,36 +1496,44 @@ function htmlAccueil(P,pieces){
 }
 function animerAccueil(pieces){
   const hd=$("#accueil"), sc=$("#ac-scene"); if(!hd) return;
-  const els=$$(".piece-ac"), nom=$(".ac-nom"), noms=$$(".ac-nom span"), face=$(".ac-face"), moi=$(".ac-moi"), tc=$(".viseur .tc"), fleche=$(".defile");
+  const els=$$(".piece-ac"), nom=$(".ac-nom"), face=$(".ac-face"), moi=$(".ac-moi"), tc=$(".viseur .tc"), fleche=$(".defile");
   const doux=t=>1-Math.pow(1-t,3), cl=t=>Math.max(0,Math.min(1,t));
-  let W=0,H=0,haut=false,dep=[0,0],visible=true,nomFin=[0,1];
+  let W=0,H=0,haut=false,dep=[0,0],visible=true,nomFin=[0,1],nb=0,navB=0,tailles=[];
+  const etat=els.map(()=>({z:"",tab:null}));
   const mesurer=()=>{W=sc.clientWidth;H=sc.clientHeight;haut=W/H<10/11;
-    const base=haut?W:Math.min(W,H*1.6), d=$(".ac-face").getBoundingClientRect(), s=sc.getBoundingClientRect();
+    const base=haut?Math.min(W,H*.5):Math.min(W,H*1.6), d=$(".ac-face").getBoundingClientRect(), s=sc.getBoundingClientRect();
     // départ : au fond du dossier, juste sous le bord de la chemise de devant
     dep=[d.left-s.left+d.width/2,d.top-s.top+d.height*.1];
     // le nom : sur ordinateur il se pose en bas à gauche, plus petit ; en hauteur il reste en haut
     const sf=haut?1:.42;nom.style.translate="";nom.style.scale=sf;const r=nom.getBoundingClientRect();
     nomFin=[haut?0:H*.9-(r.bottom-s.top),sf];
     els.forEach((el,k)=>{const p=pieces[k], c=haut?p.m:p.d;el.style.display=c?"":"none";if(c)el.style.setProperty("--w",base*c[3]/100+"px")});
+    nb=els.filter(el=>el.style.display!=="none").length;
+    // aucune carte ne doit finir sous le menu ni dépasser de l'écran, même sur un écran bas (portable, téléphone couché)
+    navB=Math.max(0,$(".nav").getBoundingClientRect().bottom-s.top)+10;
+    tailles=els.map(el=>[el.firstElementChild.offsetWidth,el.firstElementChild.offsetHeight]);
     maj()};
   const maj=()=>{
     const p=q;
     const ouv=doux(cl(p/.25));
     face.style.transform=`perspective(900px) rotateX(${(-ouv*34).toFixed(2)}deg)`;
     // pendant la sortie le nom s'efface un peu derrière les cartes, puis revient net à sa place finale
-    const e=doux(cl(p)), retour=doux(cl((p-.6)/.4));
+    const e=doux(cl(p));
     nom.style.translate=`0 ${(nomFin[0]*e).toFixed(1)}px`;nom.style.scale=(1-(1-nomFin[1])*e).toFixed(4);
-    noms.forEach(n=>n.style.opacity=(1-Math.sin(Math.PI*cl(p))*.6).toFixed(3));
-    nom.classList.toggle("net",retour>0);
+    nom.style.opacity=(1-Math.sin(Math.PI*cl(p))*.6).toFixed(3);
+    // il passe devant les cartes quand elles sont presque posées (pas en plein vol, pour éviter un saut visible)
+    nom.classList.toggle("net",p>=.85);
     if(moi) moi.style.translate=`0 ${(p*-3).toFixed(2)}vh`;
     if(fleche) fleche.style.opacity=1-cl(p*12);
-    let n=0;const nb=els.filter(el=>el.style.display!=="none").length;
+    let n=0;
     els.forEach((el,k)=>{const c=haut?pieces[k].m:pieces[k].d;if(!c)return;
       // au repos, les pièces dépassent à peine du dossier ; puis elles sortent l'une après l'autre
-      const t=doux(cl(p*1.45-n/Math.max(nb-1,1)*.45)), a=Math.sin(Math.PI*t)*H*.1, fx=W*c[0]/100, fy=H*c[1]/100, peek=(1-t)*(n%3-1)*W*.03;
+      const t=doux(cl(p*1.45-n/Math.max(nb-1,1)*.45)), a=Math.sin(Math.PI*t)*H*.1, [tw,th]=tailles[k]||[0,0], fx=Math.min(Math.max(W*c[0]/100,tw/2+8),W-tw/2-8), fy=Math.min(Math.max(H*c[1]/100,navB+th/2),H-th/2-8), peek=(1-t)*(n%3-1)*W*.03;
       const x=dep[0]+(fx-dep[0])*t+peek, y=dep[1]+(fy-dep[1])*t-a-(1-t)*H*.015*(n%2), drift=0;
       el.style.transform=`translate3d(${x.toFixed(1)}px,${(y+drift).toFixed(1)}px,0) translate(-50%,-50%) rotate(${(c[2]*t+(1-t)*(n%2?4:-4)+(pieces[k].tour==="z"?360*t*(n%2?-1:1):0)).toFixed(2)}deg)${pieces[k].tour==="y"?` perspective(900px) rotateY(${(360*t).toFixed(1)}deg)`:""} scale(${(.5+.5*t).toFixed(3)})`;
-      el.style.zIndex=t>.55?5:3;el.tabIndex=t>.5?0:-1;n++})};
+      // on n'écrit le plan et la tabulation que s'ils changent : moins de travail pour le navigateur à chaque image
+      const z=t>.55?"5":"3", tab=t>.5?0:-1, m=etat[k];
+      if(m.z!==z){el.style.zIndex=z;m.z=z}if(m.tab!==tab){el.tabIndex=tab;m.tab=tab}n++})};
   // comme les vêtements de l'AE2I : au premier geste (molette, glissé du doigt, défilement), toutes les cartes
   // sortent d'un coup à leur propre rythme, quelle que soit la vitesse du geste ; ensuite elles flottent doucement.
   // Quand on quitte l'accueil elles rentrent dans le dossier, et quand on y remonte elles ressortent.
@@ -1527,21 +1542,25 @@ function animerAccueil(pieces){
   const jouer=now=>{const dt=Math.min(now-avant,64);avant=now;
     q=but?Math.min(1,q+dt/DUREE):Math.max(0,q-dt/(DUREE*.45));maj();
     if(q!==but){raf=requestAnimationFrame(jouer);return}
-    raf=0;if(q===1)sc.classList.add("flotte")};
+    raf=0;document.body.classList.remove("anim-accueil");if(q===1)sc.classList.add("flotte")};
   const viser=()=>{if(!lance)return;
     // l'accueil reste collé à l'écran sur un demi-écran de défilement : passé le premier tiers, les cartes rentrent
     // pendant que la scène est encore bien visible, et ressortent quand on remonte au-dessus
     const v=-hd.getBoundingClientRect().top<innerHeight*.22?1:0;if(v===but)return;but=v;
     sc.classList.remove("flotte");
     if(reduit){q=but;maj();if(q)sc.classList.add("flotte");return}
-    if(!raf){avant=performance.now();raf=requestAnimationFrame(jouer)}};
+    if(!raf){document.body.classList.add("anim-accueil");avant=performance.now();raf=requestAnimationFrame(jouer)}};
   const lancer=()=>{if(lance)return;lance=true;["wheel","touchmove","keydown"].forEach(e=>removeEventListener(e,lancer));viser()};
   mesurer();maj();
+  // une image qui arrive après la mesure change la taille de sa carte : on remesure une fois
+  let rm=0;$$(".piece-ac img").forEach(i=>{if(!i.complete)i.addEventListener("load",()=>{cancelAnimationFrame(rm);rm=requestAnimationFrame(mesurer)},{once:true})});
   let tic=false;
   addEventListener("scroll",()=>{if(scrollY>2)lancer();if(tic)return;tic=true;requestAnimationFrame(()=>{viser();tic=false})},{passive:true});
   ["wheel","touchmove","keydown"].forEach(e=>addEventListener(e,lancer,{passive:true}));
   if(scrollY>2||reduit)lancer();
-  addEventListener("resize",mesurer);document.fonts.ready.then(mesurer);
+  // sur téléphone la barre d'adresse déclenche des « resize » en défilant : on ne remesure que si la scène a vraiment changé de taille
+  let tr=false;addEventListener("resize",()=>{if(tr)return;tr=true;requestAnimationFrame(()=>{tr=false;if(sc.clientWidth!==W||sc.clientHeight!==H)mesurer()})});
+  document.fonts.ready.then(mesurer);
   new IntersectionObserver(es=>{visible=es[0].isIntersecting}).observe(hd);
   // le compteur de la caméra tourne tant que l'accueil est à l'écran (25 images par seconde)
   const t0=performance.now(), d2=x=>String(x).padStart(2,"0");
