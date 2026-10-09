@@ -979,8 +979,9 @@ function construire(C){
       if(MR.logo) d.querySelector(".badge-wed").onclick=()=>ouvrirPhoto([{image:MR.logo,alt:MR.logo_nom||""}],0);
       const sc=d.querySelector(".sac-scene"), P_=[...sc.querySelectorAll(".piece")];
       const doux=t=>1-Math.pow(1-t,3);
+      // les vêtements sortent une fois le dossier bien installé à l'écran (haut de la scène entre 62 % et 12 % de la hauteur)
       const sortie=()=>{const r=sc.getBoundingClientRect(), vh=innerHeight;
-        let p=sc.dataset.survol?1:Math.max(0,Math.min(1,(vh*.95-r.top)/(vh*.95-(vh*.5-r.height*.45))));
+        let p=sc.dataset.survol?1:Math.max(0,Math.min(1,(vh*.62-r.top)/(vh*.62-vh*.12)));
         if(reduit)p=1;
         P_.forEach((el,k)=>{const ordre=Math.abs(k-mil)/Math.max(mil,1);el.style.setProperty("--t",doux(Math.max(0,Math.min(1,p*1.35-ordre*.3))).toFixed(3))})};
       sc.addEventListener("pointerenter",e=>{if(e.pointerType==="mouse"){sc.dataset.survol=1;sortie()}});
