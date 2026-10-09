@@ -9,6 +9,7 @@
       "affiche": "images/affiches/dreamboss.jpg",
       "miniature": "",
       "lien": "https://youtu.be/gFij3Y0_FPE?si=I5arxFY7Pah9QQyJ",
+      "fichier": "",
       "roles": [
         "Réalisation",
         "Montage",
@@ -26,6 +27,7 @@
       "affiche": "images/affiches/interlinked.jpg",
       "miniature": "images/miniatures/interlinked.jpg",
       "lien": "https://youtu.be/gFfg0YgZvCc?si=1puNEKnxkpHAzNsu",
+      "fichier": "",
       "roles": [
         "Coréalisation avec Agathe Lemierre",
         "Montage",
@@ -43,6 +45,7 @@
       "affiche": "images/affiches/audela.jpg",
       "miniature": "images/miniatures/audela.jpg",
       "lien": "https://youtu.be/WAflvTQohpU?si=uTOfDChEIzbP9UXy",
+      "fichier": "",
       "roles": [
         "Coréalisation",
         "Acting",
@@ -60,6 +63,7 @@
       "affiche": "images/affiches/marine.jpg",
       "miniature": "images/miniatures/marine.jpg",
       "lien": "https://youtu.be/SEebgaQhtBg?si=tzX_tcQX5djOxJvT",
+      "fichier": "",
       "roles": [
         "Cadrage",
         "Montage"
@@ -76,6 +80,7 @@
       "affiche": "/images/uploads/covermosaicc.png",
       "miniature": "",
       "lien": "https://www.instagram.com/reel/DT-N213DEbh/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==",
+      "fichier": "",
       "roles": [
         "Projet d'équipe"
       ],
@@ -91,6 +96,7 @@
       "affiche": "images/affiches/cinematic.jpg",
       "miniature": "images/miniatures/cinematic.jpg",
       "lien": "https://youtu.be/g06eWY-D0Rk?si=8W0MQQXv7pJlybs0",
+      "fichier": "",
       "roles": [
         "Réalisation",
         "Cadrage",
@@ -108,6 +114,7 @@
       "affiche": "",
       "miniature": "images/miniatures/chalon.jpg",
       "lien": "https://youtu.be/xR6NksdACVI?si=orLtlFQvtdeDfDrf",
+      "fichier": "",
       "roles": [
         "Tournage",
         "Montage"
@@ -124,6 +131,7 @@
       "affiche": "",
       "miniature": "images/miniatures/disneyland.jpg",
       "lien": "https://youtu.be/YQzI_Xaoowk?si=TpphUhAyeFv0QkYA",
+      "fichier": "",
       "roles": [
         "Tournage",
         "Montage"
@@ -140,6 +148,7 @@
       "affiche": "",
       "miniature": "/images/uploads/miniaturesantorin.jpg",
       "lien": "https://youtu.be/DO5_oAdHghI?si=8elhwy62tZnj9vGQ",
+      "fichier": "",
       "roles": [
         "Tournage",
         "Montage"
@@ -156,6 +165,7 @@
       "affiche": "",
       "miniature": "/images/uploads/Miniaturesdji.png",
       "lien": "https://www.instagram.com/reel/DcHABZyOSAg/",
+      "fichier": "",
       "roles": [
         "Tournage",
         "Montage"
@@ -171,7 +181,8 @@
       "emplacement": "films",
       "affiche": "",
       "miniature": "",
-      "lien": "",
+      "lien": "https://youtube.com/shorts/6ZjmFG8EH3A",
+      "fichier": "",
       "roles": [],
       "prix": "",
       "description": "J'ai réalisé ce CV vidéo en 3ème année de BUT MMI dans le but de m'entraîner à utiliser l'IA pour le motion design (Claude PRO)"
