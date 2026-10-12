@@ -1555,9 +1555,10 @@ function animerAccueil(pieces){
     if(q!==but){raf=requestAnimationFrame(jouer);return}
     raf=0;document.body.classList.remove("anim-accueil");if(q===1)sc.classList.add("flotte")};
   const viser=()=>{if(!lance)return;
-    // l'accueil reste collé à l'écran sur un demi-écran de défilement : passé le premier tiers, les cartes rentrent
-    // pendant que la scène est encore bien visible, et ressortent quand on remonte au-dessus
-    const v=-hd.getBoundingClientRect().top<innerHeight*.22?1:0;if(v===but)return;but=v;
+    // tant que l'accueil est à l'écran, les cartes restent sorties et flottent, même si l'on défile un peu
+    // (un glissé du doigt part souvent plus loin qu'on ne croit) : elles ne rentrent dans le dossier qu'une fois
+    // l'accueil presque quitté, et ressortent quand on y revient. Deux seuils différents pour ne pas osciller entre les deux.
+    const bas=hd.getBoundingClientRect().bottom, v=bas>innerHeight*(but?.35:.6)?1:0;if(v===but)return;but=v;
     sc.classList.remove("flotte");
     if(reduit){q=but;maj();if(q)sc.classList.add("flotte");return}
     if(!raf){document.body.classList.add("anim-accueil");avant=performance.now();raf=requestAnimationFrame(jouer)}};
