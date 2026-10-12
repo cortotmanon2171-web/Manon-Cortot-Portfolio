@@ -294,6 +294,13 @@ singletons:
       - {name: photo_accueil, label: Petite photo de l'accueil, widget: image, required: false}
       - {name: photo_portrait, label: Portrait (À propos), widget: image, required: false}
       - {name: photo_contact, label: Photo du contact, widget: image, required: false}
+      - name: cv
+        label: "CV (PDF)"
+        widget: file
+        required: false
+        accept: "application/pdf,.pdf"
+        choose_url: false
+        hint: "Ouvert par les boutons « Mon CV » de l'accueil et d'À propos. Laisse vide pour masquer ces boutons."
       - {name: bio, label: Biographie, widget: text}
       - {name: alternance, label: Encadré « recherche », widget: text, required: false, hint: "Laisse vide pour le masquer."}
       - name: parcours
