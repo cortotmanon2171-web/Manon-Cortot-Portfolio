@@ -1,6 +1,7 @@
 {
+  "order": 2,
   "nom": "Portraits",
-  "description": "Des séances portrait en extérieur : dans les herbes hautes au coucher du soleil, puis au bord de la mer, de l'heure dorée à l'heure bleue. J'aime jouer avec le contre-jour et garder des instants spontanés.",
+  "description": "J'ai réalisé plusieurs séances portrait en extérieur avec des amies pour m'entraîner. J'aime jouer avec le contre-jour et garder des instants spontanés.",
   "photos": [
     "/images/photos/portraits/dsc04647.jpg",
     "/images/photos/portraits/dsc04992.jpg",
@@ -21,6 +22,5 @@
     "/images/photos/portraits/dsc04004.jpg",
     "/images/photos/portraits/dsc03729.jpg",
     "/images/photos/portraits/dsc03240.jpg"
-  ],
-  "order": 2
+  ]
 }
