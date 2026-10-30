@@ -61,29 +61,23 @@ Dans le menu de gauche :
   - La catégorie « Présentation » est utilisée par le bouton « Voir mon CV vidéo ».
 - **📷 Photos** : crée une série ou ajoute des photos à une série existante. La première série de la liste s'affiche en premier.
 - **🎨 Com & graphisme** : tes projets de communication, avec jusqu'à 3 images.
-- **📱 Maquettes Figma** : lien du fichier, lien du prototype et quelques captures d'écran de secours.
-- **👤 Profil** : textes, photos, parcours, distinctions, outils, contacts et options.
+- **👤 Profil** : textes, photos, parcours, distinctions, outils, contacts et options. L'**E-mail** est aussi l'adresse qui reçoit les demandes du formulaire de devis.
+- **🧾 Mes services** : les cartes de la partie Services (nom, description, ce qui est inclus, prix facultatif). Chaque service apparaît aussi dans le formulaire de devis.
+- **⚖️ Pages légales** : statut, SIRET, adresse, mention TVA et médiateur, utilisés par les pages Mentions légales, CGV et Confidentialité (liens en bas du site).
 
-Vidéos, Photos, Com & graphisme et Maquettes s'affichent en **cartes** avec leur image : clique sur une carte pour l'ouvrir, ou sur **Nouveau** pour ajouter un projet. Les boutons en haut à droite passent de la grille à la liste.
+Vidéos, Photos et Com & graphisme s'affichent en **cartes** avec leur image : clique sur une carte pour l'ouvrir, ou sur **Nouveau** pour ajouter un projet. Les boutons en haut à droite passent de la grille à la liste.
 
 Pour changer l'ordre d'affichage sur le site, clique sur **Réorganiser** au-dessus des cartes, déplace-les avec les flèches puis **Terminé**. Dans un projet, les listes (écrans, slides, vêtements…) se réordonnent en les faisant glisser.
 
 Clique sur **Enregistrer**, puis recharge ton site au bout d'une à deux minutes : chaque projet est rangé dans son propre fichier (`content/videos/`, `content/photos/`…) et un petit robot (onglet **Actions** du dépôt, « Assembler le contenu ») les rassemble pour le site avant la mise en ligne.
 
-### Les maquettes Figma interactives
+### Le formulaire de devis
 
-Sur ton site en ligne, c'est ta vraie maquette Figma qui s'affiche, et on peut cliquer sur ses boutons. Pour que ça marche :
-
-1. **Partage** : dans Figma, bouton **Partager** › « Tous ceux qui ont le lien » › **peuvent voir**.
-2. **Prototype** : dans l'onglet **Prototype** de Figma, relie tes boutons aux écrans qu'ils doivent ouvrir. Sans liens de prototype, les boutons ne font rien.
-3. **Lien du prototype** : clique sur ▶ **Présenter**, puis **Partager** › **Copier le lien**, et colle-le dans le champ « Lien du prototype » de l'admin.
-
-Les captures d'écran servent seulement de secours si Figma ne peut pas s'afficher (connexion lente, fichier privé…).
+Le formulaire de la partie Contact envoie la demande par e-mail à l'adresse de ton profil, grâce au fichier `envoyer-demande.php` (il fonctionne sur Hostinger). Pour répondre au client, utilise simplement « Répondre ». Si l'envoi échoue, le site ouvre la messagerie du visiteur avec son message déjà rempli.
 
 ### Conseils pour les images
 
 - Photos : exporte-les en JPEG, 2000 px maximum sur le grand côté, qualité 80. Ça garde le site rapide.
-- Écrans Figma : sélectionne le cadre, puis **Export › PNG › 2x**.
 - Photo détourée de l'accueil : PNG ou WebP avec fond transparent.
 
 ---

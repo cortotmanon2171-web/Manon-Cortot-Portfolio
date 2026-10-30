@@ -151,45 +151,6 @@ collections:
           - {name: legende_feed, label: Légende sous le téléphone, widget: string, required: false}
           - {name: carrousels, label: Carrousels, label_singular: carrousel, widget: list, required: false, collapsed: true, summary: "{{fields.titre}}", fields: [{name: titre, label: Titre, widget: string}, {name: texte, label: Petite phrase sous le carrousel, widget: string, required: false}, {name: slides, label: "Slides (dans l'ordre, format 4:5)", widget: list, field: {name: image, label: Slide, widget: image}}]}
 
-  # ---------------------------------------------------------- MAQUETTES FIGMA
-  - name: maquettes
-    label: 📱 Maquettes Figma
-    label_singular: maquette
-    description: "Tes maquettes de sites et d'applications."
-    folder: content/maquettes
-    format: json
-    extension: json
-    create: true
-    identifier_field: nom
-    summary: "{{nom}}"
-    thumbnail: [plan, "ecrans.*.image"]
-    reorder: true
-    fields:
-      - {name: nom, label: Nom du projet, widget: string}
-      - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
-      - name: format
-        label: Format
-        widget: select
-        options: [{label: Site ordinateur, value: desktop}, {label: Application / site mobile, value: mobile}]
-      - {name: domaine, label: Adresse affichée dans la barre du navigateur, widget: string, required: false, hint: "Ex. monsite.fr (purement décoratif)"}
-      - {name: lien_figma, label: Lien Figma (fichier), widget: string, required: false}
-      - {name: lien_prototype, label: Lien du prototype Figma, widget: string, required: false, hint: "Dans Figma : ▶ Présenter puis Partager, copie le lien. Sans lui, le site essaie de lancer le prototype du fichier."}
-      - {name: description, label: Description, widget: text}
-      - {name: competences, label: Compétences, widget: list, required: false}
-      - {name: plan, label: Vue d'ensemble (plan complet), widget: image, required: false}
-      - name: ecrans
-        label: Écrans
-        label_singular: écran
-        widget: list
-        collapsed: true
-        thumbnail: image
-        summary: "{{fields.nom}}"
-        fields:
-          - {name: nom, label: Nom de l'écran, widget: string}
-          - {name: chemin, label: Chemin affiché dans l'adresse, widget: string, required: false, hint: "Ex. contact"}
-          - {name: image, label: Capture de l'écran (exportée de Figma), widget: image}
-        hint: "Les captures servent de secours si Figma ne peut pas s'afficher."
-
 # Toutes les images du site (affiches, photos, visuels…), pour que les cartes et l'onglet Médias les affichent
 asset_collections:
   - name: images
@@ -334,4 +295,37 @@ singletons:
         widget: object
         fields:
           - {name: youtube_integre, label: Lire les vidéos directement sur le site, widget: boolean, default: true}
-          - {name: figma_en_direct, label: Bouton « Figma en direct » sur les maquettes, widget: boolean, default: true}
+
+  # ---------------------------------------------------------- SERVICES
+  - name: services
+    label: 🧾 Mes services
+    file: content/services.json
+    fields:
+      - {name: titre, label: Grand titre, widget: string}
+      - {name: sous_titre, label: Sous-titre manuscrit, widget: string, required: false}
+      - {name: intro, label: Phrase d'introduction, widget: text, required: false}
+      - name: services
+        label: Services
+        label_singular: service
+        widget: list
+        collapsed: true
+        summary: "{{fields.titre}}"
+        hint: "Chaque service a son bouton « Demander un devis », et apparaît dans le menu « Type de projet » du formulaire."
+        fields:
+          - {name: titre, label: Nom du service, widget: string}
+          - {name: texte, label: Description, widget: text, required: false}
+          - {name: inclus, label: "Ce qui est inclus (une ligne par élément)", widget: list, required: false}
+          - {name: prix, label: Prix, widget: string, required: false, hint: "Ex. « À partir de 150 € ». Laisse vide pour ne pas afficher de prix."}
+
+  # ---------------------------------------------------------- PAGES LÉGALES
+  - name: legal
+    label: ⚖️ Pages légales
+    file: content/legal.json
+    description: "Les informations des pages Mentions légales, CGV et Confidentialité (liens en bas du site). L'e-mail et le téléphone viennent de ton profil."
+    fields:
+      - {name: statut, label: Statut, widget: string, required: false, hint: "Ex. Micro-entrepreneuse"}
+      - {name: siret, label: Numéro SIRET, widget: string, required: false, hint: "Laisse vide tant que tu n'en as pas : le site affichera « en cours d'immatriculation »."}
+      - {name: adresse, label: Adresse professionnelle, widget: text, required: false, hint: "Obligatoire une fois immatriculée. Tu peux mettre une adresse de domiciliation."}
+      - {name: tva, label: Mention TVA, widget: string, required: false, hint: "En micro-entreprise : « TVA non applicable, article 293 B du Code général des impôts. »"}
+      - {name: mediateur, label: "Médiateur de la consommation (nom et site)", widget: string, required: false, hint: "Obligatoire si tu travailles pour des particuliers. Ex. CM2C, www.cm2c.net"}
+      - {name: mis_a_jour, label: Date de mise à jour, widget: string, required: false}

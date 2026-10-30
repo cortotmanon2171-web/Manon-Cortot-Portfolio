@@ -1,0 +1,38 @@
+{
+  "titre": "Mes services",
+  "sous_titre": "travaillons ensemble",
+  "intro": "Tu as un projet ? Je t'accompagne de l'idée jusqu'au fichier final, que tu sois une marque, une association ou un particulier.",
+  "services": [
+    {
+      "titre": "Vidéo & montage",
+      "texte": "Je filme et je monte tes vidéos : film de marque, événement, clip, vlog ou contenu pour les réseaux.",
+      "inclus": [
+        "Tournage",
+        "Montage et étalonnage",
+        "Sous-titres",
+        "Formats 16:9 et 9:16"
+      ],
+      "prix": ""
+    },
+    {
+      "titre": "Photographie",
+      "texte": "Portraits, shooting de marque, événements : des photos naturelles qui te ressemblent.",
+      "inclus": [
+        "Séance photo",
+        "Retouche",
+        "Photos en haute définition"
+      ],
+      "prix": ""
+    },
+    {
+      "titre": "Community management",
+      "texte": "Je crée et je gère le contenu de ton compte Instagram ou TikTok pour qu'il te ressemble et qu'il vive.",
+      "inclus": [
+        "Réels et stories",
+        "Carrousels",
+        "Planning de publication"
+      ],
+      "prix": ""
+    }
+  ]
+}
