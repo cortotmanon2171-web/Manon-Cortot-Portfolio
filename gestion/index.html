@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Administration · Portfolio de Manon Cortot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Pinyon+Script&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- même habillage et mêmes réglages que l'admin GitHub : seule la connexion change -->
+  <link rel="stylesheet" href="../admin/habillage.css">
+  <link rel="cms-config-url" type="application/yaml" href="../admin/config.yml">
+  <style>
+    /* ---------- Porte d'entrée par mot de passe ---------- */
+    .porte {
+      --fond: #FAF5EF; --texte: #12224A; --doux: #4a5878; --carte: rgb(255 255 255 / 62%); --bord: rgb(255 255 255 / 70%);
+      --champ: rgb(255 255 255 / 80%); --champ-bord: rgb(18 34 74 / 22%); --bouton: #12224A; --bouton-texte: #FAF5EF; --erreur: #a3243b;
+      min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; padding: 24px 16px; box-sizing: border-box;
+      font-family: "Instrument Sans", "Helvetica Neue", Arial, sans-serif; color: var(--texte);
+      background:
+        radial-gradient(42vw 42vw at -6vw -8vw, rgb(246 218 122 / 50%), transparent 70%),
+        radial-gradient(48vw 48vw at 104vw 30vh, rgb(183 185 242 / 50%), transparent 70%),
+        radial-gradient(40vw 40vw at 30vw 115vh, rgb(198 216 238 / 60%), transparent 70%),
+        var(--fond);
+    }
+    @media (prefers-color-scheme: dark) {
+      .porte {
+        --fond: #0b1430; --texte: #FAF5EF; --doux: #b9c6dc; --carte: rgb(255 255 255 / 7%); --bord: rgb(255 255 255 / 14%);
+        --champ: rgb(255 255 255 / 8%); --champ-bord: rgb(255 255 255 / 22%); --bouton: #F6DA7A; --bouton-texte: #12224A; --erreur: #ff9aae;
+        background:
+          radial-gradient(42vw 42vw at -6vw -8vw, rgb(246 218 122 / 14%), transparent 70%),
+          radial-gradient(48vw 48vw at 104vw 30vh, rgb(183 185 242 / 18%), transparent 70%),
+          var(--fond);
+      }
+    }
+    body:has(.porte) { margin: 0; }
+    .porte[hidden], .porte [hidden] { display: none !important; }
+    .porte .carte {
+      width: 100%; max-width: 400px; box-sizing: border-box; padding: 36px 32px 30px; border-radius: 28px; text-align: center;
+      background: var(--carte); border: 1px solid var(--bord); box-shadow: var(--ombre-carte);
+      -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4);
+    }
+    .porte .photo { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; border: 3px solid #F6DA7A; display: block; margin: 0 auto 14px; }
+    .porte .signature { font-family: "Pinyon Script", cursive; font-size: 30px; line-height: 1; margin: 0; }
+    .porte h1 { font-family: var(--display); font-weight: 800; font-size: 44px; line-height: 1; letter-spacing: .01em; text-transform: uppercase; margin: 4px 0 22px; }
+    .porte p.aide { color: var(--doux); font-size: 14px; line-height: 1.5; margin: -8px 0 20px; text-align: left; }
+    .porte ol.aide { color: var(--doux); font-size: 14px; line-height: 1.5; margin: -8px 0 20px; padding-left: 20px; text-align: left; }
+    .porte a { color: inherit; font-weight: 600; text-underline-offset: 3px; }
+    .porte form { display: grid; gap: 14px; text-align: left; }
+    .porte label { display: grid; gap: 6px; font-size: 14px; font-weight: 600; }
+    .porte input {
+      font: inherit; font-size: 16px; color: var(--texte); padding: 13px 16px; border-radius: 14px;
+      border: 1px solid var(--champ-bord); background: var(--champ); outline: none; transition: border-color .2s, box-shadow .2s;
+    }
+    .porte input:focus { border-color: #F6DA7A; box-shadow: 0 0 0 3px rgb(246 218 122 / 60%); }
+    .porte button {
+      font: inherit; font-weight: 700; font-size: 16px; margin-top: 6px; padding: 14px 18px; border: 0; border-radius: 999px; cursor: pointer;
+      background: var(--bouton); color: var(--bouton-texte); transition: transform .2s, background .2s, color .2s;
+    }
+    .porte button:hover, .porte button:focus-visible { background: #F6DA7A; color: #12224A; transform: translateY(-2px); }
+    .porte button:disabled { opacity: .6; cursor: wait; transform: none; }
+    .porte .erreur { color: var(--erreur); font-size: 14px; font-weight: 600; min-height: 1.2em; margin: 0; }
+  </style>
+</head>
+<body>
+  <!-- Admin par mot de passe : ne marche que sur manoncortot.fr (le serveur api.php garde le jeton GitHub). -->
+  <main class="porte" id="porte" hidden>
+    <div class="carte">
+      <img class="photo" src="../images/moi/accueil.jpg" alt="">
+      <p class="signature">Manon Cortot</p>
+      <h1>Admin</h1>
+
+      <form id="connexion" hidden>
+        <label>Mot de passe
+          <input type="password" name="motDePasse" autocomplete="current-password" required autofocus>
+        </label>
+        <p class="erreur" role="alert"></p>
+        <button type="submit">Entrer</button>
+      </form>
+
+      <form id="installation" hidden>
+        <p class="aide">Première fois ici : choisis ton mot de passe. Il suffit de le faire une seule fois.</p>
+        <label>Mot de passe <small>(8 caractères minimum)</small>
+          <input type="password" name="motDePasse" autocomplete="new-password" minlength="8" required>
+        </label>
+        <label>Encore une fois
+          <input type="password" name="confirmation" autocomplete="new-password" minlength="8" required>
+        </label>
+        <ol class="aide">
+          <li><a href="https://github.com/settings/personal-access-tokens/new?name=Admin%20manoncortot.fr&amp;description=Admin%20par%20mot%20de%20passe%20du%20portfolio&amp;contents=write&amp;expires_in=none" target="_blank" rel="noopener">Crée ta clé GitHub ici</a>.</li>
+          <li>Dans « Repository access », choisis « Only select repositories » puis <b>Manon-Cortot-Portfolio</b>.</li>
+          <li>Clique sur « Generate token » et colle la clé ci-dessous.</li>
+        </ol>
+        <label>Clé GitHub
+          <input type="password" name="jeton" autocomplete="off" spellcheck="false" required>
+        </label>
+        <p class="erreur" role="alert"></p>
+        <button type="submit">Enregistrer et entrer</button>
+      </form>
+
+      <p class="aide" id="ailleurs" hidden>Cet admin marche seulement sur <a href="https://manoncortot.fr/gestion/">manoncortot.fr/gestion</a>.</p>
+    </div>
+  </main>
+
+  <script>
+    const API = 'api.php';
+    const MARQUEUR = 'session-gestion';
+    const porte = document.getElementById('porte');
+
+    async function appeler(chemin, donnees) {
+      const reponse = await fetch(API + chemin, donnees ? {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(donnees),
+      } : {});
+      return { ok: reponse.ok, ...(await reponse.json()) };
+    }
+
+    function brancher(formulaire, envoyer) {
+      formulaire.hidden = false;
+      formulaire.addEventListener('submit', async (evenement) => {
+        evenement.preventDefault();
+        const erreur = formulaire.querySelector('.erreur');
+        const bouton = formulaire.querySelector('button');
+        const valeurs = Object.fromEntries(new FormData(formulaire));
+        erreur.textContent = '';
+        bouton.disabled = true;
+        try {
+          const resultat = await envoyer(valeurs);
+          if (resultat.ok) return ouvrirAdmin();
+          erreur.textContent = resultat.erreur || 'Ça n\'a pas marché, réessaie.';
+        } catch {
+          erreur.textContent = 'Le serveur ne répond pas. Vérifie ta connexion.';
+        }
+        bouton.disabled = false;
+      });
+      formulaire.querySelector('input').focus();
+    }
+
+    // Lance l'admin habituel (Sveltia CMS) en le faisant passer par le relais api.php au lieu de GitHub.
+    function ouvrirAdmin() {
+      porte.remove();
+      try {
+        localStorage.setItem('sveltia-cms.user', JSON.stringify({ backendName: 'github', token: MARQUEUR }));
+      } catch {}
+
+      // déconnexion depuis l'admin, ou session expirée : retour à la page du mot de passe
+      const removeItem = Storage.prototype.removeItem;
+      Storage.prototype.removeItem = function (cle) {
+        removeItem.call(this, cle);
+        if (cle === 'sveltia-cms.user') appeler('/deconnexion', {}).finally(() => location.reload());
+      };
+      const fetchOrigine = window.fetch;
+      window.fetch = async (...args) => {
+        const reponse = await fetchOrigine(...args);
+        if (reponse.status === 401 && String(args[0]?.url ?? args[0]).includes('/gestion/api.php/')) location.reload();
+        return reponse;
+      };
+
+      const racine = new URL('api.php', location.href).href;
+      window.CMS_MANUAL_INIT = true;
+      for (const src of ['../admin/cartes.js', 'https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js']) {
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = false;
+        if (src.includes('sveltia')) script.onload = () => CMS.init({
+          config: {
+            backend: {
+              name: 'github', repo: 'cortotmanon2171-web/Manon-Cortot-Portfolio', branch: 'main',
+              api_root: racine + '/api/v3', graphql_api_root: racine + '/graphql',
+            },
+          },
+        });
+        document.body.append(script);
+      }
+    }
+
+    (async () => {
+      let etat;
+      try { etat = await appeler('/etat'); } catch {}
+      if (!etat || typeof etat.installe !== 'boolean') {
+        porte.hidden = false;
+        document.getElementById('ailleurs').hidden = false;
+        return;
+      }
+      if (etat.connecte) return ouvrirAdmin();
+      porte.hidden = false;
+      if (etat.installe) {
+        brancher(document.getElementById('connexion'), (v) => appeler('/connexion', { motDePasse: v.motDePasse }));
+      } else {
+        brancher(document.getElementById('installation'), (v) => {
+          if (v.motDePasse !== v.confirmation) return { ok: false, erreur: 'Les deux mots de passe sont différents.' };
+          return appeler('/installation', { motDePasse: v.motDePasse, jeton: v.jeton });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
