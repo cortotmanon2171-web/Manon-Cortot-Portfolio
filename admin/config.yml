@@ -250,7 +250,7 @@ singletons:
     fields:
       - {name: prenom, label: Prénom, widget: string}
       - {name: nom, label: Nom, widget: string}
-      - {name: metier, label: Métier, widget: string, required: false, hint: "Affiché en petit sous ton nom sur l'accueil et dans le bas de page. Laisse vide pour le masquer."}
+      - {name: metier, label: Métier, widget: string, required: false, hint: "Écrit à la plume sur le dossier de l'accueil (à la place de « portfolio ») et dans le bas de page. Laisse vide pour remettre « portfolio »."}
       - {name: accroche, label: Phrase d'accueil, widget: text}
       - {name: photo_decoupe, label: "Photo détourée (accueil, PNG ou WebP transparent)", widget: image, required: false}
       - {name: photo_accueil, label: Petite photo de l'accueil, widget: image, required: false}
