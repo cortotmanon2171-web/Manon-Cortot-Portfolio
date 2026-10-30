@@ -60,6 +60,7 @@ Dans le menu de gauche :
   - Le lien peut être une vidéo YouTube ou un réel Instagram.
   - La catégorie « Présentation » est utilisée par le bouton « Voir mon CV vidéo ».
   - Les vidéos s'affichent rangées par catégorie (menu « Grouper » pour changer).
+  - **Ranger par catégorie** (à côté de « Réorganiser ») : une colonne par catégorie. Glisse une vidéo dans une autre colonne, ou touche-la pour choisir sa catégorie, puis « Enregistrer ».
 - **🏷️ Catégories de vidéos** : les filtres au-dessus des vidéos. Crée, renomme ou supprime une catégorie ; « Réorganiser » change l'ordre des filtres sur le site. Le panneau « Liens entrants » d'une catégorie liste ses vidéos. Une catégorie sans vidéo n'apparaît pas sur le site.
 - **📷 Photos** : crée une série ou ajoute des photos à une série existante. La première série de la liste s'affiche en premier.
 - **🎨 Com & graphisme** : tes projets de communication, avec jusqu'à 3 images.
