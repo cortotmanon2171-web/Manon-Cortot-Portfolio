@@ -150,6 +150,12 @@ button{font:inherit;color:inherit}
   background:linear-gradient(175deg,#F7E7B0,#EED593);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 -8px 24px -14px rgba(18,34,74,.45);
   display:flex;align-items:flex-start;padding:7% 0 0 7%;color:var(--encre)}
 .ac-face b{font-family:var(--script);font-weight:400;font-size:calc(var(--dw) * .13);line-height:1;transform:rotate(-4deg)}
+/* le métier sur le dossier, à la place de « portfolio » : en grosses lettres épaisses comme le nom, sur deux lignes centrées,
+   et « en freelance » à la plume qui vient se poser dessous en débordant un peu, comme une signature */
+.ac-face.metier{padding:4.5% 3% 0}
+.ac-face .ac-metier{flex:1;margin:0;text-align:center;text-wrap:balance;font:900 calc(var(--dw) * .086)/.95 var(--display);text-transform:uppercase;letter-spacing:.01em;color:#4A5EA0;transform:rotate(-2deg)}
+.ac-face .ac-metier span{display:block;white-space:nowrap}
+.ac-face .ac-metier em{display:block;margin-top:.02em;font:400 1.25em/1 var(--script);text-transform:none;letter-spacing:0;font-style:normal;color:var(--pervenche);transform:rotate(-4deg)}
 .ac-moi{position:absolute;z-index:6;right:1%;bottom:0;height:78%;width:auto;max-width:none;pointer-events:none;filter:drop-shadow(0 30px 40px rgba(18,34,74,.35));will-change:translate}
 /* les projets : ce sont aussi des liens vers leur catégorie */
 .piece-ac{position:absolute;z-index:3;left:0;top:0;width:var(--w,150px);display:block;text-decoration:none;color:var(--encre);will-change:transform;
@@ -200,6 +206,8 @@ button{font:inherit;color:inherit}
 /* téléphone et tablette en hauteur : le nom en haut, Manon en bas à droite, le dossier en bas à gauche */
 @media (max-aspect-ratio:10/11){
   .accueil{height:145vh;--dx:37%;--db:-4%;--dw:min(58vw,40vh)}
+  /* avec le métier écrit dessus, le dossier grandit un peu (sans passer sous le bouton CV) pour que les deux lignes restent lisibles */
+  .accueil:has(.ac-face.metier){--dx:33%;--db:3%;--dw:min(61vw,42vh)}
   .ac-nom{top:calc(env(safe-area-inset-top,0px) + 86px);transform:none;left:5vw;font-size:min(25vw,13vh)}
   .ac-moi{right:-12%;height:44%}
   .viseur{inset:calc(env(safe-area-inset-top,0px) + 76px) 12px 12px}
@@ -969,7 +977,7 @@ function construire(C){
   </section>
   <footer class="pied">
     <div class="wrap">
-      <p><b>${esc(P.prenom)} ${esc(P.nom)}</b> · vidéaste, monteuse et photographe freelance</p>
+      <p><b>${esc(P.prenom)} ${esc(P.nom)}</b>${P.metier?` · ${esc(P.metier)}`:""}</p>
       <nav aria-label="Informations légales"><a href="mentions-legales.html">Mentions légales</a><a href="cgv.html">CGV</a><a href="confidentialite.html">Confidentialité</a></nav>
       <p>© ${new Date().getFullYear()} ${esc(P.prenom)} ${esc(P.nom)}</p>
     </div>
@@ -1442,13 +1450,17 @@ function piecesAccueil(P,V,S,A,G){
   ].filter(p=>p[0]).slice(0,11).map(([img,lien,type,etiq,d,m,tour])=>({img,lien,type,etiq,d,m,tour}));
 }
 const ICO_CV=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>`;
+// « … en freelance » : la fin passe à la plume, le reste en grosses lettres
+// (et la partie en lettres se coupe en deux lignes avant le dernier « et »)
+const metierDossier=m=>{const r=String(m).match(/^(.*?)\s+((?:en\s+)?freelance)$/i), t=r?r[1]:String(m), c=t.match(/^(.*)\s(et\s.*)$/i);
+  return (c?`<span>${esc(c[1])}</span><span>${esc(c[2])}</span>`:esc(t))+(r?`<em>${esc(r[2])}</em>`:"")};
 function htmlAccueil(P,pieces){
   return `<header class="accueil" id="accueil">
     <div class="ac-scene" id="ac-scene">
       <h1 class="ac-nom"><span class="degrade">${esc(P.prenom)}</span><span class="contour">${esc(P.nom)}</span></h1>
       <div class="ac-dos" aria-hidden="true"></div>
       ${pieces.map((p,k)=>`<a class="piece-ac pa-${p.type}" href="${p.lien}" data-k="${k}" style="--rh:${k%2?3:-3}deg;--fd:${(-k*.7).toFixed(1)}s;--fs:${(5+k%4).toFixed(1)}s" aria-label="Voir : ${esc(p.etiq)}"><div><img src="${esc(p.img)}" alt="" draggable="false" decoding="async"></div><span class="etiq">${esc(p.etiq)}</span></a>`).join("")}
-      <div class="ac-face" aria-hidden="true"><b>portfolio</b></div>
+      ${P.metier?`<div class="ac-face metier"><p class="ac-metier">${metierDossier(P.metier)}</p></div>`:`<div class="ac-face" aria-hidden="true"><b>portfolio</b></div>`}
       ${P.photo_decoupe?`<img class="ac-moi" src="${esc(P.photo_decoupe)}" alt="${esc(P.prenom)} ${esc(P.nom)}, caméra à la main">`:""}
       <div class="viseur" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="rec">REC</span><span class="tc">00:00:00:00</span></div>
       <div class="defile" aria-hidden="true"></div>
