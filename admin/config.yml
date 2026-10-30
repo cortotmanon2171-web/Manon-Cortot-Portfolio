@@ -9,9 +9,9 @@ backend:
 
 app_title: Admin · Manon Cortot
 logo:
-  src: https://cortotmanon2171-web.github.io/Manon-Cortot-Portfolio/images/moi/accueil.jpg
+  src: https://manoncortot.fr/images/moi/accueil.jpg
   show_in_header: true
-display_url: https://cortotmanon2171-web.github.io/Manon-Cortot-Portfolio/
+display_url: https://manoncortot.fr/
 media_folder: images/uploads
 public_folder: images/uploads
 # noms de fichiers sans accents ni espaces pour les nouveaux projets (ex. « Planète Cacao » → planete-cacao.json)
