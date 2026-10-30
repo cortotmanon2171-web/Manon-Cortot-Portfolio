@@ -6,25 +6,32 @@
     {
       "titre": "Vidéo & montage",
       "texte": "Je filme et je monte tes vidéos : film de marque, événement, clip, vlog ou contenu pour les réseaux.",
-      "inclus": ["Tournage", "Montage et étalonnage", "Sous-titres", "Formats 16:9 et 9:16"],
+      "inclus": [
+        "Tournage",
+        "Montage et étalonnage",
+        "Sous-titres",
+        "Formats 16:9 et 9:16"
+      ],
       "prix": ""
     },
     {
       "titre": "Photographie",
       "texte": "Portraits, shooting de marque, événements : des photos naturelles qui te ressemblent.",
-      "inclus": ["Séance photo", "Retouche", "Photos en haute définition"],
+      "inclus": [
+        "Séance photo",
+        "Retouche",
+        "Photos en haute définition"
+      ],
       "prix": ""
     },
     {
-      "titre": "Réseaux sociaux",
+      "titre": "Community management",
       "texte": "Je crée et je gère le contenu de ton compte Instagram ou TikTok pour qu'il te ressemble et qu'il vive.",
-      "inclus": ["Réels et stories", "Carrousels", "Planning de publication"],
-      "prix": ""
-    },
-    {
-      "titre": "Graphisme",
-      "texte": "Logo, affiche, flyer, livret ou maquette de site : des supports clairs et soignés pour communiquer.",
-      "inclus": ["Identité visuelle", "Supports imprimés", "Maquettes Figma"],
+      "inclus": [
+        "Réels et stories",
+        "Carrousels",
+        "Planning de publication"
+      ],
       "prix": ""
     }
   ]

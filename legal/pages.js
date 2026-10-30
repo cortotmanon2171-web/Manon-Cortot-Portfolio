@@ -24,8 +24,8 @@ Promise.all([lire("profil"),lire("legal")]).then(([P,L])=>{
       ["Données personnelles",`<p>Pour savoir comment sont utilisées les informations envoyées par le formulaire de contact, consulte la <a href="confidentialite.html">politique de confidentialité</a>.</p>`]
     ],
     "cgv":[
-      ["Objet",`<p>Les présentes conditions générales de vente s'appliquent à toutes les prestations réalisées par ${nom} (« la prestataire ») : tournage et montage vidéo, photographie, création de contenu pour les réseaux sociaux et graphisme. Toute commande implique l'acceptation de ces conditions.</p>`],
-      ["Devis et commande",`<p>Chaque prestation fait l'objet d'un devis gratuit et détaillé, valable 30 jours. La commande est confirmée à la réception du devis signé (avec la mention « bon pour accord ») et de l'acompte.</p>`],
+      ["Objet",`<p>Les présentes conditions générales de vente s'appliquent à toutes les prestations réalisées par ${nom} (« la prestataire ») : tournage et montage vidéo, photographie, community management et création de contenu pour les réseaux sociaux. Toute commande implique l'acceptation de ces conditions.</p>`],
+      ["Devis et commande",`<p>Chaque prestation fait l'objet d'un devis gratuit et détaillé, valable 30 jours. La commande est confirmée à la réception du devis signé (avec la mention « bon pour accord ») et de l'acompte. Les présentes conditions sont jointes à chaque devis.</p>`],
       ["Tarifs",`<p>Les prix sont indiqués en euros sur le devis.${L.tva?` ${esc(L.tva)}`:""} Les frais de déplacement, de location de matériel ou de lieu sont précisés sur le devis lorsqu'ils s'appliquent.</p>`],
       ["Paiement",`<p>Un acompte de 30 % est demandé à la commande. Le solde est payable à la livraison, au plus tard 30 jours après la date de la facture, par virement ou par tout autre moyen indiqué sur le devis.</p>
         <p>En cas de retard de paiement, des pénalités égales à trois fois le taux d'intérêt légal sont appliquées. Pour un client professionnel, une indemnité forfaitaire de 40 € pour frais de recouvrement est également due (article L441-10 du Code de commerce).</p>`],
