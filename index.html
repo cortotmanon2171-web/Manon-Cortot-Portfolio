@@ -143,12 +143,12 @@ button{font:inherit;color:inherit}
 .ac-nom .contour{transition:color .6s,opacity .9s .1s,transform 1s var(--courbe) .1s}
 .ac-nom.net .contour{color:var(--texte)}
 /* le métier, en petit sous le nom : il suit le nom (et sa réduction), d'où la taille en em */
-/* le métier : petites capitales espacées sous le nom, calées sur le jambage du M ; « en freelance » à la plume, comme « portfolio » sur le dossier.
-   Il garde sa taille quand le nom rétrécit : le JS le pose sous le nom à chaque image (translate seulement) */
-.ac-metier{position:absolute;z-index:1;left:0;top:0;margin:0;max-width:26em;pointer-events:none;user-select:none;will-change:translate,opacity;
-  font:600 12px/1.75 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--texte);text-wrap:balance}
+/* le métier, à la plume comme « portfolio » sur le dossier : une seule ligne sous « CORTOT », calée sur le début du C.
+   Il garde une taille lisible quand le nom rétrécit : le JS règle sa taille (sans toucher le dossier ni sortir de l'écran)
+   puis le pose sous le nom à chaque image (translate seulement) */
+.ac-metier{position:absolute;z-index:1;left:0;top:0;margin:0;white-space:nowrap;pointer-events:none;user-select:none;will-change:translate,opacity;
+  font:400 30px/1.15 var(--script);color:var(--texte)}
 .ac-metier.net{z-index:6}
-.ac-metier em{display:block;margin:.02em 0 0 -.1em;font:400 30px/1 var(--script);letter-spacing:0;text-transform:none;font-style:normal;color:var(--pervenche)}
 .ac-dos,.ac-face{position:absolute;left:var(--dx);bottom:var(--db);width:var(--dw);height:calc(var(--dw) * .74);margin-left:calc(var(--dw) / -2)}
 .accueil{--dx:53%;--db:-7%;--dw:min(32vw,50vh)}
 .ac-dos{z-index:2;border-radius:2.4% 2.4% 0 0/3.2% 3.2% 0 0;background:linear-gradient(170deg,#EBD594,#D9BE72);box-shadow:var(--ombre-forte)}
@@ -214,7 +214,6 @@ button{font:inherit;color:inherit}
   .defile{display:none}
   /* en hauteur le dossier occupe le bas à gauche : le bouton CV se pose à droite, au-dessus du compteur */
   .ac-cv{left:auto;right:calc(12px + 26px);bottom:calc(12px + 40px)}
-  .ac-metier{font-size:11px;letter-spacing:.18em}.ac-metier em{font-size:27px}
 }
 /* bandeau de mots-clés, sur toute la largeur entre À propos et Contact */
 .bandeau{position:relative;z-index:1;width:100%;overflow:hidden;padding:16px 0;background:var(--verre-fort);border-block:1px solid var(--verre-bord)}
@@ -1448,13 +1447,11 @@ function piecesAccueil(P,V,S,A,G){
   ].filter(p=>p[0]).slice(0,11).map(([img,lien,type,etiq,d,m,tour])=>({img,lien,type,etiq,d,m,tour}));
 }
 const ICO_CV=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>`;
-// « … en freelance » : la fin passe à la plume, le reste en petites capitales
-const metierAccueil=m=>{const r=String(m).match(/^(.*?)\s+((?:en\s+)?freelance)$/i);return r?`${esc(r[1])}<em>${esc(r[2])}</em>`:esc(m)};
 function htmlAccueil(P,pieces){
   return `<header class="accueil" id="accueil">
     <div class="ac-scene" id="ac-scene">
       <h1 class="ac-nom"><span class="degrade">${esc(P.prenom)}</span><span class="contour">${esc(P.nom)}</span></h1>
-      ${P.metier?`<p class="ac-metier">${metierAccueil(P.metier)}</p>`:""}
+      ${P.metier?`<p class="ac-metier">${esc(P.metier)}</p>`:""}
       <div class="ac-dos" aria-hidden="true"></div>
       ${pieces.map((p,k)=>`<a class="piece-ac pa-${p.type}" href="${p.lien}" data-k="${k}" style="--rh:${k%2?3:-3}deg;--fd:${(-k*.7).toFixed(1)}s;--fs:${(5+k%4).toFixed(1)}s" aria-label="Voir : ${esc(p.etiq)}"><div><img src="${esc(p.img)}" alt="" draggable="false" decoding="async"></div><span class="etiq">${esc(p.etiq)}</span></a>`).join("")}
       <div class="ac-face" aria-hidden="true"><b>portfolio</b></div>
@@ -1469,19 +1466,24 @@ function animerAccueil(pieces){
   const hd=$("#accueil"), sc=$("#ac-scene"); if(!hd) return;
   const els=$$(".piece-ac"), nom=$(".ac-nom"), met=$(".ac-metier"), face=$(".ac-face"), moi=$(".ac-moi"), tc=$(".viseur .tc"), fleche=$(".defile");
   const doux=t=>1-Math.pow(1-t,3), cl=t=>Math.max(0,Math.min(1,t));
-  let W=0,H=0,haut=false,dep=[0,0],visible=true,nomFin=[0,1],nb=0,navB=0,tailles=[],nomBase=[0,0,0];
+  let W=0,H=0,haut=false,dep=[0,0],visible=true,nomFin=[0,1],nb=0,navB=0,tailles=[],nomBase=[0,0,0,0,0],metX=0,metH=0;
   const etat=els.map(()=>({z:"",tab:null}));
   const mesurer=()=>{W=sc.clientWidth;H=sc.clientHeight;haut=W/H<10/11;
     const base=haut?Math.min(W,H*.5):Math.min(W,H*1.6), d=$(".ac-face").getBoundingClientRect(), s=sc.getBoundingClientRect();
     // départ : au fond du dossier, juste sous le bord de la chemise de devant
     dep=[d.left-s.left+d.width/2,d.top-s.top+d.height*.1];
     // le nom : sur ordinateur il se pose en bas à gauche, plus petit ; en hauteur il reste en haut
-    const sf=haut?1:.42;nom.style.translate="";nom.style.scale=1;const r1=nom.getBoundingClientRect();nom.style.scale=sf;const r=nom.getBoundingClientRect();
+    const sf=haut?1:.42;nom.style.translate="";nom.style.scale=1;const r1=nom.getBoundingClientRect();
+    // le métier commence au C de « CORTOT » (après le petit retrait du contour) ; 28 px au plus, et plus petit s'il faut
+    // pour ne pas toucher le dossier (ordinateur) ou le bord de l'écran (téléphone)
+    if(met){const c=nom.querySelector(".contour").getBoundingClientRect(), pad=parseFloat(getComputedStyle(nom).fontSize)*.06, x0=c.left+pad-s.left;
+      const place=(haut?W*.95:d.left-s.left-24)-x0;met.style.fontSize="28px";met.style.fontSize=Math.min(28,28*place/met.scrollWidth)+"px";
+      metX=c.left+pad-r1.left;metH=met.offsetHeight}
+    nom.style.scale=sf;const r=nom.getBoundingClientRect();
     // le nom rétrécit depuis son coin bas gauche : ce coin ne bouge pas avec l'échelle, le métier s'y accroche
     // (le décalage vertical du CSS rétrécit avec lui : on mesure le bas à l'échelle 1 et à l'échelle finale, il varie en ligne droite entre les deux)
     const fs=parseFloat(getComputedStyle(nom).fontSize);nomBase=[r.left-s.left,r1.bottom-s.top,fs,r.bottom-r1.bottom,1-sf];
-    const mh=met?met.offsetHeight:0;
-    nomFin=[haut?0:H*.9-(r.bottom-s.top)-(met?mh+fs*sf*.07+8:0),sf];
+    nomFin=[haut?0:H*.9-(r.bottom-s.top)-(met?metH+fs*.04*sf:0),sf];
     els.forEach((el,k)=>{const p=pieces[k], c=haut?p.m:p.d;el.style.display=c?"":"none";if(c)el.style.setProperty("--w",base*c[3]/100+"px")});
     nb=els.filter(el=>el.style.display!=="none").length;
     // aucune carte ne doit finir sous le menu ni dépasser de l'écran, même sur un écran bas (portable, téléphone couché).
@@ -1489,7 +1491,7 @@ function animerAccueil(pieces){
     // sinon une mesure faite loin de l'accueil (image chargée, redimensionnement) pousse toutes les cartes en bas.
     navB=Math.max(0,$(".nav").getBoundingClientRect().bottom)+10;
     // en hauteur le nom reste en haut : les cartes se posent sous le métier pour le laisser lisible
-    if(haut&&met)navB=Math.max(navB,r.bottom-s.top+fs*.07+8+mh+12);
+    if(haut&&met)navB=Math.max(navB,r.bottom-s.top+fs*.04+metH+12);
     tailles=els.map(el=>[el.firstElementChild.offsetWidth,el.firstElementChild.offsetHeight]);
     maj()};
   const maj=()=>{
@@ -1503,7 +1505,7 @@ function animerAccueil(pieces){
     // il passe devant les cartes quand elles sont presque posées (pas en plein vol, pour éviter un saut visible)
     nom.classList.toggle("net",p>=.85);
     if(met){const sc2=1-(1-nomFin[1])*e, [nx,b1,fs,db,ds]=nomBase, by=b1+(ds?db*(1-sc2)/ds:0);
-      met.style.translate=`${(nx+fs*sc2*.045).toFixed(1)}px ${(by+nomFin[0]*e+fs*sc2*.07+8).toFixed(1)}px`;
+      met.style.translate=`${(nx+metX*sc2).toFixed(1)}px ${(by+nomFin[0]*e+fs*.04*sc2).toFixed(1)}px`;
       met.style.opacity=nom.style.opacity;met.classList.toggle("net",p>=.85)}
     if(moi) moi.style.translate=`0 ${(p*-3).toFixed(2)}vh`;
     if(fleche) fleche.style.opacity=1-cl(p*12);
