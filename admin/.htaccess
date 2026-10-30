@@ -4,3 +4,10 @@ Options -Indexes
   RewriteEngine On
   RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 </IfModule>
+
+# L'admin change souvent : le navigateur redemande toujours ses fichiers (sinon Safari garde d'anciennes versions)
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|css|js|yml)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
