@@ -1,0 +1,6 @@
+# Admin par mot de passe : pas de liste de fichiers, et l'en-tête Authorization doit arriver jusqu'à api.php.
+Options -Indexes
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>

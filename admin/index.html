@@ -8,126 +8,201 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Pinyon+Script&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* Habillage de l'admin aux couleurs du site : encre, papier, soleil, lavande, ciel.
-       Sveltia CMS se règle avec des variables --sui-… ; « :root:root:root » passe devant ses valeurs par défaut. */
-    :root:root:root {
-      --encre: #12224A; --papier: #FAF5EF; --soleil: #F6DA7A; --lavande: #B7B9F2; --ciel: #C6D8EE;
-      --sui-base-hue: 224;
-      --sui-font-family-default: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
-      --sui-control-font-family: var(--sui-font-family-default);
-      --sui-textbox-font-family: var(--sui-font-family-default);
-      --sui-heading-font-family: var(--sui-font-family-default);
-      --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
-      --sui-font-size-default: 15px;
-      /* fonds papier crème */
-      --sui-background-color-1-hsl: 36 70% 99%;
-      --sui-background-color-2-hsl: 33 52% 96%;
-      --sui-background-color-3-hsl: 30 36% 93%;
-      --sui-background-color-4-hsl: 30 30% 89%;
-      --sui-background-color-5-hsl: 30 24% 82%;
-      /* textes encre */
-      --sui-foreground-color-1-hsl: 223 61% 12%;
-      --sui-foreground-color-2-hsl: 223 61% 18%;
-      --sui-foreground-color-3-hsl: 224 28% 38%;
-      --sui-foreground-color-4-hsl: 224 20% 50%;
-      --sui-foreground-color-5-hsl: 224 15% 62%;
-      --sui-border-color-1-hsl: 225 28% 66%;
-      --sui-border-color-2-hsl: 225 30% 78%;
-      --sui-border-color-3-hsl: 225 32% 86%;
-      --sui-shadow-color: 223 61% 18%;
-      /* boutons et sélection : encre, avec le jaune soleil au survol */
-      --sui-primary-accent-color: #12224A;
-      --sui-primary-accent-color-text: #2b3f7a;
-      --sui-primary-accent-color-light: #2b3f7a;
-      --sui-primary-accent-color-dark: #0b1633;
-      --sui-primary-accent-color-inverted: #FAF5EF;
-      --sui-primary-accent-color-translucent: rgb(18 34 74 / 55%);
-      --sui-primary-accent-color-translucent-light: rgb(18 34 74 / 30%);
-      --sui-focus-ring-color: #F6DA7A;
-      --sui-control-medium-border-radius: 12px;
-      --sui-textbox-border-radius: 12px;
-    }
-    :root:root:root[data-theme="dark"] {
-      --sui-background-color-1-hsl: 226 60% 9%;
-      --sui-background-color-2-hsl: 226 63% 12%;
-      --sui-background-color-3-hsl: 226 50% 16%;
-      --sui-background-color-4-hsl: 226 42% 21%;
-      --sui-background-color-5-hsl: 226 34% 28%;
-      --sui-foreground-color-1-hsl: 33 60% 98%;
-      --sui-foreground-color-2-hsl: 33 52% 94%;
-      --sui-foreground-color-3-hsl: 213 55% 85%;
-      --sui-foreground-color-4-hsl: 213 30% 70%;
-      --sui-foreground-color-5-hsl: 213 20% 58%;
-      --sui-border-color-1-hsl: 226 30% 45%;
-      --sui-border-color-2-hsl: 226 32% 34%;
-      --sui-border-color-3-hsl: 226 36% 26%;
-      --sui-shadow-color: 226 70% 3%;
-      --sui-primary-accent-color: #F6DA7A;
-      --sui-primary-accent-color-text: #F6DA7A;
-      --sui-primary-accent-color-light: #FBE7A3;
-      --sui-primary-accent-color-dark: #E9C556;
-      --sui-primary-accent-color-inverted: #12224A;
-      --sui-primary-accent-color-translucent: rgb(246 218 122 / 55%);
-      --sui-primary-accent-color-translucent-light: rgb(246 218 122 / 30%);
-    }
-
-    /* ---------- Ambiance du site : auras colorées, verre, cartes arrondies ---------- */
-    :root:root:root { --sui-selected-background-color: rgb(246 218 122 / 45%); --ombre-carte: 0 18px 40px -22px rgb(18 34 74 / 45%), 0 2px 6px -2px rgb(18 34 74 / 10%); }
-    :root:root:root[data-theme="dark"] { --sui-selected-background-color: rgb(183 185 242 / 22%); --ombre-carte: 0 22px 48px -22px rgb(0 0 0 / 75%); }
-    body .sui.app-shell {
+  <link rel="stylesheet" href="habillage.css">
+    <style>
+    /* ---------- Porte d'entrée par mot de passe ---------- */
+    .porte {
+      --fond: #FAF5EF; --texte: #12224A; --doux: #4a5878; --carte: rgb(255 255 255 / 62%); --bord: rgb(255 255 255 / 70%);
+      --champ: rgb(255 255 255 / 80%); --champ-bord: rgb(18 34 74 / 22%); --bouton: #12224A; --bouton-texte: #FAF5EF; --erreur: #a3243b;
+      min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; padding: 24px 16px; box-sizing: border-box;
+      font-family: "Instrument Sans", "Helvetica Neue", Arial, sans-serif; color: var(--texte);
       background:
         radial-gradient(42vw 42vw at -6vw -8vw, rgb(246 218 122 / 50%), transparent 70%),
         radial-gradient(48vw 48vw at 104vw 30vh, rgb(183 185 242 / 50%), transparent 70%),
         radial-gradient(40vw 40vw at 30vw 115vh, rgb(198 216 238 / 60%), transparent 70%),
-        hsl(var(--sui-background-color-2-hsl));
+        var(--fond);
     }
-    :root[data-theme="dark"] body .sui.app-shell {
-      background:
-        radial-gradient(42vw 42vw at -6vw -8vw, rgb(246 218 122 / 14%), transparent 70%),
-        radial-gradient(48vw 48vw at 104vw 30vh, rgb(183 185 242 / 18%), transparent 70%),
-        hsl(var(--sui-background-color-2-hsl));
+    @media (prefers-color-scheme: dark) {
+      .porte {
+        --fond: #0b1430; --texte: #FAF5EF; --doux: #b9c6dc; --carte: rgb(255 255 255 / 7%); --bord: rgb(255 255 255 / 14%);
+        --champ: rgb(255 255 255 / 8%); --champ-bord: rgb(255 255 255 / 22%); --bouton: #F6DA7A; --bouton-texte: #12224A; --erreur: #ff9aae;
+        background:
+          radial-gradient(42vw 42vw at -6vw -8vw, rgb(246 218 122 / 14%), transparent 70%),
+          radial-gradient(48vw 48vw at 104vw 30vh, rgb(183 185 242 / 18%), transparent 70%),
+          var(--fond);
+      }
     }
-    body .sui.app-shell > .outer > .main { background: transparent; }
-    body #collection-container, body #page-container > .resizable-pane-group > .resizable-pane > main {
-      background: rgb(255 255 255 / 45%); -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4);
+    body:has(.porte) { margin: 0; }
+    .porte[hidden], .porte [hidden] { display: none !important; }
+    .porte .carte {
+      width: 100%; max-width: 400px; box-sizing: border-box; padding: 36px 32px 30px; border-radius: 28px; text-align: center;
+      background: var(--carte); border: 1px solid var(--bord); box-shadow: var(--ombre-carte);
+      -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4);
     }
-    :root[data-theme="dark"] body #collection-container, :root[data-theme="dark"] body #page-container > .resizable-pane-group > .resizable-pane > main { background: rgb(11 20 48 / 55%); }
-    /* titres en Big Shoulders, comme sur le site */
-    .sui.app-shell h2 { font-family: var(--display); font-weight: 800; font-size: 26px; letter-spacing: .01em; }
-    /* cartes des projets */
-    .grid-view #entry-list .grid-row {
-      border-radius: 20px; overflow: hidden; border: 1px solid rgb(255 255 255 / 70%);
-      background: rgb(255 255 255 / 62%); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-      box-shadow: var(--ombre-carte); transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s, border-color .3s;
+    .porte .photo { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; border: 3px solid #F6DA7A; display: block; margin: 0 auto 14px; }
+    .porte .signature { font-family: "Pinyon Script", cursive; font-size: 30px; line-height: 1; margin: 0; }
+    .porte h1 { font-family: var(--display); font-weight: 800; font-size: 44px; line-height: 1; letter-spacing: .01em; text-transform: uppercase; margin: 4px 0 22px; }
+    .porte p.aide { color: var(--doux); font-size: 14px; line-height: 1.5; margin: -8px 0 20px; text-align: left; }
+    .porte ol.aide { color: var(--doux); font-size: 14px; line-height: 1.5; margin: -8px 0 20px; padding-left: 20px; text-align: left; }
+    .porte a { color: inherit; font-weight: 600; text-underline-offset: 3px; }
+    .porte form { display: grid; gap: 14px; text-align: left; }
+    .porte label { display: grid; gap: 6px; font-size: 14px; font-weight: 600; }
+    .porte input {
+      font: inherit; font-size: 16px; color: var(--texte); padding: 13px 16px; border-radius: 14px;
+      border: 1px solid var(--champ-bord); background: var(--champ); outline: none; transition: border-color .2s, box-shadow .2s;
     }
-    :root[data-theme="dark"] .grid-view #entry-list .grid-row { background: rgb(255 255 255 / 7%); border-color: rgb(255 255 255 / 14%); }
-    .grid-view #entry-list .grid-row:hover, .grid-view #entry-list .grid-row:focus-visible { transform: translateY(-4px); border-color: #F6DA7A; }
-    .grid-view #entry-list .grid-row[aria-selected="true"] { border-color: #F6DA7A; box-shadow: 0 0 0 3px rgb(246 218 122 / 70%), var(--ombre-carte); }
-    .grid-view #entry-list .grid-row .grid-cell.title { font-weight: 600; }
-    /* sur téléphone : deux cartes par ligne */
-    @media (width < 768px) { .grid-view #entry-list .grid-body { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 12px !important; } }
+    .porte input:focus { border-color: #F6DA7A; box-shadow: 0 0 0 3px rgb(246 218 122 / 60%); }
+    .porte button {
+      font: inherit; font-weight: 700; font-size: 16px; margin-top: 6px; padding: 14px 18px; border: 0; border-radius: 999px; cursor: pointer;
+      background: var(--bouton); color: var(--bouton-texte); transition: transform .2s, background .2s, color .2s;
+    }
+    .porte button:hover, .porte button:focus-visible { background: #F6DA7A; color: #12224A; transform: translateY(-2px); }
+    .porte button:disabled { opacity: .6; cursor: wait; transform: none; }
+    .porte label.souvenir { display: flex; align-items: center; gap: 10px; font-weight: 500; cursor: pointer; }
+    .porte label.souvenir input { width: 20px; height: 20px; margin: 0; padding: 0; accent-color: #12224A; cursor: pointer; }
+    .porte .erreur { color: var(--erreur); font-size: 14px; font-weight: 600; min-height: 1.2em; margin: 0; }
   </style>
 </head>
 <body>
-  <!-- Espace d'administration (Sveltia CMS, compatible Decap CMS). Configuration : admin/config.yml -->
+  <!-- Espace d'administration (Sveltia CMS). Configuration : admin/config.yml.
+       Sur manoncortot.fr : connexion par mot de passe (api.php garde la clé GitHub sur le serveur).
+       Ailleurs (github.io, sans PHP) : connexion GitHub habituelle. -->
+  <main class="porte" id="porte" hidden>
+    <div class="carte">
+      <img class="photo" src="../images/moi/accueil.jpg" alt="">
+      <p class="signature">Manon Cortot</p>
+      <h1>Admin</h1>
+
+      <form id="connexion" hidden>
+        <label>Mot de passe
+          <input type="password" name="motDePasse" autocomplete="current-password" required autofocus>
+        </label>
+        <label class="souvenir"><input type="checkbox" name="souvenir" checked> Se souvenir de moi</label>
+        <p class="erreur" role="alert"></p>
+        <button type="submit">Entrer</button>
+      </form>
+
+      <form id="installation" hidden>
+        <p class="aide">Première fois ici : choisis ton mot de passe. Il suffit de le faire une seule fois.</p>
+        <label>Mot de passe <small>(8 caractères minimum)</small>
+          <input type="password" name="motDePasse" autocomplete="new-password" minlength="8" required>
+        </label>
+        <label>Encore une fois
+          <input type="password" name="confirmation" autocomplete="new-password" minlength="8" required>
+        </label>
+        <ol class="aide">
+          <li><a href="https://github.com/settings/personal-access-tokens/new?name=Admin%20manoncortot.fr&amp;description=Admin%20par%20mot%20de%20passe%20du%20portfolio&amp;contents=write&amp;expires_in=none" target="_blank" rel="noopener">Crée ta clé GitHub ici</a>.</li>
+          <li>Dans « Repository access », choisis « Only select repositories » puis <b>Manon-Cortot-Portfolio</b>.</li>
+          <li>Clique sur « Generate token » et colle la clé ci-dessous.</li>
+        </ol>
+        <label>Clé GitHub
+          <input type="password" name="jeton" autocomplete="off" spellcheck="false" required>
+        </label>
+        <label class="souvenir"><input type="checkbox" name="souvenir" checked> Se souvenir de moi</label>
+        <p class="erreur" role="alert"></p>
+        <button type="submit">Enregistrer et entrer</button>
+      </form>
+
+    </div>
+  </main>
+
   <script>
-    // Les projets s'affichent en cartes la première fois qu'on ouvre chaque collection
-    // (ensuite l'admin retient le choix fait avec les boutons liste / grille).
-    new MutationObserver(() => {
-      const liste = document.querySelector('#entry-list');
-      const collection = (location.hash.match(/collections\/([^/?]+)/) || [])[1];
-      if (!liste || !collection || liste.closest('.grid-view')) return;
-      const bouton = document.querySelector('[aria-label="Vue grille"], [aria-label="Grid View"], [aria-label="Passer à la vue grille"], [aria-label="Switch to Grid View"]');
-      if (!bouton) return;
+    const API = 'api.php';
+    const MARQUEUR = 'session-mot-de-passe';
+    const porte = document.getElementById('porte');
+
+    async function appeler(chemin, donnees) {
+      const reponse = await fetch(API + chemin, donnees ? {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(donnees),
+      } : {});
+      return { ok: reponse.ok, ...(await reponse.json()) };
+    }
+
+    function brancher(formulaire, envoyer) {
+      formulaire.hidden = false;
+      formulaire.addEventListener('submit', async (evenement) => {
+        evenement.preventDefault();
+        const erreur = formulaire.querySelector('.erreur');
+        const bouton = formulaire.querySelector('button');
+        const valeurs = Object.fromEntries(new FormData(formulaire));
+        erreur.textContent = '';
+        bouton.disabled = true;
+        try {
+          const resultat = await envoyer(valeurs);
+          if (resultat.ok) return ouvrirAdmin();
+          erreur.textContent = resultat.erreur || 'Ça n\'a pas marché, réessaie.';
+        } catch {
+          erreur.textContent = 'Le serveur ne répond pas. Vérifie ta connexion.';
+        }
+        bouton.disabled = false;
+      });
+      formulaire.querySelector('input').focus();
+    }
+
+    function chargerSveltia(init) {
+      for (const src of ['cartes.js', 'https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js']) {
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = false;
+        if (init && src.includes('sveltia')) script.onload = init;
+        document.body.append(script);
+      }
+    }
+
+    // Sans le serveur PHP (adresse github.io) : l'admin habituel, avec la connexion GitHub.
+    function ouvrirAdminGithub() {
+      porte.remove();
+      try { if (JSON.parse(localStorage.getItem('sveltia-cms.user'))?.token === MARQUEUR) localStorage.removeItem('sveltia-cms.user'); } catch {}
+      chargerSveltia();
+    }
+
+    // Lance l'admin habituel (Sveltia CMS) en le faisant passer par le relais api.php au lieu de GitHub.
+    function ouvrirAdmin() {
+      porte.remove();
       try {
-        const cle = 'portfolio-admin-cartes-' + collection;
-        if (localStorage.getItem(cle)) return;
-        localStorage.setItem(cle, '1');
-      } catch { return; }
-      bouton.click();
-    }).observe(document.documentElement, { childList: true, subtree: true });
+        localStorage.setItem('sveltia-cms.user', JSON.stringify({ backendName: 'github', token: MARQUEUR }));
+      } catch {}
+
+      // déconnexion depuis l'admin, ou session expirée : retour à la page du mot de passe
+      const removeItem = Storage.prototype.removeItem;
+      Storage.prototype.removeItem = function (cle) {
+        removeItem.call(this, cle);
+        if (cle === 'sveltia-cms.user') appeler('/deconnexion', {}).finally(() => location.reload());
+      };
+      const fetchOrigine = window.fetch;
+      window.fetch = async (...args) => {
+        const reponse = await fetchOrigine(...args);
+        if (reponse.status === 401 && String(args[0]?.url ?? args[0]).includes('/admin/api.php/')) location.reload();
+        return reponse;
+      };
+
+      const racine = new URL('api.php', location.href).href;
+      window.CMS_MANUAL_INIT = true;
+      chargerSveltia(() => CMS.init({
+        config: {
+          backend: {
+            name: 'github', repo: 'cortotmanon2171-web/Manon-Cortot-Portfolio', branch: 'main',
+            api_root: racine + '/api/v3', graphql_api_root: racine + '/graphql',
+          },
+        },
+      }));
+    }
+
+    (async () => {
+      let etat;
+      try { etat = await appeler('/etat'); } catch {}
+      if (!etat || typeof etat.installe !== 'boolean') return ouvrirAdminGithub();
+      if (etat.connecte) return ouvrirAdmin();
+      porte.hidden = false;
+      if (etat.installe) {
+        brancher(document.getElementById('connexion'), (v) => appeler('/connexion', { motDePasse: v.motDePasse, souvenir: !!v.souvenir }));
+      } else {
+        brancher(document.getElementById('installation'), (v) => {
+          if (v.motDePasse !== v.confirmation) return { ok: false, erreur: 'Les deux mots de passe sont différents.' };
+          return appeler('/installation', { motDePasse: v.motDePasse, jeton: v.jeton, souvenir: !!v.souvenir });
+        });
+      }
+    })();
   </script>
-  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
 </body>
 </html>
