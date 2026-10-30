@@ -342,7 +342,6 @@ dialog[open]{animation:pop .45s var(--courbe)}
 @media (max-width:780px){.galerie .bientot:nth-child(3){display:none}.galerie .bientot{padding:10px}.galerie .bientot b{font-size:22px}.galerie .bientot span{font-size:19px}}
 .outils{margin-top:34px;padding:18px 22px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .outils b{font-family:var(--display);font-size:22px;text-transform:uppercase;letter-spacing:.02em}
-.outils a.puce{cursor:pointer;color:inherit;text-decoration:none;font-size:15px;padding:8px 16px}
 
 /* ---------- Graphisme ---------- */
 .projets-com{padding:clamp(24px,4vw,48px)}
@@ -897,7 +896,7 @@ function construire(C){
       <div class="pastilles series" role="group" aria-label="Choisir une série" id="series"></div>
       <p class="texte-serie" id="texte-serie"></p>
       <div class="galerie" id="galerie"></div>
-      <nav class="outils verre" aria-label="Les autres galeries"><b>Les autres galeries</b><div class="puces-liste">${[["videos","Vidéos",1],["ae2i","AE2I",A],["communication","Com & graphisme",G.length],["maquettes","Maquettes",M.length]].filter(c=>c[2]).map(([id,nom])=>`<a class="puce" href="#${id}">${nom}</a>`).join("")}</div></nav>
+      ${S.length>1?`<nav class="outils verre" aria-label="Mes autres galeries photos"><b>Mes autres galeries</b><div class="pastilles" id="series-bas"></div></nav>`:""}
     </div>
   </section>`:""}
 
@@ -1108,9 +1107,13 @@ function construire(C){
       g.classList.toggle("vide",!lot.length);
       if(!lot.length) g.innerHTML=[0,1,2].map(()=>`<div class="bientot"><div><b>Photos</b><span>bientôt en ligne</span></div></div>`).join("");
     };
-    S.forEach((s,i)=>{const b=document.createElement("button");b.textContent=s.nom;b.setAttribute("aria-pressed",i===0);
-      b.onclick=()=>{$$("#series button").forEach(x=>x.setAttribute("aria-pressed",x===b));afficherSerie(s)};$("#series").appendChild(b)});
-    afficherSerie(S[0]);
+    // en bas de la galerie : les autres séries, pour changer sans remonter
+    const bas=$("#series-bas"), majBas=s=>{if(!bas)return;bas.innerHTML="";
+      S.filter(x=>x!==s).forEach(x=>{const b=document.createElement("button");b.textContent=x.nom;
+        b.onclick=()=>{choisir(x);scrollTo({top:Math.round($("#photos").getBoundingClientRect().top+scrollY),behavior:"instant"})};bas.appendChild(b)})};
+    const choisir=s=>{$$("#series button").forEach((x,i)=>x.setAttribute("aria-pressed",S[i]===s));afficherSerie(s);majBas(s)};
+    S.forEach(s=>{const b=document.createElement("button");b.textContent=s.nom;b.onclick=()=>choisir(s);$("#series").appendChild(b)});
+    choisir(S[0]);
   }
 
   /* --- carrousel Instagram qu'on fait glisser (projets de com et AE2I) --- */
