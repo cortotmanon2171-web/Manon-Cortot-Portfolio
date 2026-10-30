@@ -6,15 +6,15 @@
     },
     {
       "code": "docu",
-      "nom": "Documentaire"
-    },
-    {
-      "code": "vlog",
-      "nom": "Vlogs"
+      "nom": "Documentaire / Interview"
     },
     {
       "code": "reseaux",
       "nom": "Réseaux sociaux"
+    },
+    {
+      "code": "vlog",
+      "nom": "Vlogs"
     }
   ]
 }
