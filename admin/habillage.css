@@ -1,4 +1,4 @@
-/* Habillage partagé par l'admin GitHub (admin/) et l'admin par mot de passe (gestion/). */
+/* Habillage de l'admin (admin/index.html) : couleurs, typos, cartes. */
 /* Habillage de l'admin aux couleurs du site : encre, papier, soleil, lavande, ciel.
    Sveltia CMS se règle avec des variables --sui-… ; « :root:root:root » passe devant ses valeurs par défaut. */
 :root:root:root {

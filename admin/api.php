@@ -1,6 +1,6 @@
 <?php
 // =====================================================================
-//  Admin par mot de passe (gestion/) : le petit serveur de manoncortot.fr
+//  Admin par mot de passe (admin/) : le petit serveur de manoncortot.fr
 //
 //  - /etat, /installation, /connexion, /deconnexion : la porte d'entrée par mot de passe.
 //  - /api/v3/… et /graphql : relais vers GitHub. L'admin (Sveltia CMS) lui parle comme à GitHub,
@@ -11,21 +11,22 @@
 //  Le mot de passe (chiffré) et le jeton sont rangés dans un fichier AU-DESSUS de public_html,
 //  que le site ne sert jamais et que les déploiements n'écrasent pas.
 //  Pour tout remettre à zéro (mot de passe oublié, nouveau jeton) : supprimer ce fichier
-//  dans le gestionnaire de fichiers Hostinger, puis rouvrir manoncortot.fr/gestion/.
+//  dans le gestionnaire de fichiers Hostinger, puis rouvrir manoncortot.fr/admin/.
 // =====================================================================
 declare(strict_types=1);
 
 const DEPOT = 'cortotmanon2171-web/Manon-Cortot-Portfolio';
 const PROPRIETAIRE = 'cortotmanon2171-web';
-const MARQUEUR = 'session-gestion';       // faux jeton donné à l'admin, remplacé ici par le vrai
-const COOKIE = 'gestion_session';
-const DUREE_SESSION = 30 * 24 * 3600;      // 30 jours
+const MARQUEUR = 'session-mot-de-passe';       // faux jeton donné à l'admin, remplacé ici par le vrai
+const COOKIE = 'admin_session';
+const DUREE_SESSION = 365 * 24 * 3600;     // « se souvenir de moi » : un an, prolongé à chaque visite
+const DUREE_COURTE = 12 * 3600;            // sinon
 const ESSAIS_MAX = 5;                       // puis 15 minutes d'attente
 const ATTENTE = 15 * 60;
 
 $dossierSecret = getenv('GESTION_DOSSIER_SECRET') ?: dirname(__DIR__, 2);
-$fichierSecret = $dossierSecret . '/gestion-portfolio-secret.php';
-$fichierEssais = $dossierSecret . '/gestion-portfolio-essais.json';
+$fichierSecret = $dossierSecret . '/admin-portfolio-secret.php';
+$fichierEssais = $dossierSecret . '/admin-portfolio-essais.json';
 $apiGithub = getenv('GESTION_API_GITHUB') ?: 'https://api.github.com';
 
 header('Cache-Control: no-store');
@@ -55,23 +56,30 @@ function exigerPost(): void {
   if (!str_starts_with($_SERVER['CONTENT_TYPE'] ?? '', 'application/json')) repondre(415, ['erreur' => 'Format attendu : JSON.']);
 }
 
-function signature(string $cle, int $expiration): string {
-  return hash_hmac('sha256', 'gestion|' . $expiration, $cle);
+function signature(string $cle, int $expiration, string $souvenir): string {
+  return hash_hmac('sha256', 'admin|' . $expiration . '|' . $souvenir, $cle);
 }
 
-function ouvrirSession(array $secret): void {
-  $expiration = time() + DUREE_SESSION;
-  setcookie(COOKIE, $expiration . '.' . signature($secret['cle'], $expiration), [
-    'expires' => $expiration, 'path' => '/gestion/', 'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
+// « Se souvenir de moi » coché : un an, prolongé à chaque visite. Sinon : jusqu'à la fermeture du navigateur (12 h au plus).
+function ouvrirSession(array $secret, bool $souvenir): void {
+  $expiration = time() + ($souvenir ? DUREE_SESSION : DUREE_COURTE);
+  $s = $souvenir ? '1' : '0';
+  setcookie(COOKIE, $expiration . '.' . $s . '.' . signature($secret['cle'], $expiration, $s), [
+    'expires' => $souvenir ? $expiration : 0, 'path' => '/admin/', 'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
     'httponly' => true, 'samesite' => 'Strict',
   ]);
 }
 
+// renvoie null si pas de session valide, sinon si « se souvenir de moi » était coché
+function session(?array $secret): ?bool {
+  if (!$secret) return null;
+  [$expiration, $s, $sig] = array_pad(explode('.', $_COOKIE[COOKIE] ?? '', 3), 3, '');
+  $valide = ctype_digit($expiration) && (int) $expiration > time() && in_array($s, ['0', '1'], true)
+    && hash_equals(signature($secret['cle'], (int) $expiration, $s), $sig);
+  return $valide ? $s === '1' : null;
+}
 function sessionValide(?array $secret): bool {
-  if (!$secret) return false;
-  [$expiration, $sig] = array_pad(explode('.', $_COOKIE[COOKIE] ?? '', 2), 2, '');
-  return ctype_digit($expiration) && (int) $expiration > time()
-    && hash_equals(signature($secret['cle'], (int) $expiration), $sig);
+  return session($secret) !== null;
 }
 
 // Appel à GitHub avec un jeton donné ; renvoie [code, en-têtes, corps].
@@ -85,7 +93,7 @@ function appelerGithub(string $url, string $jeton, string $methode = 'GET', ?str
     CURLOPT_ENCODING => '',
     CURLOPT_HTTPHEADER => array_merge([
       'Authorization: Bearer ' . $jeton,
-      'User-Agent: portfolio-manon-gestion',
+      'User-Agent: portfolio-manon-admin',
     ], $entetes),
     CURLOPT_HEADERFUNCTION => function ($c, $ligne) use (&$recus) {
       $morceaux = explode(':', $ligne, 2);
@@ -122,7 +130,9 @@ $secret = lireSecret($fichierSecret);
 
 switch ($chemin) {
   case '/etat':
-    repondre(200, ['installe' => (bool) $secret, 'connecte' => sessionValide($secret)]);
+    $souvenir = session($secret);
+    if ($souvenir) ouvrirSession($secret, true); // chaque visite repart pour un an
+    repondre(200, ['installe' => (bool) $secret, 'connecte' => $souvenir !== null]);
 
   case '/installation':
     exigerPost();
@@ -155,7 +165,7 @@ switch ($chemin) {
       @unlink($temporaire);
       repondre(500, ['erreur' => 'Impossible d\'enregistrer les réglages sur le serveur.']);
     }
-    ouvrirSession($nouveau);
+    ouvrirSession($nouveau, !empty($donnees['souvenir']));
     repondre(200, ['ok' => true]);
 
   case '/connexion':
@@ -167,10 +177,11 @@ switch ($chemin) {
     if ($moi['jusqua'] > time()) {
       repondre(429, ['erreur' => 'Trop d\'essais. Réessaie dans ' . (int) ceil(($moi['jusqua'] - time()) / 60) . ' min.']);
     }
-    if (password_verify((string) (corpsJson()['motDePasse'] ?? ''), $secret['mot_de_passe'])) {
+    $donnees = corpsJson();
+    if (password_verify((string) ($donnees['motDePasse'] ?? ''), $secret['mot_de_passe'])) {
       unset($tous[$ip]);
       noterEssais($fichierEssais, $tous);
-      ouvrirSession($secret);
+      ouvrirSession($secret, !empty($donnees['souvenir']));
       repondre(200, ['ok' => true]);
     }
     $moi['nombre']++;
@@ -183,7 +194,7 @@ switch ($chemin) {
 
   case '/deconnexion':
     exigerPost();
-    setcookie(COOKIE, '', ['expires' => 1, 'path' => '/gestion/', 'httponly' => true, 'samesite' => 'Strict']);
+    setcookie(COOKIE, '', ['expires' => 1, 'path' => '/admin/', 'httponly' => true, 'samesite' => 'Strict']);
     repondre(200, ['ok' => true]);
 }
 

@@ -92,14 +92,14 @@ Les captures d'écran servent seulement de secours si Figma ne peut pas s'affich
 
 Achète un nom comme `manoncortot.fr` chez un registraire (OVH, Gandi…), puis dans **Settings › Pages › Custom domain** de ton dépôt, saisis-le et suis les indications de GitHub pour configurer le domaine.
 
-## Admin par mot de passe (sans GitHub) : manoncortot.fr/gestion
+## Admin par mot de passe (sans GitHub) : manoncortot.fr/admin
 
-Une deuxième porte vers le même admin, qui demande juste un mot de passe. Elle marche seulement sur manoncortot.fr (Hostinger), pas sur l'adresse github.io.
+Sur manoncortot.fr (Hostinger), l'admin demande juste un mot de passe. Sur l'adresse github.io, qui ne peut pas faire tourner le petit serveur, il garde la connexion GitHub.
 
-- **La première fois**, la page demande de choisir un mot de passe et de coller une clé GitHub (le lien pour la créer est sur la page). Ensuite, plus jamais besoin de GitHub : on entre avec le mot de passe, et la session dure 30 jours sur l'appareil.
+- **La première fois**, la page demande de choisir un mot de passe et de coller une clé GitHub (le lien pour la créer est sur la page). Ensuite, plus jamais besoin de GitHub : on entre avec le mot de passe. Avec « Se souvenir de moi » coché, l'appareil reste connecté (un an, prolongé à chaque visite) ; sinon il redemande le mot de passe à la fermeture du navigateur.
 - Tes enregistrements arrivent dans ton dépôt exactement comme avec l'admin habituel, donc le site se met à jour pareil.
 - Après 5 mauvais mots de passe, la page bloque 15 minutes.
-- **Mot de passe oublié ou clé expirée** : dans le gestionnaire de fichiers Hostinger de manoncortot.fr, supprime `gestion-portfolio-secret.php` (il est juste au-dessus de `public_html`), puis rouvre manoncortot.fr/gestion pour tout refaire.
+- **Mot de passe oublié ou clé expirée** : dans le gestionnaire de fichiers Hostinger de manoncortot.fr, supprime `admin-portfolio-secret.php` (il est juste au-dessus de `public_html`), puis rouvre manoncortot.fr/admin pour tout refaire.
 
 ## En cas de souci
 
