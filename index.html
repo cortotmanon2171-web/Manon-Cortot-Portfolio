@@ -839,7 +839,7 @@ async function chargerContenu(){
   const noms=["profil","videos","photos","graphisme"], c={};
   await Promise.all(noms.map(async n=>{const r=await fetch(`content/${n}.json`,{cache:"no-cache"});if(!r.ok)throw new Error(n);c[n]=await r.json()}));
   // contenus facultatifs : le site s'affiche même s'ils manquent
-  await Promise.all(["ae2i","services"].map(async n=>{try{const r=await fetch(`content/${n}.json`,{cache:"no-cache"});if(r.ok)c[n]=await r.json()}catch{}}));
+  await Promise.all(["ae2i","services","categories-videos"].map(async n=>{try{const r=await fetch(`content/${n}.json`,{cache:"no-cache"});if(r.ok)c[n]=await r.json()}catch{}}));
   // l'admin peut enregistrer « /images/… » : sur GitHub Pages le site est dans un sous-dossier, on retire la barre du début
   return JSON.parse(JSON.stringify(c),(k,v)=>typeof v==="string"&&v.startsWith("/images/")?v.slice(1):v);
 }
@@ -1035,9 +1035,12 @@ function construire(C){
   fen.addEventListener("close",()=>{$("#ecran").innerHTML="";$("#ecran").style.backgroundImage="";fen.classList.remove("mode-photo")});
 
   /* --- vidéos --- */
-  const LIBELLES={court:"Courts-métrages",docu:"Documentaire",cine:"Cinematic",pub:"Pub & commande",vlog:"Vlogs",reseaux:"Réseaux sociaux",presentation:"Présentation"};
-  const cats=[...new Set(V.map(v=>v.categorie).filter(Boolean))];
-  $("#filtres").innerHTML=`<button aria-pressed="true" data-f="tous">Tout voir</button>`+cats.map(c=>`<button aria-pressed="false" data-f="${esc(c)}">${esc(LIBELLES[c]||c)}</button>`).join("");
+  // filtres : les catégories de l'admin, dans leur ordre, s'il y a au moins une vidéo dedans
+  // (sans le fichier des catégories, les anciens noms, dans l'ordre des vidéos)
+  const CV=liste(C["categories-videos"]&&C["categories-videos"].categories).filter(c=>c.code&&c.nom);
+  const LIBELLES=Object.fromEntries(CV.length?CV.map(c=>[c.code,c.nom]):[["court","Courts-métrages"],["docu","Documentaire"],["cine","Cinematic"],["pub","Pub & commande"],["vlog","Vlogs"],["reseaux","Réseaux sociaux"],["presentation","Présentation"]]);
+  const utilisees=new Set(V.map(v=>v.categorie)), cats=(CV.length?CV.map(c=>c.code):[...utilisees]).filter(c=>c&&utilisees.has(c)&&LIBELLES[c]);
+  $("#filtres").innerHTML=`<button aria-pressed="true" data-f="tous">Tout voir</button>`+cats.map(c=>`<button aria-pressed="false" data-f="${esc(c)}">${esc(LIBELLES[c])}</button>`).join("");
   let n=0;
   const estInsta=u=>/instagram\.com/.test(u||"");
   V.forEach((v,i)=>{

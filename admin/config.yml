@@ -39,23 +39,25 @@ collections:
     summary: "{{titre}}"
     thumbnail: [affiche, miniature]
     reorder: true
+    # à l'ouverture, les vidéos sont rangées par catégorie (menu « Grouper par » pour changer)
     view_groups:
-      - {name: emplacement, label: Emplacement, field: emplacement}
+      default: categorie
+      groups:
+        - {name: categorie, label: Catégorie, field: categorie}
+        - {name: emplacement, label: Emplacement, field: emplacement}
     fields:
       - {name: titre, label: Titre, widget: string}
       - {name: sous_titre, label: Sous-titre, widget: string, required: false, hint: "Petite ligne manuscrite sous le titre (ex. « rêve 327 »)"}
       - {name: genre, label: Genre, widget: string, hint: "Ex. Court-métrage, Documentaire, Vlog…"}
       - name: categorie
         label: Catégorie (pour les filtres)
-        widget: select
-        options:
-          - {label: Court-métrage, value: court}
-          - {label: Documentaire, value: docu}
-          - {label: Cinematic, value: cine}
-          - {label: Pub & commande, value: pub}
-          - {label: Vlog, value: vlog}
-          - {label: Réseaux sociaux, value: reseaux}
-          - {label: Présentation (CV vidéo), value: presentation}
+        widget: relation
+        collection: categories_videos
+        value_field: "{{slug}}"
+        search_fields: [nom]
+        display_fields: [nom]
+        required: false
+        hint: "Les catégories se créent, se renomment et se rangent dans « 🏷️ Catégories de vidéos »."
       - name: emplacement
         label: Où l'afficher
         widget: select
@@ -82,6 +84,23 @@ collections:
       - {name: roles, label: Mes rôles, widget: list, required: false, hint: "Sépare par des virgules, ex. Montage, Cadrage"}
       - {name: prix, label: Prix ou distinction, widget: string, required: false}
       - {name: description, label: Description, widget: text, hint: "Laisse une ligne vide pour faire un nouveau paragraphe."}
+
+  # ---------------------------------------------------------- CATÉGORIES DE VIDÉOS
+  # Une fiche par catégorie (content/categories-videos/court.json…) : son nom de fichier est le code que retiennent les vidéos,
+  # il ne change pas quand on renomme la catégorie. Le robot les rassemble dans content/categories-videos.json.
+  - name: categories_videos
+    label: 🏷️ Catégories de vidéos
+    label_singular: catégorie
+    description: "Les filtres au-dessus de tes vidéos, dans l'ordre du site (bouton « Réorganiser » pour le changer). Une catégorie sans vidéo ne s'affiche pas sur le site."
+    folder: content/categories-videos
+    format: json
+    extension: json
+    create: true
+    identifier_field: nom
+    summary: "{{nom}}"
+    reorder: true
+    fields:
+      - {name: nom, label: Nom du filtre, widget: string, hint: "Affiché sur le bouton au-dessus des vidéos, ex. « Courts-métrages ». Si tu supprimes une catégorie, ses vidéos restent visibles dans « Tout voir » : pense à leur en choisir une autre."}
 
   # ---------------------------------------------------------- PHOTOS
   - name: photos
