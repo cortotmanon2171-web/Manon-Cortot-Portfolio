@@ -982,7 +982,7 @@ function construire(C){
   const burger=$(".burger"), menu=$("#menu");
   const menuOuvert=o=>{menu.classList.toggle("ouvert",o);burger.setAttribute("aria-expanded",o);burger.textContent=o?"Fermer":"Menu"};
   burger.onclick=()=>menuOuvert(!menu.classList.contains("ouvert"));
-  $$("#menu a").forEach(a=>a.addEventListener("click",()=>menuOuvert(false)));
+  $$("#menu a, #logo").forEach(a=>a.addEventListener("click",()=>menuOuvert(false)));
   // un tap à côté du menu ou la touche Échap le referment
   document.addEventListener("pointerdown",e=>{if(menu.classList.contains("ouvert")&&!e.target.closest(".nav"))menuOuvert(false)});
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&menu.classList.contains("ouvert")){menuOuvert(false);burger.focus()}});
@@ -1468,8 +1468,10 @@ function animerAccueil(pieces){
     nomFin=[haut?0:H*.9-(r.bottom-s.top),sf];
     els.forEach((el,k)=>{const p=pieces[k], c=haut?p.m:p.d;el.style.display=c?"":"none";if(c)el.style.setProperty("--w",base*c[3]/100+"px")});
     nb=els.filter(el=>el.style.display!=="none").length;
-    // aucune carte ne doit finir sous le menu ni dépasser de l'écran, même sur un écran bas (portable, téléphone couché)
-    navB=Math.max(0,$(".nav").getBoundingClientRect().bottom-s.top)+10;
+    // aucune carte ne doit finir sous le menu ni dépasser de l'écran, même sur un écran bas (portable, téléphone couché).
+    // Le menu est fixe et la scène collée en haut : on prend le bas du menu dans l'écran, sans retirer la position de la scène,
+    // sinon une mesure faite loin de l'accueil (image chargée, redimensionnement) pousse toutes les cartes en bas.
+    navB=Math.max(0,$(".nav").getBoundingClientRect().bottom)+10;
     tailles=els.map(el=>[el.firstElementChild.offsetWidth,el.firstElementChild.offsetHeight]);
     maj()};
   const maj=()=>{
