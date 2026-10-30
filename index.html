@@ -142,6 +142,8 @@ button{font:inherit;color:inherit}
 .ac-nom.net{z-index:6}
 .ac-nom .contour{transition:color .6s,opacity .9s .1s,transform 1s var(--courbe) .1s}
 .ac-nom.net .contour{color:var(--texte)}
+/* le métier, en petit sous le nom : il suit le nom (et sa réduction), d'où la taille en em */
+.ac-nom .ac-metier{margin-top:.34em;padding-left:.04em;font:500 .105em/1.25 var(--sans);letter-spacing:.02em;text-transform:none;color:var(--texte);max-width:14em}
 .ac-dos,.ac-face{position:absolute;left:var(--dx);bottom:var(--db);width:var(--dw);height:calc(var(--dw) * .74);margin-left:calc(var(--dw) / -2)}
 .accueil{--dx:53%;--db:-7%;--dw:min(32vw,50vh)}
 .ac-dos{z-index:2;border-radius:2.4% 2.4% 0 0/3.2% 3.2% 0 0;background:linear-gradient(170deg,#EBD594,#D9BE72);box-shadow:var(--ombre-forte)}
@@ -207,6 +209,7 @@ button{font:inherit;color:inherit}
   .defile{display:none}
   /* en hauteur le dossier occupe le bas à gauche : le bouton CV se pose à droite, au-dessus du compteur */
   .ac-cv{left:auto;right:calc(12px + 26px);bottom:calc(12px + 40px)}
+  .ac-nom .ac-metier{font-size:max(.15em,13px);max-width:none;padding-right:5vw}
 }
 /* bandeau de mots-clés, sur toute la largeur entre À propos et Contact */
 .bandeau{position:relative;z-index:1;width:100%;overflow:hidden;padding:16px 0;background:var(--verre-fort);border-block:1px solid var(--verre-bord)}
@@ -783,7 +786,7 @@ footer{position:relative;z-index:1;padding:30px 0 40px;text-align:center;font-si
 .charge .ac-dos,.charge .ac-face,.charge .piece-ac > div{opacity:0}
 .charge .ac-cv{opacity:0}
 .ac-nom span,.ac-moi,.ac-dos{transition:opacity .9s,transform 1s var(--courbe)}
-.ac-nom span:nth-child(2){transition-delay:.1s}.ac-dos{transition-delay:.25s}.ac-moi{transition-delay:.45s}
+.ac-nom span:nth-child(2){transition-delay:.1s}.ac-nom span:nth-child(3){transition-delay:.2s}.ac-dos{transition-delay:.25s}.ac-moi{transition-delay:.45s}
 /* le dossier et les cartes sont animés image par image : leur transition ne porte que sur l'apparition (et le survol des cartes) */
 .ac-face{transition:opacity .9s .25s}
 .piece-ac > div{transition:opacity .9s .4s,transform .35s var(--courbe),box-shadow .35s}
@@ -969,7 +972,7 @@ function construire(C){
   </section>
   <footer class="pied">
     <div class="wrap">
-      <p><b>${esc(P.prenom)} ${esc(P.nom)}</b> · vidéaste, monteuse et photographe freelance</p>
+      <p><b>${esc(P.prenom)} ${esc(P.nom)}</b>${P.metier?` · ${esc(P.metier)}`:""}</p>
       <nav aria-label="Informations légales"><a href="mentions-legales.html">Mentions légales</a><a href="cgv.html">CGV</a><a href="confidentialite.html">Confidentialité</a></nav>
       <p>© ${new Date().getFullYear()} ${esc(P.prenom)} ${esc(P.nom)}</p>
     </div>
@@ -1442,7 +1445,7 @@ const ICO_CV=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
 function htmlAccueil(P,pieces){
   return `<header class="accueil" id="accueil">
     <div class="ac-scene" id="ac-scene">
-      <h1 class="ac-nom"><span class="degrade">${esc(P.prenom)}</span><span class="contour">${esc(P.nom)}</span></h1>
+      <h1 class="ac-nom"><span class="degrade">${esc(P.prenom)}</span><span class="contour">${esc(P.nom)}</span>${P.metier?`<span class="ac-metier">${esc(P.metier)}</span>`:""}</h1>
       <div class="ac-dos" aria-hidden="true"></div>
       ${pieces.map((p,k)=>`<a class="piece-ac pa-${p.type}" href="${p.lien}" data-k="${k}" style="--rh:${k%2?3:-3}deg;--fd:${(-k*.7).toFixed(1)}s;--fs:${(5+k%4).toFixed(1)}s" aria-label="Voir : ${esc(p.etiq)}"><div><img src="${esc(p.img)}" alt="" draggable="false" decoding="async"></div><span class="etiq">${esc(p.etiq)}</span></a>`).join("")}
       <div class="ac-face" aria-hidden="true"><b>portfolio</b></div>
@@ -1472,6 +1475,8 @@ function animerAccueil(pieces){
     // Le menu est fixe et la scène collée en haut : on prend le bas du menu dans l'écran, sans retirer la position de la scène,
     // sinon une mesure faite loin de l'accueil (image chargée, redimensionnement) pousse toutes les cartes en bas.
     navB=Math.max(0,$(".nav").getBoundingClientRect().bottom)+10;
+    // en hauteur le nom reste en haut : les cartes se posent sous le métier pour le laisser lisible
+    const met=$(".ac-metier");if(haut&&met)navB=Math.max(navB,met.getBoundingClientRect().bottom-s.top+12);
     tailles=els.map(el=>[el.firstElementChild.offsetWidth,el.firstElementChild.offsetHeight]);
     maj()};
   const maj=()=>{
