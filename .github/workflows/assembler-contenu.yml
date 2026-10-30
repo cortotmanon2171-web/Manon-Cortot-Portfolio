@@ -1,5 +1,5 @@
 # Quand tu enregistres un projet dans l'admin, il est rangé dans son propre fichier
-# (content/videos/…, content/photos/…, content/graphisme/…, content/maquettes/…).
+# (content/videos/…, content/categories-videos/…, content/photos/…, content/graphisme/…, content/maquettes/…).
 # Ce petit robot les rassemble dans content/videos.json, photos.json… que lit le site,
 # puis relance la mise en ligne GitHub Pages.
 name: Assembler le contenu
@@ -9,6 +9,7 @@ on:
     branches: [main]
     paths:
       - "content/videos/**"
+      - "content/categories-videos/**"
       - "content/photos/**"
       - "content/graphisme/**"
       - "content/maquettes/**"

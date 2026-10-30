@@ -3,7 +3,7 @@
 Ce dossier contient ton site complet :
 
 - `index.html` : la page du site (design, animations).
-- `content/` : tout le contenu (vidéos, photos, projets, profil), en fichiers `.json`. Chaque projet a son fichier dans `content/videos/`, `content/photos/`, `content/graphisme/` et `content/maquettes/` ; `videos.json`, `photos.json`… sont refaits automatiquement à partir d'eux, inutile de les modifier.
+- `content/` : tout le contenu (vidéos, photos, projets, profil), en fichiers `.json`. Chaque projet a son fichier dans `content/videos/`, `content/categories-videos/`, `content/photos/`, `content/graphisme/` et `content/maquettes/` ; `videos.json`, `photos.json`… sont refaits automatiquement à partir d'eux, inutile de les modifier.
 - `images/` : toutes les images. Celles que tu ajoutes depuis l'admin vont dans `images/uploads/`.
 - `admin/` : ton espace d'administration.
 - `.nojekyll` : un petit fichier vide utile à GitHub Pages, à garder.
@@ -59,6 +59,8 @@ Dans le menu de gauche :
   - **Vlogs & formats courts** : format 16/9. Sans miniature, celle de YouTube est récupérée automatiquement grâce au lien.
   - Le lien peut être une vidéo YouTube ou un réel Instagram.
   - La catégorie « Présentation » est utilisée par le bouton « Voir mon CV vidéo ».
+  - Les vidéos s'affichent rangées par catégorie (menu « Grouper » pour changer).
+- **🏷️ Catégories de vidéos** : les filtres au-dessus des vidéos. Crée, renomme ou supprime une catégorie ; « Réorganiser » change l'ordre des filtres sur le site. Le panneau « Liens entrants » d'une catégorie liste ses vidéos. Une catégorie sans vidéo n'apparaît pas sur le site.
 - **📷 Photos** : crée une série ou ajoute des photos à une série existante. La première série de la liste s'affiche en premier.
 - **🎨 Com & graphisme** : tes projets de communication, avec jusqu'à 3 images.
 - **👤 Profil** : textes, photos, parcours, distinctions, outils, contacts et options. L'**E-mail** est aussi l'adresse qui reçoit les demandes du formulaire de devis.

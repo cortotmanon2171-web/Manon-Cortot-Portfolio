@@ -1,0 +1,32 @@
+{
+  "categories": [
+    {
+      "code": "court",
+      "nom": "Courts-métrages"
+    },
+    {
+      "code": "docu",
+      "nom": "Documentaire"
+    },
+    {
+      "code": "pub",
+      "nom": "Pub & commande"
+    },
+    {
+      "code": "cine",
+      "nom": "Cinematic"
+    },
+    {
+      "code": "vlog",
+      "nom": "Vlogs"
+    },
+    {
+      "code": "reseaux",
+      "nom": "Réseaux sociaux"
+    },
+    {
+      "code": "presentation",
+      "nom": "Présentation"
+    }
+  ]
+}
