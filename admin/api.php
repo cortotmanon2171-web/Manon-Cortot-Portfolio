@@ -224,6 +224,14 @@ foreach (['HTTP_ACCEPT' => 'Accept', 'CONTENT_TYPE' => 'Content-Type', 'HTTP_X_G
 $corps = in_array($methode, ['GET', 'HEAD'], true) ? null : (string) file_get_contents('php://input');
 [$code, $recus, $reponse] = appelerGithub($apiGithub . $cible . ($requete !== '' ? '?' . $requete : ''), $secret['jeton'], $methode, $corps, $entetes);
 
+// dans l'admin, le compte affiché est celui du site, pas le profil GitHub
+if ($cible === '/user' && $code === 200) {
+  $site = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
+  $compte = json_decode($reponse, true);
+  $reponse = json_encode(['id' => $compte['id'] ?? 0, 'login' => 'Manon', 'name' => 'Manon Cortot', 'email' => null,
+    'avatar_url' => $site . '/images/moi/accueil.jpg', 'html_url' => $site . '/']);
+}
+
 http_response_code($code);
 // les liens de pagination doivent repasser par ce relais
 $ici = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . strtok($_SERVER['REQUEST_URI'], '?');
