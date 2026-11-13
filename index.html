@@ -3,17 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Manon Cortot · Vidéaste, monteuse et photographe</title>
-<meta name="description" content="Manon Cortot, vidéaste, monteuse et photographe freelance : tournage et montage vidéo, shooting photo et community management pour les marques, associations et particuliers. Devis gratuit.">
+<title>Manon Cortot · Vidéaste et photographe à Arles, Marseille, Aix</title>
+<meta name="description" content="Manon Cortot, vidéaste, monteuse et photographe freelance : tournage et montage vidéo, shooting photo et community management pour les marques, associations et particuliers à Arles, Marseille, Aix-en-Provence et partout en Provence-Alpes-Côte d'Azur. Devis gratuit.">
 <!-- Référencement : adresse officielle de la page, aperçu quand le lien est partagé (Instagram, WhatsApp, LinkedIn…) et fiche pour Google -->
 <link rel="canonical" href="https://manoncortot.fr/">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/images/icone-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="author" content="Manon Cortot">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="Manon Cortot">
 <meta property="og:url" content="https://manoncortot.fr/">
-<meta property="og:title" content="Manon Cortot · Vidéaste, monteuse et photographe">
+<meta property="og:title" content="Manon Cortot · Vidéaste et photographe en Provence">
 <meta property="og:description" content="Tournage et montage vidéo, shooting photo et community management. Découvre mes projets et demande ton devis.">
 <meta property="og:image" content="https://manoncortot.fr/images/partage.jpg">
 <meta property="og:image:width" content="1200">
@@ -41,6 +44,7 @@
       "url": "https://manoncortot.fr/",
       "image": "https://manoncortot.fr/images/moi/accueil.jpg",
       "jobTitle": "Vidéaste, monteuse et photographe freelance",
+      "workLocation": { "@type": "AdministrativeArea", "name": "Provence-Alpes-Côte d'Azur" },
       "email": "mailto:contact@manoncortot.fr",
       "knowsAbout": ["Tournage vidéo", "Montage vidéo", "Étalonnage", "Photographie", "Motion design", "Community management", "Réseaux sociaux"],
       "alumniOf": { "@type": "CollegeOrUniversity", "name": "IUT d'Aix-Marseille, site d'Arles (BUT MMI)" },
@@ -54,7 +58,13 @@
       "image": "https://manoncortot.fr/images/partage.jpg",
       "email": "contact@manoncortot.fr",
       "founder": { "@id": "https://manoncortot.fr/#manon" },
-      "areaServed": { "@type": "Country", "name": "France" },
+      "areaServed": [
+        { "@type": "AdministrativeArea", "name": "Provence-Alpes-Côte d'Azur" },
+        { "@type": "City", "name": "Arles" },
+        { "@type": "City", "name": "Marseille" },
+        { "@type": "City", "name": "Aix-en-Provence" },
+        { "@type": "City", "name": "Avignon" }
+      ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Mes services",
@@ -925,7 +935,7 @@ function construire(C){
         G=liste(C.graphisme.projets), O=P.options||{}, A=C.ae2i||null,
         SV=liste(C.services&&C.services.services).filter(s=>s.titre), SE=C.services||{};
   $("#logo").textContent=`${P.prenom} ${P.nom}`;
-  document.title=`${P.prenom} ${P.nom} · Vidéaste, monteuse et photographe`;
+  document.title=`${P.prenom} ${P.nom} · Vidéaste et photographe à Arles, Marseille, Aix`;
 
   const mots=liste(P.competences), pieces=piecesAccueil(P,V,S,A,G);
   const films=V.filter(v=>v.miniature||ytId(v.lien));
