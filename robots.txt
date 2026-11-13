@@ -1,0 +1,6 @@
+# Les moteurs de recherche peuvent tout lire, sauf l'espace d'administration.
+User-agent: *
+Disallow: /admin/
+Disallow: /envoyer-demande.php
+
+Sitemap: https://manoncortot.fr/sitemap.xml
