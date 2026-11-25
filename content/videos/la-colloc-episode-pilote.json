@@ -1,15 +1,19 @@
 {
+  "order": 4,
   "titre": "La Colloc'",
-  "sous_titre": "épisode pilote",
+  "sous_titre": "Épisode pilote",
   "genre": "Court-métrage",
   "categorie": "court",
   "emplacement": "films",
   "affiche": "",
-  "miniature": "",
+  "miniature": "/images/uploads/Miniaturecolloc.png",
   "lien": "https://youtu.be/VnWoVTj_HWY",
   "fichier": "",
-  "roles": [],
+  "roles": [
+    "Réalisation",
+    "Cadrage",
+    "Montage"
+  ],
   "prix": "",
-  "description": "",
-  "order": 4
+  "description": "Gabin, 21 ans, fauché et à la rue, emménage chez Ginette, 64 ans, veuve aux règles bien strictes. Le deal : une chambre gratuite contre un coup de main au quotidien. Persuadé qu’elle est sourde, Gabin organise une soirée dans son dos… mais Ginette est bien plus maligne qu’il ne le pense 👀\n\nLa Colloc, c’est une série comique sur deux colocs que tout oppose et qui vont (peut-être) finir par s’attacher l’un à l’autre. Voici le tout premier épisode !"
 }
